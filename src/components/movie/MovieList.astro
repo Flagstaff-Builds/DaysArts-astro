@@ -1,0 +1,16 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import MoviePost from './MoviePost.astro';
+
+type Props = {
+  movieEntries: CollectionEntry<'movie'>[];
+};
+
+const { movieEntries } = Astro.props;
+---
+
+<div class="grid grid-cols-2 gap-x-16 gap-y-14">
+  {movieEntries.map((movieEntry) => (
+    <MoviePost movie={movieEntry} />
+  ))}
+</div>

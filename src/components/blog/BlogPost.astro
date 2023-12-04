@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+
+type Props = {
+  blog: CollectionEntry<'blog'>;
+};
+
+const { blog } = Astro.props;
+---
+
+<article>
+  {blog.data.image && (
+    <Image
+    src={blog.data.image}
+    format="avif"
+    quality="mid"
+    width={800}
+    height={450 / 1.5}
+    alt={`${blog.data.title} thumbnail`}
+    />
+  )}
+  <h2 class="text-2xl font-bold">
+    <a href={`/blog/${blog.slug}`} class="text-zinc-900">{blog.data.title}</a>
+  </h2>
+  <p class="text-sm text-gray-600">By {blog.data.author} on {blog.data.date}</p>
+
+  <div>
+
+
+
+{blog.data.categories?.map(category => (
+  <span class="inline-block bg-gray-200 rounded-sm px-3 py-1 text-xs text-gray-700 mr-2 mb-2">
+    {category}
+  </span>
+))}
+
+  </div>
+</article>

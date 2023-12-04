@@ -1,0 +1,19 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import Main from "../components/html-structure/Main.astro";
+import EventList from "../components/event/EventList.astro";
+import Content from "./event/content.mdx";
+const eventEntries = await getCollection("event");
+---
+
+<Layout title="event">
+  <Main>
+    <h1 class="text-4xl">events</h1>
+    <EventList eventEntries={eventEntries} />
+
+    <div class="prose prose-2xl overflow-visible relative mb-20">
+      <Content />
+    </div>
+  </Main>
+</Layout>

@@ -1,0 +1,15 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import Main from "../components/html-structure/Main.astro";
+import MovieList from "../components/movie/MovieList.astro";
+
+const movieEntries = await getCollection("movie");
+---
+
+<Layout title="Movie">
+  <Main>
+    <h1 class="text-4xl">Movies</h1>
+    <MovieList movieEntries={movieEntries} />
+  </Main>
+</Layout>

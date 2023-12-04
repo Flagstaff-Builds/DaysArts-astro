@@ -1,0 +1,16 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import EventPost from './EventPost.astro';
+
+type Props = {
+  eventEntries: CollectionEntry<'event'>[];
+};
+
+const { eventEntries } = Astro.props;
+---
+
+<div class="grid grid-cols-2 gap-x-16 gap-y-14">
+  {eventEntries.map((eventEntry) => (
+    <EventPost event={eventEntry} />
+  ))}
+</div>

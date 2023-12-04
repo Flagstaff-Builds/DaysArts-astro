@@ -1,0 +1,68 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import Main from "../../components/html-structure/Main.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+
+export const getStaticPaths = async () => {
+  const movieEntries = await getCollection("movie");
+  const paths = movieEntries.map((movieEntry) => ({
+    params: { slug: movieEntry.slug },
+    props: { movie: movieEntry }
+  }))
+  return paths;
+};
+
+type Props = {
+  movie: CollectionEntry<'movie'>;
+}
+
+const { movie } = Astro.props;
+const { Content } = await movie.render();
+---
+
+<Layout title="movie | Site title">
+  <Main>
+    <h2 class="text-4xl">{movie.data.title}</h2>
+
+    <p>
+    {movie.data.cast?.map(castI => (
+      <span class="inline-block bg-gray-200 rounded-sm px-3 py-1 text-xs text-gray-700 mr-2 mb-2">{castI}</span>
+    ))}
+    </p>
+
+    <p>
+    {movie.data.showtimes?.map(showtime => (
+      <span class="inline-block bg-gray-200 rounded-sm px-3 py-1 text-xs text-gray-700 mr-2 mb-2">{showtime}</span>
+    ))}
+  </p>
+  <p>
+    {movie.data.genre?.map(genreI => (
+      <span class="inline-block bg-gray-200 rounded-sm px-3 py-1 text-xs text-gray-700 mr-2 mb-2">
+      {genreI}
+      </span>
+    ))}
+  </p>
+
+    <p>{movie.data.rating}</p>
+    <p>{movie.data.description}</p>
+
+
+    {movie.data.poster && (
+      <Image
+        src={movie.data.poster}
+        format="avif"
+        quality="mid"
+        width={1024}
+        height={1024 / 1.5}
+        alt={`${movie.data.title} poster`}
+        class="rounded-2xl shadow-xl mb-4 aspect-thumbnail object-cover"
+      />
+    )}
+    <div class="prose prose-2xl overflow-visible relative mb-20">
+      <Content />
+    </div>
+
+    <a href="/movie">Go back to all movies</a>
+  </Main>
+</Layout>

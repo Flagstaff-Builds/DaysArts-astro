@@ -1,0 +1,24 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Main from "../components/html-structure/Main.astro";
+
+import { getCollection } from 'astro:content';
+import People from "../components/html-structure/events.vue";
+import P from "../components/html-structure/person.astro";
+
+const peopleData = await getCollection('people');
+const people = peopleData.map(item => item.data);
+
+---
+
+
+
+<Layout title="Welcome to Astro.">
+<P></P>
+  <Main>
+    <People :people="people" client:load></People>
+    <h1 class="text-4xl">test</h1>
+    <h1>What's going on </h1>
+  </Main>
+
+</Layout>
