@@ -13,7 +13,6 @@
 
 
 
-
     <!-- Dropdown and Navigation Items -->
     <div class="flex lg:hidden items-center justify-end">
       <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" @click="mobileMenuOpen = true">
@@ -24,10 +23,39 @@
 
     <div class="hidden lg:flex lg:gap-x-1.5 items-center">
       <Menu v-for="item in navigation" :key="item.name" as="div" class="relative inline-block text-left items-center">
-        <MenuButton v-if="item.dropdown" class="inline-flex w-full items-center justify-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50">
-          {{ item.name }}
-          <ChevronDownIcon class="-mr-1 h-3 w-3 text-gray-900" aria-hidden="true" />
-        </MenuButton>
+        <Popover v-if="item.dropdown" class="hidden relative lg:block">
+          <PopoverButton  class="inline-flex w-full items-center justify-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50">
+            {{ item.name }}
+            <ChevronDownIcon class="h-5 w-5" aria-hidden="true" />
+          </PopoverButton>
+
+          <transition enter-active-class="transition ease-out duration-200" enter-from-class="opacity-0 translate-y-1" enter-to-class="opacity-100 translate-y-0" leave-active-class="transition ease-in duration-150" leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 translate-y-1">
+            <PopoverPanel class="absolute left-1/2 z-10 mt-5 flex w-screen max-w-max -translate-x-1/2 px-4">
+              <div class="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
+                <div class="p-4">
+                  <div v-for="dropdownItem in item.dropdownItems" :key="dropdownItem.name" class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50">
+                    <div class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                      <component :is="dropdownItem.icon" class="h-6 w-6 text-gray-600 group-hover:text-indigo-600" aria-hidden="true" />
+                    </div>
+                    <div>
+                      <a :href="dropdownItem.href" class="font-semibold text-gray-900">
+                        {{ dropdownItem.name }}
+                        <span class="absolute inset-0" />
+                      </a>
+                      <p class="mt-1 text-gray-600">{{ dropdownItem.description }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid divide-x divide-gray-900/5 bg-gray-50">
+                  <a v-for="item in callsToAction" :key="item.name" :href="item.href" class="flex w-full items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-100">
+                    <component :is="item.icon" class="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
+                    {{ item.name }}
+                  </a>
+                </div>
+              </div>
+            </PopoverPanel>
+          </transition>
+        </Popover>
         <a v-else :href="item.href" class="inline-flex w-full items-center justify-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50">{{ item.name }}</a>
 
         <transition v-if="item.dropdown" enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
@@ -42,75 +70,7 @@
       </Menu>
     </div>
 
-    <!-- Movies dropdown -->
-    <Popover class="hidden relative lg:block">
-      <PopoverButton class="hidden lg:inline-flex lg:flex-1 w-full items-center justify-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50">
-        <span>Movies</span>
-        <ChevronDownIcon class="h-5 w-5" aria-hidden="true" />
-      </PopoverButton>
 
-      <transition enter-active-class="transition ease-out duration-200" enter-from-class="opacity-0 translate-y-1" enter-to-class="opacity-100 translate-y-0" leave-active-class="transition ease-in duration-150" leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 translate-y-1">
-        <PopoverPanel class="absolute left-1/2 z-10 mt-5 flex w-screen max-w-max -translate-x-1/2 px-4">
-          <div class="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
-            <div class="p-4">
-              <div v-for="item in dropMenuMovies" :key="item.name" class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50">
-                <div class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                  <component :is="item.icon" class="h-6 w-6 text-gray-600 group-hover:text-indigo-600" aria-hidden="true" />
-                </div>
-                <div>
-                  <a :href="item.href" class="font-semibold text-gray-900">
-                    {{ item.name }}
-                    <span class="absolute inset-0" />
-                  </a>
-                  <p class="mt-1 text-gray-600">{{ item.description }}</p>
-                </div>
-              </div>
-            </div>
-            <div class="grid divide-x divide-gray-900/5 bg-gray-50">
-              <a v-for="item in callsToAction" :key="item.name" :href="item.href" class="flex w-full items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-100">
-                <component :is="item.icon" class="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
-                {{ item.name }}
-              </a>
-            </div>
-          </div>
-        </PopoverPanel>
-      </transition>
-    </Popover>
-
-    <!-- Events dropdown -->
-    <Popover class="hidden relative lg:block">
-      <PopoverButton class="hidden lg:inline-flex lg:flex-1 w-full items-center justify-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50">
-        <span>Events</span>
-        <ChevronDownIcon class="h-5 w-5" aria-hidden="true" />
-      </PopoverButton>
-
-      <transition enter-active-class="transition ease-out duration-200" enter-from-class="opacity-0 translate-y-1" enter-to-class="opacity-100 translate-y-0" leave-active-class="transition ease-in duration-150" leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 translate-y-1">
-        <PopoverPanel class="absolute left-1/2 z-10 mt-5 flex w-screen max-w-max -translate-x-1/2 px-4">
-          <div class="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
-            <div class="p-4">
-              <div v-for="item in dropMenuEvents" :key="item.name" class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50">
-                <div class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                  <component :is="item.icon" class="h-6 w-6 text-gray-600 group-hover:text-indigo-600" aria-hidden="true" />
-                </div>
-                <div>
-                  <a :href="item.href" class="font-semibold text-gray-900">
-                    {{ item.name }}
-                    <span class="absolute inset-0" />
-                  </a>
-                  <p class="mt-1 text-gray-600">{{ item.description }}</p>
-                </div>
-              </div>
-            </div>
-            <div class="grid divide-x divide-gray-900/5 bg-gray-50">
-              <a v-for="item in callsToAction" :key="item.name" :href="item.href" class="flex w-full items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-100">
-                <component :is="item.icon" class="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
-                {{ item.name }}
-              </a>
-            </div>
-          </div>
-        </PopoverPanel>
-      </transition>
-    </Popover>
 
 
 
@@ -175,6 +135,8 @@ import { XMarkIcon, Bars3Icon, ChevronDownIcon, TicketIcon } from '@heroicons/vu
 
 import {
   CalendarDaysIcon,
+  VideoCameraIcon,
+  FilmIcon,
   FireIcon
 } from '@heroicons/vue/24/outline';
 
@@ -187,42 +149,52 @@ const navigation = ref([
     name: 'Movies',
     dropdown: true,
     dropdownItems: [
-      { name: 'Now playing', href: '/now-playing' },
-      { name: 'Reel alternative film', href: '/reel-alternative-film' }
+      {
+        name: 'Now playing',
+        href: '/now-playing',
+        description: 'See what movies are playing and coming',
+        icon: VideoCameraIcon
+      },
+      {
+        name: 'Reel alternative film',
+        href: '/reel-alternative-film',
+        description: 'Superb independent, Canadian and foreign films',
+        icon: FilmIcon
+      }
+    ],
+    cta: false,
+    ctaItems: [
+      {
+        name: 'Become a member',
+        href: '/member',
+        icon: TicketIcon
+      }
     ]
   },
   {
     name: 'Events',
     dropdown: true,
     dropdownItems: [
-      { name: 'Upcoming events', href: '/event' },
-      { name: 'Past shows', href: '/past-events' }
-    ]
+      {
+        name: 'Upcoming events',
+        href: '/event',
+        description: 'We have varity of six amazing shows per year',
+        icon: CalendarDaysIcon
+      },
+      {
+        name: 'Past shows',
+        href: '/past-events',
+        description: 'View the past talent we have hosted',
+        icon: FireIcon
+      }
+    ],
+    cta: true
   },
   { name: 'About', href: '/about' },
-  { name: 'Rental', href: '/rental' },
+  { name: 'Rental', href: '/rental' }
 ]);
 
-const dropMenuMovies = [
-  {
-    name: 'Now playing', href: '/now-playing',
-    description: 'We have 6 amazing shows per year',
-    icon: CalendarDaysIcon },
-  {
-    name: 'Reel alternative film', href: '/reel-alternative-film',
-    description: 'View the past talent we have hosted',
-    icon: FireIcon },
-]
-const dropMenuEvents = [
-  {
-    name: 'Upcoming events', href: '/event',
-    description: 'We have 6 amazing shows per year',
-    icon: CalendarDaysIcon },
-  {
-    name: 'Past shows', href: '/past-events',
-    description: 'View the past talent we have hosted',
-    icon: FireIcon },
-]
+
 const callsToAction = [
   { name: 'Become a member', href: '/member', icon: TicketIcon },
 ]
