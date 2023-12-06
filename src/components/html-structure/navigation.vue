@@ -4,7 +4,7 @@
     <div class="flex lg:flex-1">
       <a href="/" class="-m-1.5 p-1.5 hover:text-gray-600">
         <span class="sr-only">{{company}}</span>
-        <p class=" w-auto font-black text-lg">{{company}}</p>
+        <p class=" w-auto font-bold text-lg">{{company}}</p>
       </a>
     </div>
 
@@ -46,10 +46,13 @@
                     </div>
                   </div>
                 </div>
-                <div class="grid divide-x divide-gray-900/5 bg-gray-50">
-                  <a v-for="item in callsToAction" :key="item.name" :href="item.href" class="flex w-full items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-100">
-                    <component :is="item.icon" class="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
-                    {{ item.name }}
+
+                <!-- call to actions if any -->
+                <div v-if="item.cta && item.cta.length" class="grid divide-x divide-gray-900/5 bg-gray-50">
+
+                  <a v-for="ctaItem in item.cta" :key="ctaItem.name" :href="ctaItem.href" class="flex w-full items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-100">
+                     <component :is="ctaItem.icon" class="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
+                    {{ ctaItem.name }}
                   </a>
                 </div>
               </div>
@@ -94,7 +97,7 @@
     <div class="flex items-center justify-between">
       <a href="/" class="-m-1.5 p-1.5">
         <span class="sr-only">{{company}}</span>
-        <p class="w-auto font-black text-lg">{{company}}</p>
+        <p class="w-auto font-bold text-lg">{{company}}</p>
       </a>
       <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" @click="mobileMenuOpen = false">
         <span class="sr-only">Close menu</span>
@@ -108,10 +111,10 @@
           <!-- Check if the item has dropdown items -->
           <div v-if="item.dropdown">
             <!-- Dropdown Title -->
-            <p class="text-base font-black leading-7 text-gray-900">{{ item.name }}</p>
+            <p class="text-base font-bold leading-7 text-gray-900">{{ item.name }}</p>
             <!-- Dropdown Items -->
             <div class="space-y-2 mt-3">
-              <a v-for="dropdownItem in item.dropdownItems" :key="dropdownItem.name" :href="dropdownItem.href" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">{{ dropdownItem.name }}</a>
+              <a v-for="dropdownItem in item.dropdownItems" :key="dropdownItem.name" :href="dropdownItem.href" class="-mx-3 block rounded-lg px-3 py-2 text-base leading-7 text-gray-900 hover:bg-gray-50">{{ dropdownItem.name }}</a>
             </div>
           </div>
           <a v-else :href="item.href" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">{{ item.name }}</a>
@@ -143,7 +146,6 @@ import {
 
 const company = 'DaysArts'
 
-// Mobile nav
 const navigation = ref([
   {
     name: 'Movies',
@@ -160,14 +162,6 @@ const navigation = ref([
         href: '/reel-alternative-film',
         description: 'Superb independent, Canadian and foreign films',
         icon: FilmIcon
-      }
-    ],
-    cta: false,
-    ctaItems: [
-      {
-        name: 'Become a member',
-        href: '/member',
-        icon: TicketIcon
       }
     ]
   },
@@ -188,7 +182,13 @@ const navigation = ref([
         icon: FireIcon
       }
     ],
-    cta: true
+    cta: [
+      {
+        name: 'Become a member',
+        href: '/member',
+        icon: TicketIcon
+      }
+    ]
   },
   { name: 'About', href: '/about' },
   { name: 'Rental', href: '/rental' }
