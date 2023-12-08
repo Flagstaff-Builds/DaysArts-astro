@@ -3,8 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import Main from "../components/html-structure/Main.astro";
 
 
-import About from "../components/About.vue";
-import Timeline from "../components/Timeline.vue";
+import OurStory from "../components/our-story.vue";
+import Timeline from "../components/timeline.vue";
 ---
 
 
@@ -13,7 +13,7 @@ import Timeline from "../components/Timeline.vue";
 <Layout title="Blog | Site title">
   <Main>
     <Timeline client:load>Our History</Timeline>
-    <About client:load />
+    <OurStory client:load />
   </Main>
 </Layout>
 

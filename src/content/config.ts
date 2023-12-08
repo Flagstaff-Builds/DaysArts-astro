@@ -43,20 +43,8 @@ const eventCollection = defineCollection({
   }),
 });
 
-const peopleCollection = defineCollection({
-  type: 'content',
-  schema: ({ image }) => z.object({
-    name: z.string(),
-    role: z.string(),
-    imageUrl: z.string(),
-    twitterUrl: z.string().optional(),
-    linkedinUrl: z.string().optional(),
-  }),
-});
-
 export const collections = {
   'blog': blogCollection,
   'movie': movieCollection,
   'event': eventCollection,
-  'people': peopleCollection,
 };

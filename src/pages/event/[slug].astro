@@ -24,7 +24,7 @@ const { Content } = await event.render();
 // Format the date
 const formattedDate = event.data.date ? format(new Date(event.data.date), 'MMMM do, yyyy') : '';
 
-function isValidUrl(urlString) {
+function isValidUrl(urlString: string) {
   try {
     new URL(urlString);
     return true;
