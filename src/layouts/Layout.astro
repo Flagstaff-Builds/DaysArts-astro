@@ -43,18 +43,20 @@ const { title, description, image = '/placeholder-social.jpg' } = Astro.props;
     <!-- <link rel="sitemap" href="/sitemap-index.xml" /> -->
 
     <!-- CMS -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"
-    ></script>
+    <!-- <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"
+    ></script> -->
   </head>
 
   <body>
-    <Header />
+    <div class="bg-white">
+      <Header />
 
-    <slot />
+      <slot />
 
-    <Footer />
+      <Footer />
+   </div>
 
-    <script>
+    <!-- <script>
       declare global {
         interface Window {
           netlifyIdentity: any;
@@ -70,6 +72,6 @@ const { title, description, image = '/placeholder-social.jpg' } = Astro.props;
           }
         });
       }
-    </script>
+    </script> -->
   </body>
 </html>

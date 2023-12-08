@@ -21,10 +21,10 @@ const { movie } = Astro.props;
 const { Content } = await movie.render();
 ---
 
-<Layout title="movie | Site title">
-  <Main>
-    <h2 class="text-4xl">{movie.data.title}</h2>
+<!-- This slug is the individual record detail page -->
 
+<Layout title="Now playing at Daysland theatre">
+  <Main>
     <p>
     {movie.data.cast?.map(castI => (
       <span class="inline-block bg-gray-200 rounded-sm px-3 py-1 text-xs text-gray-700 mr-2 mb-2">{castI}</span>

@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import MoviePost from './MoviePost.astro';
+import HeroSecondary from '../hero-secondary.astro';
 
 type Props = {
   movieEntries: CollectionEntry<'movie'>[];
@@ -8,6 +9,9 @@ type Props = {
 
 const { movieEntries } = Astro.props;
 ---
+
+
+<HeroSecondary tagline="See what we're showing" title="Now Playing"></HeroSecondary>
 
 <div class="grid grid-cols-2 gap-x-16 gap-y-14">
   {movieEntries.map((movieEntry) => (

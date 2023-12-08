@@ -185,7 +185,7 @@ const navigation = ref([
     cta: [
       {
         name: 'Become a member',
-        href: '/member',
+        href: '/membership',
         icon: TicketIcon
       }
     ]
@@ -194,11 +194,5 @@ const navigation = ref([
   { name: 'Rental', href: '/rental' }
 ]);
 
-
-const callsToAction = [
-  { name: 'Become a member', href: '/member', icon: TicketIcon },
-]
 const mobileMenuOpen = ref(false);
 </script>
-
-

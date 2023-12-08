@@ -1,9 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Main from "../components/html-structure/Main.astro";
+import HeroSecondary from "../components/hero-secondary.astro";
 ---
 
-<Layout title="Rentals">
+<Layout title="Rent our theatre space">
+  <HeroSecondary
+    tagline="Rent our space"
+    title="5000sq feet of fun!">
+  </HeroSecondary>
+
   <div class="prose prose-2xl overflow-visible relative mb-20">
     <Main>Rentals</Main>
   </div>

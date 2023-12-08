@@ -8,7 +8,7 @@ time: 7:00 PM
 
 ### Welcome to DaysArts
 
-**DaysArts**, the heart of Daysland's cultural scene, represents the Daysland and District Cultural Arts Society. We're dedicated to enriching our community through diverse art forms and vibrant cultural experiences.
+**DaysArts**, the heart of Daysland's cultural scene, represents the Daysland and District Cultural Arts Society. We're dedicated to enriching our community through many different art forms and vibrant cultural experiences.
 
 ---
 
