@@ -80,7 +80,7 @@
 
     <!-- Additional Nav Item -->
     <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-      <a href="/member" class="text-sm font-semibold leading-6 text-gray-900">Become a member <span aria-hidden="true">&rarr;</span></a>
+      <a href="/membership" class="text-sm font-semibold leading-6 text-gray-900">Become a member <span aria-hidden="true">&rarr;</span></a>
     </div>
   </nav>
 
@@ -121,7 +121,7 @@
         </div>
         <!-- Additional Link -->
         <div class="py-6">
-          <a href="/member" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Become a member <span aria-hidden="true">&rarr;</span></a>
+          <a href="/membership" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Become a member <span aria-hidden="true">&rarr;</span></a>
         </div>
       </div>
     </div>
