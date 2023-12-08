@@ -2,16 +2,20 @@
 import Layout from "../layouts/Layout.astro";
 import Main from "../components/html-structure/Main.astro";
 import Content from './reel-alternative-film/content.mdx';
+import HeroSecondary from "../components/hero-secondary.astro";
 ---
 
 <Layout title="Reel Alternative Film">
+  <HeroSecondary
+    tagline="Experience the Unconventional"
+    title="Reel Alternatitive Film"
+    content="Small writeup about what will be on this page">
+  </HeroSecondary>
 
   <Main>
     <h1>Reel Alternative Film</h1>
-
     <div class="prose prose-2xl overflow-visible relative mb-20">
       <Content />
     </div>
   </Main>
-
 </Layout>

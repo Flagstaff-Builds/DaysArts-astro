@@ -8,8 +8,12 @@ import HeroSecondary from "../components/hero-secondary.astro";
 const movieEntries = await getCollection("movie");
 ---
 
-<Layout title="Movie">
-  <HeroSecondary></HeroSecondary>
+<Layout title="Now playing at Daysland Theatre">
+  <HeroSecondary
+    tagline="Experience adventure"
+    title="Now Playing"
+    content="Small writeup about what will be on this page">
+  </HeroSecondary>
   <Main>
     <MovieList movieEntries={movieEntries} />
   </Main>
