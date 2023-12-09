@@ -1,13 +1,77 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Main from "../components/html-structure/Main.astro";
-import Hero from "../components/home-hero.astro";
+import Hero from "../components/hero-primary.astro";
+import { Image } from "astro:assets";
+import Hero5 from '../assets/Hentriks-Gregory.jpg';
+// import Home from "../components/home/home.vue";
+const features = [
+  {
+    name: 'Push to Deploy',
+    description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" /></svg>',
+  },
+  {
+    name: 'SSL Certificates',
+    description: 'Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.',
+    icon: 'LockClosedIcon', // Replace with actual icon or icon logic
+  },
+  {
+    name: 'Database Backups',
+    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
+    icon: 'ServerIcon', // Replace with actual icon or icon logic
+  },
+];
 ---
 
 <Layout title="Daysland and District Cultural Arts Society | Theater">
   <Hero></Hero>
+
+
+  <!-- <Home client:load></Home> -->
   <Main>
     <h1 class="text-4xl">test</h1>
     <h1>What's going on </h1>
+
+
+
+
+
+
+  <div class="overflow-hidden bg-white py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+        <div class="lg:ml-auto lg:pl-4 lg:pt-4">
+          <div class="lg:max-w-lg">
+            <h2 class="text-base font-semibold leading-7 text-indigo-600">Deploy faster</h2>
+            <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">A better workflow</p>
+            <p class="mt-6 text-lg leading-8 text-gray-600">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.</p>
+            <dl class="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
+
+              {features.map((feature) => (
+                <div key={feature.name} class="relative pl-9">
+                  <dt class="inline font-semibold text-gray-900">
+                    <span class="absolute left-1 top-1 h-5 w-5 text-indigo-600" aria-hidden="true">
+                      {feature.icon}
+                    </span>
+                    {feature.name}
+                  </dt>
+                  <dd class="inline">{feature.description}</dd>
+                </div>
+              ))}
+
+            </dl>
+          </div>
+        </div>
+        <div class="flex items-start justify-end lg:order-first">
+          <Image src={Hero5}  alt=""  class="w-[48rem] max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem]" width="2432" height="1442" />
+              <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
+        </div>
+      </div>
+    </div>
+  </div>
   </Main>
+
+
+
 </Layout>

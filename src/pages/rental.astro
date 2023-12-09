@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Main from "../components/html-structure/Main.astro";
 import HeroSecondary from "../components/hero-secondary.astro";
+import Rentals from './rental/rental.mdx';
 ---
 
 <Layout title="Rent our theatre space">
@@ -11,6 +12,10 @@ import HeroSecondary from "../components/hero-secondary.astro";
   </HeroSecondary>
 
   <div class="prose prose-2xl overflow-visible relative mb-20">
-    <Main>Rentals</Main>
+    <Main>
+
+      <Rentals />
+
+    </Main>
   </div>
 </Layout>

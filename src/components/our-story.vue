@@ -61,7 +61,7 @@
       </div>
 
       <!-- Blog section -->
-      <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-8">
+      <!-- <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-8">
         <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
           <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">From the blog</h2>
           <p class="mt-2 text-lg leading-8 text-gray-600">Vel dolorem qui facilis soluta sint aspernatur totam cumque.</p>
@@ -92,7 +92,7 @@
             </h3>
           </article>
         </div>
-      </div>
+      </div> -->
     </main>
 
   </div>
@@ -140,8 +140,8 @@ const values = [
 ]
 const team = [
   {
-    name: 'Michael Foster',
-    role: 'Co-Founder / CTO',
+    name: 'Some band',
+    role: 'Music',
     imageUrl:
       'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
   },
