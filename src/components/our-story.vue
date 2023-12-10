@@ -28,7 +28,7 @@
 
       <!-- Image section -->
       <div class="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
-        <img src="../assets/theatre-exterior.jpg" alt="" class="aspect-[5/3] w-full object-cover xl:rounded-3xl" />
+        <img src="https://palacetheatredaysarts.files.wordpress.com/2018/07/last-day-at-theatre-082.jpg" alt="" class="aspect-[5/3] w-full object-cover xl:rounded-3xl" />
       </div>
 
       <!-- Values section -->
