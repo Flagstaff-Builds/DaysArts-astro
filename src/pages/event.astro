@@ -3,7 +3,6 @@ import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import Main from "../components/html-structure/Main.astro";
 import EventList from "../components/event/EventList.astro";
-import Content from "./event/content.mdx";
 import HeroSecondary from "../components/hero-secondary.astro";
 
 const eventEntries = await getCollection("event");
@@ -18,9 +17,9 @@ const eventEntries = await getCollection("event");
 
   <Main>
     <EventList eventEntries={eventEntries} />
-
+<!--
     <div class="prose prose-2xl overflow-visible relative mb-20">
       <Content />
-    </div>
+    </div> -->
   </Main>
 </Layout>

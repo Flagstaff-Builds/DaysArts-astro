@@ -93,7 +93,7 @@ const navigation = {
     { name: 'Reel alternative film', href: '/reel-alternative-film' },
   ],
   events: [
-    { name: 'Upcoming events', href: '/upcoming-events' },
+    { name: 'Upcoming events', href: '/event' },
     { name: 'Past shows', href: '/past-events' },
   ],
   // about: [

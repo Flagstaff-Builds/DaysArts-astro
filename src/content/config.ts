@@ -36,6 +36,7 @@ const eventCollection = defineCollection({
     date: z.string(),
     time: z.string(),
     poster: image().optional(),
+    website: z.string().url().optional(),
     facebook: z.string().url().optional(),
     twitter: z.string().url().optional(),
     instagram: z.string().url().optional(),
