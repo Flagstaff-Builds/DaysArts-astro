@@ -3,6 +3,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import Main from "../../components/html-structure/Main.astro";
 import Layout from "../../layouts/Layout.astro";
 import { Image } from "astro:assets";
+import HeroSecondary from "../../components/hero-secondary.astro";
 
 export const getStaticPaths = async () => {
   const movieEntries = await getCollection("movie");
@@ -19,33 +20,21 @@ type Props = {
 
 const { movie } = Astro.props;
 const { Content } = await movie.render();
+
 ---
 
 <!-- This slug is the individual record detail page -->
 
 <Layout title="Now playing at Daysland theatre">
+
+  <HeroSecondary
+    tagline="Movies"
+    title="Now playing"
+    content="This page needs all events to be added and formatted">
+  </HeroSecondary>
+
   <Main>
-    <p>
-    {movie.data.cast?.map(castI => (
-      <span class="inline-block bg-gray-200 rounded-sm px-3 py-1 text-xs text-gray-700 mr-2 mb-2">{castI}</span>
-    ))}
-    </p>
 
-    <p>
-    {movie.data.showtimes?.map(showtime => (
-      <span class="inline-block bg-gray-200 rounded-sm px-3 py-1 text-xs text-gray-700 mr-2 mb-2">{showtime}</span>
-    ))}
-  </p>
-  <p>
-    {movie.data.genre?.map(genreI => (
-      <span class="inline-block bg-gray-200 rounded-sm px-3 py-1 text-xs text-gray-700 mr-2 mb-2">
-      {genreI}
-      </span>
-    ))}
-  </p>
-
-    <p>{movie.data.rating}</p>
-    <p>{movie.data.description}</p>
 
 
     {movie.data.poster && (
@@ -59,10 +48,33 @@ const { Content } = await movie.render();
         class="rounded-2xl shadow-xl mb-4 aspect-thumbnail object-cover"
       />
     )}
+        <!-- <p>{movie.data.rating}</p>
+        <p>{movie.data.description}</p> -->
+
     <div class="prose prose-2xl overflow-visible relative mb-20">
       <Content />
     </div>
 
-    <a href="/movie">Go back to all movies</a>
+<!--
+    <p>
+      {movie.data.cast?.map(castI => (
+        <span class="inline-block bg-gray-200 rounded-sm px-3 py-1 text-xs text-gray-700 mr-2 mb-2">{castI}</span>
+      ))}
+      </p>
+
+      <p>
+      {movie.data.showtimes?.map(showtime => (
+        <span class="inline-block bg-gray-200 rounded-sm px-3 py-1 text-xs text-gray-700 mr-2 mb-2">{showtime}</span>
+      ))}
+    </p>
+    <p>
+      {movie.data.genre?.map(genreI => (
+        <span class="inline-block bg-gray-200 rounded-sm px-3 py-1 text-xs text-gray-700 mr-2 mb-2">
+        {genreI}
+        </span>
+      ))}
+    </p> -->
+    <a href="/now-playing">Go back to all movies</a>
+
   </Main>
 </Layout>

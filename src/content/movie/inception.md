@@ -14,7 +14,7 @@ cast:
 showtimes:
   - 2023-04-01T19:00
   - 2023-04-02T16:00
-poster: ./images/inception-poster.jpg
+poster: ../../assets/movies/inception-poster.jpg
 ---
 
 ## Inception
