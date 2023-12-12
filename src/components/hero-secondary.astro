@@ -18,18 +18,18 @@ interface Props {
 const { title, tagline, content, background, socialImage } = Astro.props;
 ---
 
-<div class="py-24 sm:py-32">
+<div class="py-24 sm:py-32 isolate">
   <div class="mx-auto max-w-7xl px-6 lg:px-8 relative isolate">
     <div class="mx-auto max-w-2xl lg:mx-0">
       <p class="text-base font-semibold leading-7 text-indigo-600">{tagline}</p>
-      <h2 class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">{title}</h2>
+      <h1 class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">{title}</h1>
 
-      {movie?.data?.socialImage && (
+      <!-- {movie?.data?.socialImage && (
         <Image
           src={movie.data.socialImage}
           alt="Descriptive alt text"
         />
-      )}
+      )} -->
 
 
     </div>
