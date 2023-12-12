@@ -23,7 +23,7 @@
               <dl class="w-64 space-y-8 xl:w-80">
                 <div v-for="stat in stats" :key="stat.label" class="flex flex-col-reverse gap-y-4">
                   <dt class="text-base leading-7 text-gray-600">{{ stat.label }}</dt>
-                  <dd class="text-5xl font-semibold tracking-tight text-gray-900">{{ stat.value }}</dd>
+                  <dd class="text-5xl font-bold tracking-tight text-gray-900">{{ stat.value }}</dd>
                 </div>
               </dl>
             </div>
@@ -109,7 +109,7 @@
 import { defineComponent, h, ref } from 'vue'
 
 const stats = [
-  { label: 'bags of popcorn', value: '🍿 440lbs' },
+  { label: 'bags of popcorn', value: '🍿 400lbs' },
   { label: 'chocolate bars enjoyed', value: '🍫 440' },
   { label: 'bottles of water drank', value: '💧 1,200' },
 ]
