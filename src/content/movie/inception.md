@@ -15,8 +15,6 @@ showtimes:
   - 2023-04-01T19:00
   - 2023-04-02T16:00
 poster: ../../assets/movies/inception-poster.jpg
+trailer: https://www.youtube.com/embed/x7ythIm0834?si=CdSjd3mCdDWcwRER
+socialImage: ./images/godzilla-one.webp
 ---
-
-## Inception
-
-A detailed description or content of the movie...

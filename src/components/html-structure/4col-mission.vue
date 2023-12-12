@@ -1,7 +1,7 @@
 <template>
-  <footer class="bg-white" aria-labelledby="footer-heading">
+  <footer aria-labelledby="footer-heading">
     <h2 id="footer-heading" class="sr-only">Footer</h2>
-    <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32 ">
+    <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 lg:px-8">
       <div class="xl:grid xl:grid-cols-3 xl:gap-8 border-t border-gray-900/10 pt-8">
         <div class="space-y-8 ">
 
@@ -9,12 +9,12 @@
           <!-- Branding -->
           <div class="flex lg:flex-1">
             <a href="/" class="-m-1.5 p-1.5 hover:text-gray-600">
-              <p class=" w-auto font-black text-lg">Daysland and District Cultural Arts Society</p>
+              <p class=" w-auto font-black text-lg">DaysArts</p>
             </a>
           </div>
 
           <!-- Richtext address -->
-          <h2 class="text-regular text-gray-800 mb-4">DaysArts</h2>
+          <h2 class="text-regular text-gray-800 mb-4">Daysland and District Cultural Arts Society</h2>
           <address itemscope itemtype="http://schema.org/Organization" class="text-sm leading-6 text-gray-600">
             <span itemprop="name">Palace Theatre</span>
             <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">

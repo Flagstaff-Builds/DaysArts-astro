@@ -1,9 +1,8 @@
 ---
 import { getCollection, type CollectionEntry } from "astro:content";
-import Main from "../../components/html-structure/Main.astro";
 import Layout from "../../layouts/Layout.astro";
 import { Image } from "astro:assets";
-import HeroSecondary from "../../components/hero-secondary.astro";
+// import HeroSecondary from "../../components/hero-secondary.astro";
 
 export const getStaticPaths = async () => {
   const movieEntries = await getCollection("movie");
@@ -19,41 +18,80 @@ type Props = {
 }
 
 const { movie } = Astro.props;
-const { Content } = await movie.render();
-
+// const { Content } = await movie.render();
 ---
 
 <!-- This slug is the individual record detail page -->
+<Layout title={`${movie.data.title} | Now playing at Daysland Theatre`} ogType="video.movie">
 
-<Layout title="Now playing at Daysland theatre">
+
+
+
+
+  <div class="mb-20 mx-auto max-w-7xl px-6 lg:px-8 mt-32">
+
+    <div class="mx-auto grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-16 sm:gap-y-24 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+
+      {movie.data.poster && (
+        <div class="">
+          <Image
+            src={movie.data.poster}
+            format="avif"
+            quality="mid"
+            width={1024 / 1.5}
+            height={1024}
+            alt={`${movie.data.title} poster`}
+            class="rounded-xl bg-gray-200 shadow-xl lg:w-full lg:grow xl:ml-0"
+          />
+        </div>
+      )}
+
+      <div>
+        <div class="text-base leading-7 text-gray-700 lg:max-w-lg">
+          <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{movie.data.title}</h1>
+          <div class="max-w-xl">
+            <p class="mt-6">{movie.data.description}</p>
+          </div>
+        </div>
+        <dl class="mt-10 grid grid-cols-2 gap-8 border-t border-gray-900/10 pt-10 sm:grid-cols-4">
+
+          <div>
+            <dt class="text-sm font-semibold leading-6 text-gray-600">Rating</dt>
+            <dd class="mt-2 text-3xl font-bold leading-10 tracking-tight text-gray-900">{ movie.data.rating }</dd>
+          </div>
+          <div>
+            <dt class="text-sm font-semibold leading-6 text-gray-600">Length</dt>
+            <dd class="mt-2 text-3xl font-bold leading-10 tracking-tight text-gray-900">{ movie.data.length }</dd>
+          </div>
+          <div>
+            <dt class="text-sm font-semibold leading-6 text-gray-600">Genre</dt>
+            <dd class="mt-2 text-3xl font-bold leading-10 tracking-tight text-gray-900">{ movie.data.length }</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+
+<!--
 
   <HeroSecondary
-    tagline="Movies"
-    title="Now playing"
-    content="This page needs all events to be added and formatted">
-  </HeroSecondary>
-
-  <Main>
-
+    tagline="In Theatre"
+    title={movie.data.title}
+    content={movie.data.description}
+    >
+  </HeroSecondary> -->
 
 
-    {movie.data.poster && (
-      <Image
-        src={movie.data.poster}
-        format="avif"
-        quality="mid"
-        width={1024}
-        height={1024 / 1.5}
-        alt={`${movie.data.title} poster`}
-        class="rounded-2xl shadow-xl mb-4 aspect-thumbnail object-cover"
-      />
-    )}
+<!-- <Breadcrumb client:load></Breadcrumb> -->
+
+
         <!-- <p>{movie.data.rating}</p>
         <p>{movie.data.description}</p> -->
 
-    <div class="prose prose-2xl overflow-visible relative mb-20">
+    <!-- <div class="prose prose-2xl overflow-visible relative mb-20">
       <Content />
-    </div>
+    </div> -->
 
 <!--
     <p>
@@ -74,7 +112,12 @@ const { Content } = await movie.render();
         </span>
       ))}
     </p> -->
-    <a href="/now-playing">Go back to all movies</a>
+    <!-- <a href="/now-playing">Go back to all movies</a> -->
 
-  </Main>
+
+
+
+
+
+
 </Layout>
