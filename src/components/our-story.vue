@@ -2,16 +2,21 @@
   <div class="bg-white">
 
     <main class="isolate">
+
+
       <!-- Content section -->
       <div class="mx-auto -mt-12 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-8">
         <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Fun facts</h2>
+          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Exciting Insights from DaysArts!</h2>
           <div class="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
             <div class="lg:w-full lg:max-w-2xl lg:flex-auto">
-              <p class="text-xl leading-8 text-gray-600">Each year we sell:</p>
-              <div class="mt-10 max-w-xl text-base leading-7 text-gray-700">
-                <p>All money raised in the concession goes directly into operating expenses, such as heat, power, water and consumable supplies (napkins, hand soaps, cleaning products, etc...and of course all the snacks and drinks!)</p>
-                <p class="mt-10">The Daysland Palace Theatre is 100% volunteer run.</p>
+              <p class="mt-10 text-lg font-semibold leading-8 tracking-tight text-gray-900">Where Every Snack Counts!</p>
+              <div class="mt-4 max-w-xl text-base leading-7 text-gray-700">
+                <p>Did you know that every treat you purchase at our concession stand fuels the magic of DaysArts? Yes, that's right! Each popcorn, soda, and snack you enjoy contributes directly to keeping the Daysland Palace Theatre alive and buzzing. From essential utilities like heat and power to those crucial supplies that keep our space clean and welcoming (think napkins, hand soaps, and more), your munching matters!</p>
+              </div>
+              <p class="mt-10 text-lg font-semibold leading-8 tracking-tight text-gray-900">Powered by Passion and Volunteers</p>
+              <div class="mt-4 max-w-xl text-base leading-7 text-gray-700">
+                <p>And here's something truly special about us: The Daysland Palace Theatre is a marvel of community spirit, operated entirely by volunteers! Every ticket you buy, every show you attend is brought to life by dedicated individuals who volunteer their time and energy. This isn't just a theatre; it's a testament to what we can achieve when we come together for the love of art and community. So, next time you're here, remember: each moment of your experience is made possible by the incredible efforts of our volunteers. Let's celebrate this extraordinary journey together at DaysArts!</p>
               </div>
             </div>
             <div class="lg:flex lg:flex-auto lg:justify-center">
@@ -34,8 +39,8 @@
       <!-- Values section -->
       <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-8">
         <div class="mx-auto max-w-2xl lg:mx-0">
-          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Associations/Friends of DaysArts</h2>
-          <p class="mt-6 text-lg leading-8 text-gray-600">Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in accusamus quisquam.</p>
+          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our Partners: The Associations and Friends of DaysArts</h2>
+          <p class="mt-6 text-lg leading-8 text-gray-600">Discover the robust network of established foundations, alliances, and councils that form the backbone of DaysArts, each playing a pivotal role in enriching and sustaining our thriving cultural community.</p>
         </div>
         <dl class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           <div v-for="value in values" :key="value.name">
@@ -48,15 +53,15 @@
       <!-- Team section -->
       <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-48 lg:px-8">
         <div class="mx-auto max-w-2xl lg:mx-0">
-          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Upcoming events</h2>
-          <p class="mt-6 text-lg leading-8 text-gray-600">Sit facilis neque ab nulla vel. Cum eos in laudantium. Temporibus eos totam in dolorum. Nemo vel facere repellendus ut eos dolores similique.</p>
+          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Spotlight on Excitement: Upcoming Events at DaysArts</h2>
+          <p class="mt-6 text-lg leading-8 text-gray-600">Step into a world of entertainment with our lineup of upcoming concerts and shows at DaysArts, where each event promises to be a memorable highlight in our vibrant cultural calendar.</p>
         </div>
         <ul role="list" class="mx-auto mt-20 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-16 text-center sm:grid-cols-3 md:grid-cols-4 lg:mx-0 lg:max-w-none lg:grid-cols-5 xl:grid-cols-6">
           <li v-for="person in team" :key="person.name">
             <a :href="person.eventLink">
-              <img class="mx-auto h-24 w-24 rounded-full" :src="person.imageUrl" alt="" />
+              <img class="mx-auto h-48 w-48 rounded-lg object-cover" :src="person.imageUrl" alt="" />
               <h3 class="mt-6 text-base font-semibold leading-7 tracking-tight text-gray-900">{{ person.name }}</h3>
-              <p class="text-sm leading-6 text-gray-600">{{ person.role }}</p>
+              <p class="text-sm leading-6 text-gray-600">{{ person.date }}</p>
             </a>
           </li>
         </ul>
@@ -104,9 +109,9 @@
 import { defineComponent, h, ref } from 'vue'
 
 const stats = [
-  { label: 'bags of popcorn', value: '440lbs' },
-  { label: 'chocolate bars enjoyed', value: '440' },
-  { label: 'bottles of water drank', value: '1,200' },
+  { label: 'bags of popcorn', value: '🍿 440lbs' },
+  { label: 'chocolate bars enjoyed', value: '🍫 440' },
+  { label: 'bottles of water drank', value: '💧 1,200' },
 ]
 const values = [
   {
@@ -123,59 +128,28 @@ const values = [
     name: 'Canada Council for the Arts',
     description:
       'Aut repellendus et officiis dolor possimus. Deserunt velit quasi sunt fuga error labore quia ipsum. Commodi autem voluptatem nam. Quos voluptatem totam.',
-  },
-  // {
-  //   name: 'Be supportive',
-  //   description:
-  //     'Magnam provident veritatis odit. Vitae eligendi repellat non. Eum fugit impedit veritatis ducimus. Non qui aspernatur laudantium modi. Praesentium rerum error deserunt harum.',
-  // },
-  // {
-  //   name: 'Take responsibility',
-  //   description:
-  //     'Sit minus expedita quam in ullam molestiae dignissimos in harum. Tenetur dolorem iure. Non nesciunt dolorem veniam necessitatibus laboriosam voluptas perspiciatis error.',
-  // },
-  // {
-  //   name: 'Enjoy downtime',
-  //   description:
-  //     'Ipsa in earum deserunt aut. Quos minus aut animi et soluta. Ipsum dicta ut quia eius. Possimus reprehenderit iste aspernatur ut est velit consequatur distinctio.',
-  // },
+  }
 ]
 const team = [
   {
     name: 'Scarlett Butler',
-    role: 'Canadian country music',
+    style: 'Canadian country music',
     imageUrl:
       'https://d10j3mvrs1suex.cloudfront.net/s:bzglfiles/u/513318/445066852ecbf7f7a1c99ea563cd8e4ca193e01e/original/troy-joni-shelter-2020-low-res-34.jpg',
     eventLink: '/event/scarlett-butler',
+    date: 'Jan 1, 2023',
   },
   {
     name: 'Jake Vaadeland',
-    role: 'Bluegrass and 50\'s rockabilly',
+    style: 'Bluegrass and 50\'s rockabilly',
     imageUrl:
       'https://images.squarespace-cdn.com/content/v1/6466b769c4608b6fe0b762c4/7f4a0867-53a5-4bb6-9099-1781263ae84a/jake-vaadeland.jpeg',
     eventLink: '/event/scarlett-butler',
+    date: 'Jan 1, 2023',
   },
   // More people...
 ]
-const blogPosts = [
-  {
-    id: 1,
-    title: 'Vel expedita assumenda placeat aut nisi optio voluptates quas',
-    href: '#',
-    description:
-      'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80',
-    date: 'Mar 16, 2020',
-    datetime: '2020-03-16',
-    author: {
-      name: 'Michael Foster',
-      imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-  },
-  // More posts...
-]
+
 
 const mobileMenuOpen = ref(false)
 </script>
