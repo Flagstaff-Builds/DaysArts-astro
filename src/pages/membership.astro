@@ -1,17 +1,50 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Main from "../components/html-structure/Main.astro";
 import HeroSecondary from "../components/hero-secondary.astro";
+import { HeartIcon, ArrowTrendingUpIcon } from '@heroicons/vue/20/solid'
 ---
 
 <Layout title="DaysArts membership benefits">
   <HeroSecondary
     tagline="Membership Benefits"
-    title="Become a member"
+    title="Become a member of the DaysArts Family"
     content="Small writeup about what will be on this page">
   </HeroSecondary>
 
-  <Main>
-    <h1 class="text-4xl">Become a member</h1>
-  </Main>
+
+
+
+  <div class="bg-white py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl lg:mx-0">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Join Our Community of Enthusiasts and Volunteers</h2>
+        <p class="mt-6 text-lg leading-8 text-gray-600">Embarking on a journey as a member of the Daysland Palace Theatre offers an opportunity to be at the heart of our cultural hub. Membership with us is not just about enjoying the arts; it's about actively participating in a community that cherishes and nurtures them. As a member, you'll gain a sense of belonging in a group that shares your passion for cinema, music, and the performing arts.</p>
+      </div>
+      <dl class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+
+        <div>
+          <div class="relative pl-16">
+            <dt class="font-semibold text-gray-900">
+              <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center ">
+                <HeartIcon class="mt-1 h-5 w-5 flex-none text-indigo-600" aria-hidden="true" />
+              </div>
+              Experience the Joy of Volunteering
+            </dt>
+          </div>
+          <dd class="relative pl-16 mt-1 text-gray-600">Volunteering at Daysland Palace Theatre is a uniquely rewarding experience. It's a chance to get involved behind the scenes, meet like-minded individuals, and contribute to the success of our events. Whether it's helping out at the concession stand, assisting in event organization, or welcoming guests, your time and effort as a volunteer play a crucial role in bringing the magic of the theatre to life. Plus, volunteering here is a wonderful way to connect with the community, learn new skills, and experience the arts from a new perspective.</dd>
+        </div>
+        <div>
+          <div class="relative pl-16">
+            <dt class="font-semibold text-gray-900">
+              <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center ">
+                <ArrowTrendingUpIcon class="mt-1 h-5 w-5 flex-none text-indigo-600" aria-hidden="true" />
+              </div>
+              Benefits and Growth Opportunities
+            </dt>
+          </div>
+          <dd class="relative pl-16 mt-1 text-gray-600">As a member and volunteer, you'll enjoy a range of benefits, including early access to event tickets, special member-only events, and the chance to have a say in theatre operations. It's more than just membership; it's a chance to grow, both personally and as part of our thriving cultural community. Your involvement will directly support the arts, ensuring that the Daysland Palace Theatre continues to be a beacon of culture and entertainment for years to come.</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
 </Layout>
