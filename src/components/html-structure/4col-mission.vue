@@ -59,7 +59,8 @@
           </div>
           <div class="md:grid md:grid-cols-2 md:gap-8">
             <div>
-              <h3 class="text-sm font-semibold leading-6 text-gray-900">About</h3>
+              <h3 class="text-sm font-semibold leading-6 text-gray-900">
+                <a href="/about" class="text-sm leading-6 text-gray-600 hover:text-gray-900">About</a></h3>
               <ul role="list" class="mt-6 space-y-4">
                 <li v-for="item in navigation.about" :key="item.name">
                   <a :href="item.href" class="text-sm leading-6 text-gray-600 hover:text-gray-900">{{ item.name }}</a>
@@ -67,7 +68,7 @@
               </ul>
             </div>
             <div class="mt-10 md:mt-0">
-              <h3 class="text-sm font-semibold leading-6 text-gray-900">Rental</h3>
+              <h3 class="text-sm font-semibold leading-6 text-gray-900"><a href="/rental" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Rental</a></h3>
               <ul role="list" class="mt-6 space-y-4">
                 <li v-for="item in navigation.rental" :key="item.name">
                   <a :href="item.href" class="text-sm leading-6 text-gray-600 hover:text-gray-900">{{ item.name }}</a>
