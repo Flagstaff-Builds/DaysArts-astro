@@ -2,19 +2,22 @@
 title: Jake Vaadeland
 description: Jake Vaadeland is a self-taught multi-instrumentalist and songwriter from Saskatchewan, Canada. His traditional sound and unique style could be defined as a blend of Bluegrass and 50’s Rockabilly
 entertainment: ["Music", "Concert"]
-date: "2023-11-30"
-time: 7:00 PM
+date: "2024-01-24"
+time: 7:30 PM
+price: $35.00
 poster: ./images/jake-vaadeland.jpeg
 website: https://www.jakevaadeland.com/
 facebook: https://www.facebook.com/ScarlettButlermusic
 twitter: https://twitter.com/IScarlettButler
 instagram: https://www.instagram.com/wearescarlettbutler
 youtube: https://www.youtube.com/channel/UCLKvITL-RQBoSne1ZOyqx-w
+concertSponsor: ["D2 Electric"]
+receptionSponsor: ["HOM of Well Being"]
 ---
 ## A little about Jake Vaadeland
-Jake Vaadeland is a self-taught multi-instrumentalist and songwriter from Saskatchewan, Canada. His traditional sound and unique style could be defined as a blend of Bluegrass and 50’s Rockabilly, with Jake also specializing on guitar and banjo in addition to his impressive vocals.
+Jake Vaadeland is a self-taught multi-instrumentalist and songwriter from Saskatchewan, Canada. His traditional sound and unique style could be defined as a blend of Bluegrass and 50’s Rockabilly, with Jake also specializing in guitar and banjo in addition to his impressive vocals.
 
-Jake strives to write and play with a focus on storytelling and messages that he hopes his audience can relate to, all packaged in foot stomping, high energy performances with The Sturgeon River Boys.
+Jake strives to write and play with a focus on storytelling and messages that he hopes his audience can relate to, all packaged in foot-stomping, high-energy performances with The Sturgeon River Boys.
 
 2022 proved to be a remarkable year for Jake Vaadeland, as he received 2x Saskatchewan Music Awards including Album of the Year for ‘Everybody But Me’, along with the Folk/Roots Artist of the Year. In addition, he earned 4x Saskatchewan Country Music Awards, including Fans Choice Entertainer of the Year, Songwriter of the Year, Alternative Country Album of the Year and Emerging Artist of the Year.
 

@@ -2,13 +2,16 @@
 title: Scarlett Butler Live Concert
 description: "Join us for an unforgettable evening with Scarlett Butler, as they bring their exhilarating performance to our city. Expect a night filled with vibrant music, energy, and the band's greatest hits. Don't miss out on this spectacular concert experience!"
 entertainment: ["Music", "Concert"]
-date: "2023-11-1"
+date: "2023-11-01"
 time: 7:30 PM
+price: $35.00
 poster: ./images/scarlett-butler.webp
 facebook: https://www.facebook.com/ScarlettButlermusic
 twitter: https://twitter.com/IScarlettButler
 instagram: https://www.instagram.com/wearescarlettbutler
 youtube: https://www.youtube.com/channel/UCLKvITL-RQBoSne1ZOyqx-w
+concertSponsor: ["ATB Agencies Strome, Heisler, Bawlf"]
+receptionSponsor: ["Dayslander Motel"]
 ---
 
 

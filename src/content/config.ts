@@ -1,19 +1,5 @@
 import { defineCollection, z } from "astro:content";
 
-const blogCollection = defineCollection({
-  type: 'content',
-  schema: ({ image }) => z.object({
-    title: z.string(),
-    author: z.string().default('DaysArts').optional(),
-    date: z.string().optional(),
-    categories: z.array(z.string()).optional(),
-    image: image().refine((img) => img.width >= 1080, {
-      message: "Image must be at least 1080 pixels wide!",
-    }).optional(),
-    socialImage: image().optional(),
-  }),
-});
-
 const movieCollection = defineCollection({
   type: 'content',
   schema: ({ image }) => z.object({
@@ -38,6 +24,7 @@ const eventCollection = defineCollection({
     entertainment: z.array(z.string()).optional(),
     date: z.string().optional(),
     time: z.string().optional(),
+    price: z.string().optional(),
     poster: image().optional(),
     website: z.string().url().optional(),
     facebook: z.string().url().optional(),
@@ -45,11 +32,12 @@ const eventCollection = defineCollection({
     instagram: z.string().url().optional(),
     youtube: z.string().url().optional(),
     socialImage: image().optional(),
+    concertSponsor: z.array(z.string()).optional(),
+    receptionSponsor: z.array(z.string()).optional(),
   }),
 });
 
 export const collections = {
-  'blog': blogCollection,
   'movie': movieCollection,
   'event': eventCollection,
 };
