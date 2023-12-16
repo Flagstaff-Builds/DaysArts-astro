@@ -4,7 +4,10 @@
     <div class="flex lg:flex-1">
       <a href="/" class="-m-1.5 p-1.5 hover:text-gray-600">
         <span class="sr-only">{{company}}</span>
-        <p class=" w-auto font-bold text-lg">{{company}}</p>
+        <!-- <p class=" w-auto font-bold text-lg">{{company}}</p> -->
+
+        <img src="../../assets/logo.png" alt={{company}} class="h-12 w-auto" />
+
       </a>
     </div>
 
