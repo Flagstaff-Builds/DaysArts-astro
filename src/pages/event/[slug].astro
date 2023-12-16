@@ -19,6 +19,8 @@ type Props = {
 }
 
 const { event } = Astro.props;
+const title = event.data.title ? event.data.title : 'No title'
+
 const { Content } = await event.render();
 
 // Format the date

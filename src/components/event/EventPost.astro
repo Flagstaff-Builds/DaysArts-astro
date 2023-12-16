@@ -7,6 +7,8 @@ type Props = {
 };
 
 const { event } = Astro.props;
+const title = event.data.title ? event.data.title : 'No title'
+
 ---
 
 <article>
