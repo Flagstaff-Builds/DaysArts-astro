@@ -1,0 +1,3 @@
+# security.txt template
+
+Contact: mailto:info@daysarts.ca

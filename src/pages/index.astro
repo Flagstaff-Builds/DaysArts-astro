@@ -8,6 +8,10 @@ import Movie1 from '../assets/movies/inception-poster.jpg'
 import { TicketIcon, ComputerDesktopIcon, VideoCameraIcon, SparklesIcon } from '@heroicons/vue/20/solid'
 
 
+import { getCollection } from "astro:content";
+import EventList from "../components/event/EventList.astro";
+const eventEntries = await getCollection("event");
+
 
 
 
