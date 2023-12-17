@@ -5,6 +5,7 @@ import { TrophyIcon, VideoCameraIcon, SparklesIcon } from '@heroicons/vue/24/out
 import { Image } from "astro:assets";
 import equipmentImg from "../assets/equipment-list.jpg";
 import stageImg from "../assets/stage-dimensions.jpg";
+import theatreIntImg from "../assets/palace-theatre-daysland-alberta.jpg";
 ---
 
 <Layout title="Rent the Daysland Palace theatre">
@@ -64,6 +65,17 @@ import stageImg from "../assets/stage-dimensions.jpg";
             </li>
           </ul>
 
+          <p class="my-10">
+            <Image
+              src={theatreIntImg}
+              format="avif"
+              quality="mid"
+              width={1024}
+              height={1024 * 1.5}
+              alt="Buckley Trio concert"
+              class="lg:col-span-2 lg:row-span-2 rounded-lg bg-cover"
+            />
+          </p>
           <h2 class="mt-16 text-2xl font-bold tracking-tight text-gray-900">A Wedding Venue Like No Other</h2>
 
           <p class="mt-6">Imagine your wedding day set against the backdrop of our illustrious theater, where every detail from the red carpet aisle to the star-studded decor is tailored to your vision. Exchange vows under the spotlight, creating a scene straight out of a romantic film, with your guests comfortably seated in plush theater seats. Opt for a 1940s Old Hollywood theme or personalize your day to reflect your favorite cinematic moments. With a <span class="font-bold tracking-tight text-gray-900">venue fee of just $250.00</span>, transform the Palace Theatre into your stage, making your wedding a splendid showcase of your love story.</p>
