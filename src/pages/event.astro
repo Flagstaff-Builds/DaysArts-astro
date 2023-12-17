@@ -12,14 +12,18 @@ const eventEntries = await getCollection("event");
   <HeroSecondary
     tagline="At the Palace Theatre in Daysland"
     title="Upcoming shows & events"
-    content="Presentation of this series is made possible by the support of the Alberta Foundation for the Arts and the Arts Touring Alliance of Alberta">
+    content="Presentation of this series is made possible by the support of the Alberta Foundation for the Arts and the Arts Touring Alliance of Alberta"
+  >
+
   </HeroSecondary>
+
 
   <Main>
     <EventList eventEntries={eventEntries} />
-<!--
-    <div class="prose prose-2xl overflow-visible relative mb-20">
-      <Content />
-    </div> -->
+    <!--
+      <div class="prose prose-2xl overflow-visible relative mb-20">
+        <Content />
+      </div>
+    -->
   </Main>
 </Layout>

@@ -96,6 +96,7 @@ const navigation = {
   events: [
     { name: 'Upcoming events', href: '/event' },
     { name: 'Past shows', href: '/past-events' },
+    { name: 'Become a member', href: '/membership' },
   ],
   // about: [
   //   { name: 'About', href: '#' },

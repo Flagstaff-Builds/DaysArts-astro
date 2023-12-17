@@ -4,7 +4,7 @@ import Main from "../components/html-structure/Main.astro";
 import Hero from "../components/hero-primary.astro";
 import { Image } from "astro:assets";
 import Hero5 from '../assets/Hentriks-Gregory.jpg';
-import Movie1 from '../assets/movies/inception-poster.jpg'
+import Movie1 from '../assets/Hentriks-Gregory.jpg';
 import { TicketIcon, ComputerDesktopIcon, VideoCameraIcon, SparklesIcon } from '@heroicons/vue/20/solid'
 
 
@@ -62,7 +62,6 @@ const movies = [
   <Hero></Hero>
 
 
-  </div>
 
 
 
@@ -102,7 +101,7 @@ const movies = [
           <div class="lg:ml-auto lg:pl-4 lg:pt-4">
             <div class="lg:max-w-lg">
               <h2 class="text-base font-semibold leading-7 text-indigo-600">Upcoming events</h2>
-              <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Concert Series 2024</p>
+              <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"><a href="event" class="underline hover:decoration-slate-50">Concert Series 2024</a></p>
               <p class="mt-6 text-lg leading-8 text-gray-600">This will be a section with the year's upcoming events, featuring the next 3 with a link to the list of the rest.</p>
               <dl class="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
 
@@ -113,7 +112,6 @@ const movies = [
                         <TicketIcon class="mt-1 h-5 w-5 flex-none text-indigo-600" aria-hidden="true" />
                       </span>
                       {feature.name}
-
 
                     </dt>
                     <dd class="inline">{feature.description}</dd>

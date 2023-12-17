@@ -13,6 +13,7 @@ interface Props {
   background?: ImageFunction;
   socialImage?: ImageFunction;
   movie?: CollectionEntry<'movie'>;
+  images?: { src: string; alt: string }[];
 }
 
 const { title, tagline, content, background, socialImage } = Astro.props;
@@ -25,14 +26,6 @@ const { title, tagline, content, background, socialImage } = Astro.props;
       <h1 class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">{title}</h1>
 
       {content}
-
-      <!-- {movie?.data?.socialImage && (
-        <Image
-          src={movie.data.socialImage}
-          alt="Descriptive alt text"
-        />
-      )} -->
-
 
     </div>
   </div>
