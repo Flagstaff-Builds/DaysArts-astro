@@ -5,6 +5,7 @@ import EventPost from './EventPost.astro';
 import ArtsAlliance from "../../assets/ataalogosm.webp";
 import Council from "../../assets/council.jpg";
 import AlbertaFoundation from "../../assets/afa_logo-blk2.jpg";
+import Lichak from "../../assets/lichak-technical-services.png";
 import { Image } from "astro:assets";
 
 
@@ -19,7 +20,7 @@ const { eventEntries } = Astro.props;
 <div class="mx-auto grid grid-cols-1 gap-x-8 gap-y-20 xl:grid-cols-3">
   <div class="mx-auto max-w-2xl lg:mx-0">
     <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">At the Palace Theatre in Daysland</h2>
-    <p class="mt-6 text-lg leading-8 text-gray-600">All six concerts $180 or $35 per event.</p>
+    <p class="mt-6 text-lg leading-2 text-gray-600">Presentation of this series is made possible by the support of the <span class="text-sm uppercase text-gray-400 font-semibold">Alberta Foundation for the Arts</span>, the <span class="text-sm uppercase text-gray-400 font-semibold">Arts Touring Alliance of Alberta</span> and many more.</p>
 
     <div class="mx-auto mt-10 grid grid-cols-2 items-start gap-x-8 gap-y-10 sm:gap-x-10 lg:mx-0 lg:grid-cols-3">
       <Image
@@ -49,8 +50,18 @@ const { eventEntries } = Astro.props;
       alt="Arts Rouring Alliance of Alberta"
       class="col-span-2 max-h-24 w-full object-contain object-left lg:col-span-"
     />
+<!--
+    <Image
+      src={Lichak}
+      format="avif"
+      width={100}
+      height={450 / 1.5}
+      alt="Lichak Technical Services Ltd."
+      class="col-span-2 max-h-24 w-full object-contain object-left lg:col-span-"
+    /> -->
     </div>
 
+    <p class="mt-4">Lichak Technical Services Ltd. <a href="tel:780-781-5965" itemprop="telephone" class="font-semibold leading-7 text-indigo-600 hover:underline">780-781-5965</a></p>
 
   </div>
 

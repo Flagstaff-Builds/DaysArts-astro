@@ -1,6 +1,6 @@
 ---
 title: Chris Funk
-description: "Leading paragraph of text"
+description: "Chris Funk has become one of the top Headline Magicians with shows at Performing Art Centers, Las Vegas Casinos and High End Corporate/Fundraiser Events."
 entertainment: ["Music", "Concert"]
 date: "2024-03-13"
 time: 7:30 PM
@@ -13,9 +13,6 @@ youtube: https://youtube.com/user/chrisfunkmagic
 concertSponsor: ["The James Insurance Group"]
 receptionSponsor: ["Crop Management Network"]
 ---
-
-
-Chris Funk has become one of the top Headline Magicians with shows at Performing Art Centers, Las Vegas Casinos and High End Corporate/Fundraiser Events.
 
 Chris has made dozens of television appearances on shows like NBC’s America’s Got Talent, The CW’s Penn & Teller: Fool Us and Masters of Illusion, and SyFy’s Wizard Wars.
 

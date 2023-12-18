@@ -7,14 +7,13 @@ time: 7:30 PM
 price: $35.00
 poster: ./images/jake-vaadeland.jpeg
 website: https://www.jakevaadeland.com/
-facebook: https://www.facebook.com/ScarlettButlermusic
-twitter: https://twitter.com/IScarlettButler
-instagram: https://www.instagram.com/wearescarlettbutler
-youtube: https://www.youtube.com/channel/UCLKvITL-RQBoSne1ZOyqx-w
+facebook: https://www.facebook.com/JakeVaadeland.SturgeonRiverBoys/
+instagram: https://www.instagram.com/jake_vaadeland/
+youtube: https://www.youtube.com/@jakevaadeland1712
 concertSponsor: ["D2 Electric"]
 receptionSponsor: ["HOM of Well Being"]
 ---
-## A little about Jake Vaadeland
+
 Jake Vaadeland is a self-taught multi-instrumentalist and songwriter from Saskatchewan, Canada. His traditional sound and unique style could be defined as a blend of Bluegrass and 50’s Rockabilly, with Jake also specializing in guitar and banjo in addition to his impressive vocals.
 
 Jake strives to write and play with a focus on storytelling and messages that he hopes his audience can relate to, all packaged in foot-stomping, high-energy performances with The Sturgeon River Boys.
