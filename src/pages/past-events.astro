@@ -26,50 +26,196 @@ const people = [
   <Main>
 
 
+  <div class="lg:grid lg:grid-cols-12 lg:gap-8">
+    <div class="lg:col-span-5">
+      <h2 class="text-2xl font-bold leading-10 tracking-tight text-gray-900">Previous events</h2>
+      <p class="mt-4 text-base leading-7 text-gray-600">Look through our <a href="https://www.facebook.com/profile.php?id=100063455833057&sk=photos_albums" target="_blank" class="font-semibold text-indigo-600 hover:text-indigo-500">Facebook albums</a> to see past shows.</p>
 
+    </div>
 
-    <template>
-      <div class="bg-white py-24 md:py-32">
-        <div class="mx-auto grid max-w-7xl grid-cols-1 gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-5">
-          <div class="max-w-2xl xl:col-span-2">
-            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">About the team</h2>
-            <p class="mt-6 text-lg leading-8 text-gray-600">We’re a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients.</p>
-          </div>
-          <ul role="list" class="-mt-12 space-y-12 divide-y divide-gray-200 xl:col-span-3">
-            {people.map((person) => (
-            <li class="flex flex-col gap-10 pt-12 sm:flex-row">
-              <img class="aspect-[4/5] w-52 flex-none rounded-2xl object-cover" :src="person.imageUrl" alt="" />
-              <div class="max-w-xl flex-auto">
-                <h3 class="text-lg font-semibold leading-8 tracking-tight text-gray-900">{ person.name }</h3>
-                <p class="text-base leading-7 text-gray-600">{ person.role }</p>
-                <p class="mt-6 text-base leading-7 text-gray-600">{ person.bio }</p>
-                <ul role="list" class="mt-6 flex gap-x-6">
-                  <li>
-                    <a :href="person.twitterUrl" class="text-gray-400 hover:text-gray-500">
-                      <span class="sr-only">Twitter</span>
-                      <svg class="h-5 w-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84" />
-                      </svg>
-                    </a>
-                  </li>
-                  <li>
-                    <a :href="person.linkedinUrl" class="text-gray-400 hover:text-gray-500">
-                      <span class="sr-only">LinkedIn</span>
-                      <svg class="h-5 w-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd" />
-                      </svg>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            ))}
-          </ul>
+    <div class="mt-10 lg:col-span-7 lg:mt-0">
+      <dl class="space-y-10">
+        <div>
+          <dt class="text-lg font-bold leading-7 text-gray-900">2022 - 2023</dt>
+          <dd class="mt-2 text-base leading-7 text-gray-600">Luke McMaster, Ken Lavigne, Shelly Jones & A Touch of Cole, Garrett Gregory & Karac Hendriks, Ann Vriend, Ryan McMahon</dd>
         </div>
-      </div>
-    </template>
+
+        <!-- no sub concert series -->
+        <div>
+          <dt class="text-lg font-bold leading-7 text-gray-900">2022</dt>
+          <dd class="mt-2 text-base leading-7 text-gray-600">Amy Bishop, Prisoner of Tehran, Sarah Hagan, Martin Kerr, Diyet and the Love Soldiers</dd>
+        </div>
+
+        <!-- with sub concert series -->
+        <div>
+          <dt class="text-lg font-bold leading-7 text-gray-900">2019 - 2020</dt>
+          <dd class="mt-2 text-base leading-7 text-gray-600">Terry Barber, Across The Pond | The British Invasion, Tim Tamishiro, Lizzy Hoyt – New Lady on the Prairie, Accidental Humour Co. The Flying Detective, Diyet and The Love Soldiers (Cancelled)
+            <div class="indent-8">
+              <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Winter Matinee Concert Series</p>
+              <p class="mt-2 text-base leading-7 text-gray-600">The Silver Screen Scoundrels, Jazz Affair – Wishes, Ken Stead (Cancelled)</p>
+            </div>
+          </dd>
+        </div>
+
+        <div class="mt-10">
+          <dt class="text-lg font-bold leading-7 text-gray-900">2018 - 2019</dt>
+          <dd class="mt-2 text-base leading-7 text-gray-600">Johnny Summers Little Big Band, Ghostboy, Matthew Byrne, Gunning & Cormier, Samantha Martin and Delta Sugar, Miss Caledonia
+            <div class="indent-8">
+              <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Winter Matinee Concert Series</p>
+              <p class="mt-2 text-base leading-7 text-gray-600">Gateway Chorus, Over The Moon, The Wardens</p>
+            </div>
+          </dd>
+        </div>
+
+<!-- 2017 – 2018 -->
+<div>
+  <dt class="text-lg font-bold leading-7 text-gray-900">2017 – 2018</dt>
+  <dd class="mt-2 text-base leading-7 text-gray-600">Port Cities, Best Little Newfoundland Christmas Pageant... Ever, Blake Reid and The Black Dirt Orchestra, Christopher Hall and The Comic Quartet, Krystal Dos Santos and The Black Mambas</dd>
+</div>
+
+<!-- 2016 – 2017 -->
+<div>
+  <dt class="text-lg font-bold leading-7 text-gray-900">2016 – 2017</dt>
+  <dd class="mt-2 text-base leading-7 text-gray-600">The Derina Harvey Band, Quartette, Scott Cook, Jim Byrnes, Lisa Brokop, Everything Fitz</dd>
+</div>
+
+<!-- 2015 – 2016 -->
+<div>
+  <dt class="text-lg font-bold leading-7 text-gray-900">2015 – 2016</dt>
+  <dd class="mt-2 text-base leading-7 text-gray-600">Christine Tassan, John Wort Hannam, Steve Pineo’s Elvis Show, 6 Guitars with Chase Padgett, The Carolines, David Myles</dd>
+</div>
+
+<!-- 2014 – 2015 -->
+<div>
+  <dt class="text-lg font-bold leading-7 text-gray-900">2014 – 2015</dt>
+  <dd class="mt-2 text-base leading-7 text-gray-600">Connie Kaldor, Bridget Ryan’s ‘Here’s to the Ladies Who Laugh’, The Travelling Mabels, Jim Witter’s ‘Feelin Groovy’, Tomas Kubinek – Certified Lunatic and Master of the Impossible, The Bills
+    <div class="indent-8">
+      <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family Concerts</p>
+      <p class="mt-2 text-base leading-7 text-gray-600">MCT – Hansel + Gretel, Will Stroet and the Backyard Band</p></dd>
+</div>
 
 
+<!-- 2013 – 2014 -->
+<div>
+  <dt class="text-lg font-bold leading-7 text-gray-900">2013 – 2014</dt>
+  <dd class="mt-2 text-base leading-7 text-gray-600">Gordie Mackeeman & His Rhythm Boys, Like Father, Like Son? Sorry, Hotel California, Pear, When That I Was, University of Alberta Symphony Orchestra
+    <div class="indent-8">
+      <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family Concerts</p>
+      <p class="mt-2 text-base leading-7 text-gray-600">Fred Penner, Wizard of Oz</p></dd>
+</div>
+
+<!-- 2012 – 2013 -->
+<div>
+  <dt class="text-lg font-bold leading-7 text-gray-900">2012 – 2013</dt>
+  <dd class="mt-2 text-base leading-7 text-gray-600">Jake’s Gift with The Darling Dive opening, Irish Rovers, Garth Prince, Lennie Gallant, Motus ‘O’ Dance – Circus Terrifico, Jesse Peters Trio
+
+    <div class="indent-8">
+  <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family Concerts</p>
+  <p class="mt-2 text-base leading-7 text-gray-600">Splash”N”Boots, Missoula Children’s Theatre – Jack and the Beanstalk</p></dd>
+</div>
+
+<!-- 2011 – 2012 -->
+<div>
+  <dt class="text-lg font-bold leading-7 text-gray-900">2011 – 2012</dt>
+  <dd class="mt-2 text-base leading-7 text-gray-600">Letter from Wingfield Farm, Al Simmons, Hippodrome, April Verch, Woody Holler and His Orchestra, Valdy
+
+    <div class="indent-8">
+  <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family concerts</p>
+  <p class="mt-2 text-base leading-7 text-gray-600">Fables – Sun Ergos, Missoula Children’s Theatre – The Pied Piper</p></dd>
+</div>
+
+<!-- 2010 – 2011 -->
+<div>
+  <dt class="text-lg font-bold leading-7 text-gray-900">2010 – 2011</dt>
+  <dd class="mt-2 text-base leading-7 text-gray-600">Michelle Wright, Paul Rumbolt, The Shirleys, Jeff Straker, Pioneer Years, The Polyjesters
+
+    <div class="indent-8">
+  <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family concerts</p>
+  <p class="mt-2 text-base leading-7 text-gray-600">Figura, Missoula Children’s Theatre – King Arthur’s Quest</p></dd>
+</div>
+
+<!-- 2009 – 2010 -->
+<div>
+  <dt class="text-lg font-bold leading-7 text-gray-900">2009 – 2010</dt>
+  <dd class="mt-2 text-base leading-7 text-gray-600">Brett Kissell, Rhyme Rustler, Celtara, Cadence, Jack Semple, The Arrogant Worms
+
+    <div class="indent-8">
+  <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family concerts</p>
+  <p class="mt-2 text-base leading-7 text-gray-600">Max-I-Mime, Missoula Children’s Theatre – Snow White and The Seven Dwarfs</p></dd>
+</div>
+
+<!-- 2008 – 2009 -->
+<div>
+  <dt class="text-lg font-bold leading-7 text-gray-900">2008 – 2009</dt>
+  <dd class="mt-2 text-base leading-7 text-gray-600">Lorne Elliot, Babette’s Feast (Augustana), Bottom Line Duo, John Wort Hannam, Ten Lost Years
+
+    <div class="indent-8">
+  <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family concerts</p>
+  <p class="mt-2 text-base leading-7 text-gray-600">Missoula Children’s Theatre – Robin Hood, Cheremosh</p></dd>
+</div>
+
+<!-- 2007 – 2008 -->
+<div>
+  <dt class="text-lg font-bold leading-7 text-gray-900">2007 – 2008</dt>
+  <dd class="mt-2 text-base leading-7 text-gray-600">Dust Poets, Brad Johner, Patricia O’Callaghan, Connie Kaldor, Visions Country Gospel
+
+    <div class="indent-8">
+  <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family concerts</p>
+  <p class="mt-2 text-base leading-7 text-gray-600">Val Hilliker, Youth singers of Calgary</p></dd>
+</div>
+
+<!-- 2006 – 2007 -->
+<div>
+  <dt class="text-lg font-bold leading-7 text-gray-900">2006 – 2007</dt>
+  <dd class="mt-2 text-base leading-7 text-gray-600">Glamour Puss, Rodeo Riders, Tillers Folley, Carlene Friesen, The Classics
+
+    <div class="indent-8">
+  <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family concerts</p>
+  <p class="mt-2 text-base leading-7 text-gray-600">Everything Fitz, Tomas Kubinek</p></dd>
+</div>
+
+<!-- 2005 – 2006 -->
+<div>
+  <dt class="text-lg font-bold leading-7 text-gray-900">2005 – 2006</dt>
+  <dd class="mt-2 text-base leading-7 text-gray-600">Todd Butler, Samantha Robichaud, Foothills Brass, Lewis & Royal, Tanglefoot
+
+    <div class="indent-8">
+  <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family concerts</p>
+  <p class="mt-2 text-base leading-7 text-gray-600">Red Thunder, Beauty & the Beast (Daysland School Drama Company)</p></dd>
+</div>
+
+<!-- 2004 – 2005 -->
+<div>
+  <dt class="text-lg font-bold leading-7 text-gray-900">2004 – 2005</dt>
+  <dd class="mt-2 text-base leading-7 text-gray-600">Bowser & Blue, Pavlo, Leslie Alexander, Crystal Plamondon, Murray McLauchan
+
+    <div class="indent-8">
+  <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family concerts</p>
+  <p class="mt-2 text-base leading-7 text-gray-600">Maritime Marionettes, Flyin’ Bob, Special Centennial Concert – Maria Dunn</p></dd>
+</div>
+
+<!-- 2003 – 2004 -->
+<div>
+  <dt class="text-lg font-bold leading-7 text-gray-900">2003 – 2004</dt>
+  <dd class="mt-2 text-base leading-7 text-gray-600">Tanglefoot, Fiddlestix, Felix Possack, The Swiss Men’s Choir, The Cruzero’s</dd>
+</div>
+
+<!-- 2002 – 2003 -->
+<div>
+  <dt class="text-lg font-bold leading-7 text-gray-900">2002 – 2003</dt>
+  <dd class="mt-2 text-base leading-7 text-gray-600">John Gracie, The Nomads, The Rawling Brothers, The Bill Hilly Band, Louis David Riel</dd>
+</div>
+
+<!-- 2001 – 2002 -->
+<div>
+  <dt class="text-lg font-bold leading-7 text-gray-900">2001 – 2002</dt>
+  <dd class="mt-2 text-base leading-7 text-gray-600">Michael Kaeshammer, Sheep River Rounders, Paul Hann, Peters Drury Trio, Lorne Elliot</dd>
+</div>
+
+
+      </dl>
+    </div>
+  </div>
 
 
 
