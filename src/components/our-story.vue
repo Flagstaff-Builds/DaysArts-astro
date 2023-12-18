@@ -51,7 +51,7 @@
       </div>
 
       <!-- Team section -->
-      <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-48 lg:px-8">
+      <!-- <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-48 lg:px-8">
         <div class="mx-auto max-w-2xl lg:mx-0">
           <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Spotlight on Excitement: Upcoming Events at DaysArts</h2>
           <p class="mt-6 text-lg leading-8 text-gray-600">Step into a world of entertainment with our lineup of upcoming concerts and shows at DaysArts, where each event promises to be a memorable highlight in our vibrant cultural calendar.</p>
@@ -65,7 +65,7 @@
             </a>
           </li>
         </ul>
-      </div>
+      </div> -->
 
       <!-- Blog section -->
       <!-- <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-8">
@@ -115,19 +115,19 @@ const stats = [
 ]
 const values = [
   {
-    name: 'Alberta Foundation for the Arts',
+    name: 'Alberta Foundation for the Arts (AFA)',
     description:
-      'Aut illo quae. Ut et harum ea animi natus. Culpa maiores et sed sint et magnam exercitationem quia. Ullam voluptas nihil vitae dicta molestiae et. Aliquid velit porro vero.',
+      'The Alberta Foundation for the Arts is a dynamic provincial agency that fosters and supports the arts community in Alberta. It provides funding and grants to artists and art organizations, aiming to enrich the cultural landscape of the province. The AFA plays a pivotal role in promoting artistic creativity and cultural development in Alberta.',
   },
   {
-    name: 'Arts Touring Alliance of Alberta',
+    name: 'Arts Touring Alliance of Alberta (ATAA)',
     description:
-      'Mollitia delectus a omnis. Quae velit aliquid. Qui nulla maxime adipisci illo id molestiae. Cumque cum ut minus rerum architecto magnam consequatur. Quia quaerat minima.',
+      'The Arts Touring Alliance of Alberta is dedicated to enhancing and ensuring the viability of the performing arts touring network in Alberta. It facilitates touring opportunities for a diverse range of artistic disciplines and supports the professional development of those in the arts sector. ATAA serves as a vital connector between artists, presenters, and communities.',
   },
   {
     name: 'Canada Council for the Arts',
     description:
-      'Aut repellendus et officiis dolor possimus. Deserunt velit quasi sunt fuga error labore quia ipsum. Commodi autem voluptatem nam. Quos voluptatem totam.',
+      'The Canada Council for the Arts is a national organization committed to the promotion and support of the arts in Canada. It offers a range of grants and services to professional Canadian artists and arts organizations, fostering a vibrant cultural scene. The Council plays a crucial role in recognizing artistic excellence and innovation across the country.',
   }
 ]
 const team = [

@@ -21,13 +21,11 @@ const formattedDate = eventDate.toLocaleDateString('en-US', {
 
 
 ---
-<!-- This is the individual post that gets looped into the events page template -->
 
-
-  <li>
-    <a href={`/event/${event.slug}`} class="block text-zinc-900 hover:scale-105 hover:rotate-1 transition-transform">
-      {event.data.poster && (
-        <Image
+<li>
+  <a href={`/event/${event.slug}`} class="block text-zinc-900 hover:scale-105 hover:rotate-1 transition-transform">
+    {event.data.poster && (
+      <Image
         src={event.data.poster}
         format="avif"
         quality="mid"
@@ -35,42 +33,35 @@ const formattedDate = eventDate.toLocaleDateString('en-US', {
         height={450 / 1.5}
         alt={`${event.data.title} thumbnail`}
         class="aspect-[3/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+      />
+    )}
+    <h3 class="mt-6 text-xl font-semibold leading-8 text-gray-900">{event.data.title}</h3>
+    <p class="flex items-center text-base leading-7 text-gray-700">
+      <CalendarDaysIcon class="mr-1 h-5 w-5 text-indigo-600" aria-hidden="true" /> {formattedDate}
+    </p>
+    <p class="flex items-center text-base leading-7 text-gray-700">
+      <ClockIcon class="mr-1 h-5 w-5 text-indigo-600" aria-hidden="true" /> {event.data.time}
+    </p>
+    <!-- <p class="mt-4 text-base leading-7 text-gray-600">{event.data.description}.</p> -->
 
-        />
-      )}
-      <h3 class="mt-6 text-xl font-semibold leading-8 text-gray-900">{event.data.title}</h3>
-      <p class="flex items-center text-base leading-7 text-gray-700">
-        <CalendarDaysIcon class="mr-1 h-5 w-5 text-indigo-600" aria-hidden="true" /> {formattedDate}</p>
-      <p class="flex items-center text-base leading-7 text-gray-700">
-        <ClockIcon class="mr-1 h-5 w-5 text-indigo-600" aria-hidden="true" /> {event.data.time}</p>
-      <!-- <p class="mt-4 text-base leading-7 text-gray-600">{event.data.description}.</p> -->
-
-      <!-- Sponsors -->
-      <div class="mt-4">
-        <h2 class="text-xs font-bold text-gray-500 uppercase">Sponsored by:</h2>
-        <ul>
-          <li>
-          { event.data.concertSponsor?.map((sponsor) => (
-              <span class="text-sm font-medium text-gray-400">
-                {sponsor}
-              </span>
-            ))
-          }
-          </li>
-          <li>
-          { event.data.receptionSponsor?.map((sponsor) => (
-              <span class="text-sm font-medium text-gray-400">
-                {sponsor}
-              </span>
-            ))
-          }
-          </li>
-        </ul>
-      </div>
-    </a>
-
-  </li>
-
+    <!-- Sponsors -->
+    <div class="mt-4">
+      <h2 class="text-xs font-bold text-gray-500 uppercase">Sponsored by:</h2>
+      <ul>
+        <li>
+          {event.data.concertSponsor?.map((sponsor) => (
+            <span class="text-sm font-medium text-gray-400">{sponsor}</span>
+          ))}
+        </li>
+        <li>
+          {event.data.receptionSponsor?.map((sponsor) => (
+            <span class="text-sm font-medium text-gray-400">{sponsor}</span>
+          ))}
+        </li>
+      </ul>
+    </div>
+  </a>
+</li>
 
 <!--
 
