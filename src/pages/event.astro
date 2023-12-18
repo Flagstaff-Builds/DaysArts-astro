@@ -14,16 +14,11 @@ const eventEntries = await getCollection("event");
     title="Upcoming shows & events"
     content="All six concerts $180 or $35 per event"
   >
-
   </HeroSecondary>
 
 
   <Main>
     <EventList eventEntries={eventEntries} />
-    <!--
-      <div class="prose prose-2xl overflow-visible relative mb-20">
-        <Content />
-      </div>
-    -->
   </Main>
+
 </Layout>

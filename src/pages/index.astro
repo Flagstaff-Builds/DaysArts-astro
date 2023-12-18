@@ -5,7 +5,7 @@ import Hero from "../components/hero-primary.astro";
 import { Image } from "astro:assets";
 import Hero5 from '../assets/Hentriks-Gregory.jpg';
 import Movie1 from '../assets/Hentriks-Gregory.jpg';
-import { TicketIcon, ComputerDesktopIcon, VideoCameraIcon, SparklesIcon } from '@heroicons/vue/20/solid'
+import { TicketIcon, ComputerDesktopIcon, VideoCameraIcon, SparklesIcon } from '@heroicons/vue/24/outline'
 
 
 import { getCollection } from "astro:content";
@@ -17,18 +17,18 @@ const eventEntries = await getCollection("event");
 
 const features = [
   {
-    name: 'Concert 1',
-    description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-    icon: 'TicketIcon',
+    name: 'Jake Vaadeland',
+    description: 'Wednesday, January 24, 2024',
+    // icon: TicketIcon,
   },
   {
-    name: 'Concert 2',
-    description: 'Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.',
-    // icon: 'LockClosedIcon',
+    name: 'Cristian De La Luna',
+    description: 'Thursday, February 15, 2024',
+    // icon: 'SparklesIcon',
   },
   {
-    name: 'Concert 3',
-    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
+    name: 'Chris Funk',
+    description: 'Wednesday, March 13, 2024',
     // icon: 'ServerIcon',
   },
 ];
@@ -66,7 +66,7 @@ const movies = [
 
 
     <!-- now playing movies -->
-    <div class="py-24 md:py-32 lg:py-40">
+    <!-- <div class="py-24 md:py-32 lg:py-40">
       <div class="mx-auto grid max-w-7xl grid-cols-1 gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3">
         <div class="mx-auto max-w-2xl lg:mx-0">
           <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Upcoming movies</h2>
@@ -86,7 +86,7 @@ const movies = [
           ))}
         </ul>
       </div>
-    </div>
+    </div> -->
   <!-- <Home client:load></Home> -->
   <Main>
 
@@ -102,13 +102,13 @@ const movies = [
             <div class="lg:max-w-lg">
               <h2 class="text-base font-semibold leading-7 text-indigo-600">Upcoming events</h2>
               <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"><a href="event" class="underline hover:decoration-slate-50">Concert Series 2024</a></p>
-              <p class="mt-6 text-lg leading-8 text-gray-600">This will be a section with the year's upcoming events, featuring the next 3 with a link to the list of the rest.</p>
+              <p class="mt-6 text-lg leading-8 text-gray-600">Get ready for an electrifying lineup of live performances and unforgettable experiences in our Concert Series 2024!</p>
               <dl class="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
 
                 {features.map((feature) => (
                   <div class="relative pl-9">
                     <dt class="inline font-semibold text-gray-900">
-                      <span class="absolute left-1 top-1 h-5 w-5 text-indigo-600" aria-hidden="true">
+                      <span class="absolute left-1 h-5 w-5 text-indigo-600" aria-hidden="true">
                         <TicketIcon class="mt-1 h-5 w-5 flex-none text-indigo-600" aria-hidden="true" />
                       </span>
                       {feature.name}
@@ -139,9 +139,9 @@ const movies = [
   <div class="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
     <div class="mx-auto max-w-2xl text-center">
       <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Learn about our Membership benefits.</h2>
-      <p class="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-600">Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident excepteur commodo do ea.</p>
+      <p class="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-600">Unlock a world of exclusive perks and opportunities with our membership benefits – discover more today</p>
       <div class="mt-10 flex items-center justify-center gap-x-6">
-        <a href="#" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get started</a>
+        <a href="/membership" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get started</a>
         <!-- <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Learn more <span aria-hidden="true">→</span></a> -->
       </div>
     </div>
