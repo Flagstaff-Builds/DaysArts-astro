@@ -1,5 +1,5 @@
 <template>
-  <header class="absolute inset-x-0 top-0 z-50">
+  <header class="inset-x-0 top-0 z-50">
     <Navigation/>
   </header>
 </template>

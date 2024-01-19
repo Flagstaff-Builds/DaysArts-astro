@@ -1,15 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Main from "../components/html-structure/Main.astro";
-import Hero from "../components/hero-primary.astro";
+import Main from "@components/html-structure/Main.astro";
+import Hero from "@components/hero-primary.astro";
 import { Image } from "astro:assets";
-import Hero5 from '../assets/Hentriks-Gregory.jpg';
-import Movie1 from '../assets/Hentriks-Gregory.jpg';
+import Hero5 from '@assets/Hentriks-Gregory.jpg';
+import Movie1 from '@assets/Hentriks-Gregory.jpg';
 import { TicketIcon, ComputerDesktopIcon, VideoCameraIcon, SparklesIcon } from '@heroicons/vue/24/outline'
 
 
 import { getCollection } from "astro:content";
-import EventList from "../components/event/EventList.astro";
+import EventList from "@components/event/EventList.astro";
 const eventEntries = await getCollection("event");
 
 
@@ -58,15 +58,13 @@ const movies = [
 ]
 ---
 
+
 <Layout title="Daysland and District Cultural Arts Society | Theater">
   <Hero></Hero>
 
 
-
-
-
     <!-- now playing movies -->
-    <!-- <div class="py-24 md:py-32 lg:py-40">
+    <div class="py-24 md:py-32 lg:py-40">
       <div class="mx-auto grid max-w-7xl grid-cols-1 gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3">
         <div class="mx-auto max-w-2xl lg:mx-0">
           <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Upcoming movies</h2>
@@ -86,7 +84,7 @@ const movies = [
           ))}
         </ul>
       </div>
-    </div> -->
+    </div>
   <!-- <Home client:load></Home> -->
   <Main>
 

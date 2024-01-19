@@ -18,7 +18,7 @@
           <a v-for="item in navigation" :key="item.name" :href="item.href" class="text-sm font-semibold leading-6 text-gray-900">{{ item.name }}</a>
         </div>
         <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Become a Member <span aria-hidden="true">&rarr;</span></a>
+          <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Get involved <span aria-hidden="true">&rarr;</span></a>
         </div>
       </nav>
       <Dialog as="div" class="lg:hidden" @close="mobileMenuOpen = false" :open="mobileMenuOpen">
