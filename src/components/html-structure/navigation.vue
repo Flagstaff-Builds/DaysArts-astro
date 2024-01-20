@@ -37,7 +37,7 @@
     <div class="hidden lg:flex lg:gap-x-1.5 items-center">
       <Menu v-for="item in navigation" :key="item.name" as="div" class="relative inline-block text-left items-center">
         <Popover v-if="item.dropdown" class="hidden relative lg:block">
-          <PopoverButton  class="inline-flex w-full items-center justify-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50">
+          <PopoverButton class="inline-flex w-full items-center justify-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900">
             {{ item.name }}
             <ChevronDownIcon class="h-5 w-5" aria-hidden="true" />
           </PopoverButton>
@@ -72,7 +72,7 @@
             </PopoverPanel>
           </transition>
         </Popover>
-        <a v-else :href="item.href" class="inline-flex w-full items-center justify-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50">{{ item.name }}</a>
+        <a v-else :href="item.href" class="inline-flex w-full items-center justify-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900">{{ item.name }}</a>
 
         <transition v-if="item.dropdown" enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
           <MenuItems class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
@@ -148,7 +148,7 @@
 import { Dialog, DialogPanel, Menu, MenuButton, MenuItem, MenuItems, Popover, PopoverButton, PopoverPanel } from '@headlessui/vue';
 import { ref } from 'vue';
 
-import { XMarkIcon, Bars3Icon, ChevronDownIcon, TicketIcon } from '@heroicons/vue/20/solid';
+import { XMarkIcon, Bars3Icon, ChevronDownIcon, TicketIcon, CursorArrowRippleIcon, SparklesIcon } from '@heroicons/vue/20/solid';
 
 import {
   CalendarDaysIcon,
@@ -196,15 +196,31 @@ const navigation = ref([
         icon: FireIcon
       }
     ],
+  },
+  { name: 'About',
+    dropdown: true,
+    dropdownItems: [
+      {
+        name: 'About us',
+        href: '/about',
+        description: 'Learn all about Daysland and District Cultural Arts Society at the Palace Theatre',
+        icon: CursorArrowRippleIcon
+      },
+      {
+        name: 'Kamotion dance',
+        href: '/kamotion-dance',
+        description: 'Non-competitive dance class for all abilities',
+        icon: SparklesIcon
+      }
+    ],
     cta: [
       {
-        name: 'Become a member',
+        name: 'Get involved',
         href: '/membership',
         icon: TicketIcon
       }
     ]
   },
-  { name: 'About', href: '/about' },
   { name: 'Rental', href: '/rental' }
 ]);
 
