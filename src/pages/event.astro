@@ -1,9 +1,9 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "../layouts/Layout.astro";
-import Main from "../components/html-structure/Main.astro";
-import EventList from "../components/event/EventList.astro";
-import HeroSecondary from "../components/hero-secondary.astro";
+import Layout from "@/layouts/Layout.astro";
+import Main from "@/components/html-structure/Main.astro";
+import EventList from "@/components/event/EventList.astro";
+import HeroSecondary from "@/components/hero-secondary.astro";
 
 const eventEntries = await getCollection("event");
 ---

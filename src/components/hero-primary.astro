@@ -1,10 +1,10 @@
 ---
 import { Image } from 'astro:assets';
-import Hero5 from '../assets/Hentriks-Gregory.jpg';
+import Hero5 from '@assets/movies/next-goal-wins.jpg';
 ---
 
-<div class="relative isolate">
-  <div class="absolute bottom-1/4 inset-0 -z-10 bg-slate-50"></div>
+<div class="relative isolate overflow-hidden">
+  <div class="absolute bottom-1/4 inset-0 -z-10 rotate-[-4deg] scale-125 bg-gradient-to-tr from-fuchsia-600/5 to-pink-600/30"></div>
 
   <svg class="absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]" aria-hidden="true">
     <defs>
@@ -39,13 +39,13 @@ import Hero5 from '../assets/Hentriks-Gregory.jpg';
           <div class="lg:-mr-20 mx-auto max-w-2xl sm:mx-0 sm:max-w-none">
 
             <div class="aspect-[2/3]">
-              <Image src={Hero5} width="2432" height="1442" alt="Now Playing" class="-mb-2 rounded-t-2xl bg-gray-800 ring-1 ring-white/10 object-cover h-full w-full" />
+              <Image src={Hero5} width="2432" height="1442" alt="Now Playing" class="-mb-2 rounded-t-2xl object-cover h-full w-full" />
             </div>
             <article class="p-4 sm:p-6 lg:p-4 xl:p-6 space-x-4 items-start sm:space-x-6 lg:space-x-4 xl:space-x-6 flex rounded-b-2xl shadow-xl bg-white">
               <div class="min-w-0 relative flex-auto">
 
                 <!-- <h2 class="mt-6 text-lg leading-8 sm:max-w-md font-bold lg:max-w-none">Current Showcase</h2> -->
-                <h2 class="font-semibold text-slate-900 truncate sm:pr-20 dark:text-slate-100">Prognosis Negative</h2>
+                <h2 class="font-semibold text-slate-900 truncate sm:pr-20 dark:text-slate-100">Next Goal Wins</h2>
                 <dl class="mt-2 flex flex-wrap text-sm leading-6 font-medium">
                   <div class="dark:text-slate-200">
                     <dt class="sr-only">Rating</dt>
@@ -53,25 +53,25 @@ import Hero5 from '../assets/Hentriks-Gregory.jpg';
                   </div>
                   <div class="ml-2">
                     <dt class="sr-only">Year</dt>
-                    <dd>2021</dd>
+                    <dd>2023</dd>
                   </div>
                   <div>
                     <dt class="sr-only">Genre</dt>
                     <dd class="flex items-center">
                       <div aria-hidden="true" class="mx-4 text-sm text-gray-400">·</div>
-                      Comedy
+                      Comedy, Drama, Sports
                     </dd>
                   </div>
                   <div>
                     <dt class="sr-only">Runtime</dt>
                     <dd class="flex items-center">
                       <div aria-hidden="true" class="mx-4 text-sm text-gray-400">·</div>
-                      1h 46m
+                      1h 44m
                     </dd>
                   </div>
                   <div class="flex-none w-full mt-2 font-normal">
                     <dt class="sr-only">Cast</dt>
-                    <dd class="text-slate-400">Simon Pegg, Zach Galifianakis</dd>
+                    <dd class="text-slate-400">Michael Fassbender, Oscar Kightley, David Fane,...</dd>
                   </div>
                 </dl>
               </div>
