@@ -1,9 +1,14 @@
 <template>
-  <header class="inset-x-0 top-0 z-50">
+  <header class="relative inset-x-0 top-0">
     <Navigation/>
   </header>
 </template>
 
 <script setup>
-  import Navigation from '../../../../html-structure/navigation.vue'
+  // import { computed } from 'vue';
+  // import { useRoute } from 'vue-router';
+  import Navigation from '../../../../html-structure/navigation.vue';
+
+  // const route = useRoute();
+  // const isHomePage = computed(() => route.path === '/');
 </script>
