@@ -21,7 +21,7 @@
 <script setup>
 const timeline = [
   {
-    name: 'Turl Family Retirement',
+    name: 'Tury Family Retirement',
     description: 'After the retirement of the Tury family in 1996, the Palace Theatre languished for three years.',
     date: '1996 - 1999',
     dateTime: '1996-01/1999-12',

@@ -7,7 +7,7 @@
       </div>
       <ul role="list" class="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
         <li v-for="person in people" :key="person.name">
-          <img class="aspect-[3/2] w-full rounded-2xl object-cover" :src="person.imageUrl" alt="" />
+          <img class="aspect-[3/2] w-full rounded-xl object-cover" :src="person.imageUrl" alt="" />
           <h3 class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">{{ person.name }}</h3>
           <p class="text-base leading-7 text-gray-600">{{ person.role }}</p>
           <ul role="list" class="mt-6 flex gap-x-6">
