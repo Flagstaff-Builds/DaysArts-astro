@@ -5,7 +5,6 @@
       <div class="xl:grid xl:grid-cols-3 xl:gap-8 border-t border-gray-900/10 pt-8">
         <div class="space-y-8 ">
 
-          <p class=" w-auto font-black text-lg">NEED TO FIX THE FOOTER MENU TO MATCH MAIN</p>
           <!-- Branding -->
           <div class="flex lg:flex-1">
             <a href="/" class="-m-1.5 p-1.5 hover:text-gray-600">
@@ -59,8 +58,7 @@
           </div>
           <div class="md:grid md:grid-cols-2 md:gap-8">
             <div>
-              <h3 class="text-sm font-semibold leading-6 text-gray-900">
-                <a href="/about" class="text-sm leading-6 text-gray-600 hover:text-gray-900 hover:underline">About</a></h3>
+              <h3 class="text-sm font-semibold leading-6 text-gray-900">About</h3>
               <ul role="list" class="mt-6 space-y-4">
                 <li v-for="item in navigation.about" :key="item.name">
                   <a :href="item.href" class="text-sm leading-6 text-gray-600 hover:text-gray-900 hover:underline">{{ item.name }}</a>
@@ -79,7 +77,7 @@
         </div>
       </div>
       <div class="mt-16 border-t border-gray-900/10 pt-8 sm:mt-20 lg:mt-24">
-        <p class="text-xs leading-5 text-gray-500">&copy; 2023 Daysland and District Cultural Arts Society. All rights reserved.</p>
+        <p class="text-xs leading-5 text-gray-500">&copy; Daysland and District Cultural Arts Society. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -96,15 +94,12 @@ const navigation = {
   events: [
     { name: 'Upcoming events', href: '/event' },
     { name: 'Past shows', href: '/past-events' },
+  ],
+  about: [
+    { name: 'About us', href: '/about' },
+    { name: 'Kamotion dance', href: '/kamotion-dance' },
     { name: 'Get involved', href: '/membership' },
   ],
-  // about: [
-  //   { name: 'About', href: '#' },
-  //   { name: 'Blog', href: '#' },
-  //   { name: 'Jobs', href: '#' },
-  //   { name: 'Press', href: '#' },
-  //   { name: 'Partners', href: '#' },
-  // ],
   // rental: [
   //   { name: 'Claim', href: '#' },
   //   { name: 'Privacy', href: '#' },

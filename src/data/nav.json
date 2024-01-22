@@ -1,0 +1,67 @@
+[
+  {
+    "name": "Movies",
+    "dropdown": true,
+    "dropdownItems": [
+      {
+        "name": "Now playing",
+        "href": "/now-playing",
+        "description": "See what movies are playing and coming",
+        "icon": "VideoCameraIcon"
+      },
+      {
+        "name": "Reel alternative film",
+        "href": "/reel-alternative-film",
+        "description": "Superb independent, Canadian and foreign films",
+        "icon": "FilmIcon"
+      }
+    ]
+  },
+  {
+    "name": "Events",
+    "dropdown": true,
+    "dropdownItems": [
+      {
+        "name": "Upcoming events",
+        "href": "/event",
+        "description": "We have varity of six amazing shows per year",
+        "icon": "CalendarDaysIcon"
+      },
+      {
+        "name": "Past shows",
+        "href": "/past-events",
+        "description": "View the past talent we have hosted",
+        "icon": "FireIcon"
+      }
+    ]
+  },
+  {
+    "name": "About",
+    "dropdown": true,
+    "dropdownItems": [
+      {
+        "name": "About us",
+        "href": "/about",
+        "description": "Learn all about Daysland and District Cultural Arts Society at the Palace Theatre",
+        "icon": "CursorArrowRippleIcon"
+      },
+      {
+        "name": "Kamotion dance",
+        "href": "/kamotion-dance",
+        "description": "Non-competitive dance class for all abilities",
+        "icon": "SparklesIcon"
+      }
+    ],
+    "cta": [
+      {
+        "name": "Get involved",
+        "href": "/membership",
+        "icon": "TicketIcon"
+      }
+    ]
+  },
+  {
+    "name": "Rental",
+    "href": "/rental"
+  }
+]
