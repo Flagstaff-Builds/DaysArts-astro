@@ -1,22 +1,11 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
-import { Image } from "astro:assets";
-
-const { movie } = Astro.props;
-
-import type { ImageFunction } from 'astro:content';
-
 interface Props {
   tagline?: string;
   title?: string;
   content?: string;
-  background?: ImageFunction;
-  socialImage?: ImageFunction;
-  movie?: CollectionEntry<'movie'>;
-  images?: { src: string; alt: string }[];
 }
 
-const { title, tagline, content, background, socialImage } = Astro.props;
+const { title, tagline, content } = Astro.props;
 ---
 
 <div class="py-24 sm:py-32 isolate">

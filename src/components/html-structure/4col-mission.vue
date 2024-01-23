@@ -22,7 +22,7 @@
                 <span itemprop="addressRegion">Alberta</span>
             </div>
             <p class="mt-4">
-              <a href="tel:780-673-1325" itemprop="telephone" class="font-semibold leading-7 text-indigo-600 hover:underline">780-673-1325</a>
+              <a href="tel:780-673-1325" itemprop="telephone" class="whitespace-nowrap font-semibold leading-7 text-indigo-600 hover:underline">780-673-1325</a>
             </p>
           </address>
 
