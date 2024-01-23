@@ -8,9 +8,9 @@ interface Props {
 const { title, tagline, content } = Astro.props;
 ---
 
-<div class="relative bg-gradient-to-br from-white via-purple-50 to-pink-50">
+<div class="py-10 relative bg-gradient-to-br from-white via-purple-50 via-80% to-fuchsia-50 to-90%">
 
-  <div class="mx-auto max-w-7xl px-6 lg:px-8 relative">
+  <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 relative">
     <div class="mx-auto max-w-2xl lg:mx-0 pb-6 mb-6">
       <p class="text-base font-semibold leading-7 text-indigo-600">{tagline}</p>
       <h1 class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">{title}</h1>
