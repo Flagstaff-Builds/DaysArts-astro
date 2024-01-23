@@ -1,5 +1,5 @@
 <template>
-  <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 z-auto" aria-label="Global">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8 z-auto" aria-label="Global">
     <!-- {{company}} Branding -->
     <div class="flex lg:flex-1">
       <a href="/" class="-m-1.5 p-1.5 hover:text-gray-600">
@@ -51,7 +51,7 @@
                       <component :is="dropdownItem.icon" class="h-6 w-6 text-gray-600 group-hover:text-indigo-600" aria-hidden="true" />
                     </div>
                     <div>
-                      <a :href="dropdownItem.href" class="font-semibold text-gray-900">
+                      <a :href="dropdownItem.href" class="cursor-pointer font-semibold text-gray-900">
                         {{ dropdownItem.name }}
                         <span class="absolute inset-0" />
                       </a>
@@ -63,7 +63,7 @@
                 <!-- call to actions if any -->
                 <div v-if="item.cta && item.cta.length" class="grid divide-x divide-gray-900/5 bg-gray-50">
 
-                  <a v-for="ctaItem in item.cta" :key="ctaItem.name" :href="ctaItem.href" class="flex w-full items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-100">
+                  <a v-for="ctaItem in item.cta" :key="ctaItem.name" :href="ctaItem.href" class="cursor-pointer flex w-full items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-100">
                      <component :is="ctaItem.icon" class="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
                     {{ ctaItem.name }}
                   </a>
@@ -72,13 +72,13 @@
             </PopoverPanel>
           </transition>
         </Popover>
-        <a v-else :href="item.href" class="inline-flex w-full items-center justify-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900">{{ item.name }}</a>
+        <a v-else :href="item.href" class="cursor-pointer inline-flex w-full items-center justify-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900">{{ item.name }}</a>
 
         <transition v-if="item.dropdown" enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
           <MenuItems class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div class="py-1">
               <MenuItem v-for="dropdownItem in item.dropdownItems" :key="dropdownItem.name" v-slot="{ active }">
-                <a :href="dropdownItem.href" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">{{ dropdownItem.name }}</a>
+                <a :href="dropdownItem.href" :class="[active ? 'bg-gray-100 cursor-pointer text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">{{ dropdownItem.name }}</a>
               </MenuItem>
             </div>
           </MenuItems>
@@ -93,7 +93,7 @@
 
     <!-- Additional Nav Item -->
     <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-      <a href="/membership" class="text-sm font-semibold leading-6 text-gray-900">Get involved <span aria-hidden="true">&rarr;</span></a>
+      <a href="/membership" class="cursor-pointer text-sm font-semibold leading-6 text-gray-900">Get involved <span aria-hidden="true">&rarr;</span></a>
     </div>
   </nav>
 
@@ -127,14 +127,14 @@
             <p class="text-base font-bold leading-7 text-gray-900">{{ item.name }}</p>
             <!-- Dropdown Items -->
             <div class="space-y-2 mt-3">
-              <a v-for="dropdownItem in item.dropdownItems" :key="dropdownItem.name" :href="dropdownItem.href" class="-mx-3 block rounded-lg px-3 py-2 text-base leading-7 text-gray-900 hover:bg-gray-50">{{ dropdownItem.name }}</a>
+              <a v-for="dropdownItem in item.dropdownItems" :key="dropdownItem.name" :href="dropdownItem.href" class="cursor-pointer -mx-3 block rounded-lg px-3 py-2 text-base leading-7 text-gray-900 hover:bg-gray-50">{{ dropdownItem.name }}</a>
             </div>
           </div>
-          <a v-else :href="item.href" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">{{ item.name }}</a>
+          <a v-else :href="item.href" class="cursor-pointer -mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">{{ item.name }}</a>
         </div>
         <!-- Additional Link -->
         <div class="py-6">
-          <a href="/membership" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Become a member <span aria-hidden="true">&rarr;</span></a>
+          <a href="/membership" class="cursor-pointer -mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Become a member <span aria-hidden="true">&rarr;</span></a>
         </div>
       </div>
     </div>

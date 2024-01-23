@@ -7,7 +7,7 @@
 <script setup>
   // import { computed } from 'vue';
   // import { useRoute } from 'vue-router';
-  import Navigation from '../../../../html-structure/navigation.vue';
+  import Navigation from '@components/html-structure/navigation.vue';
 
   // const route = useRoute();
   // const isHomePage = computed(() => route.path === '/');
