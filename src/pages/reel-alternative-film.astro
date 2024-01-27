@@ -1,10 +1,13 @@
 ---
-import Layout from "../layouts/Layout.astro";
-// import Main from "../components/html-structure/Main.astro";
-// import Content from './reel-alternative-film/content.mdx';
-import HeroSecondary from "../components/hero-secondary.astro";
+import Layout from "@/layouts/Layout.astro";
+import HeroSecondary from "@/components/hero-secondary.astro";
 
 import { FilmIcon, CubeTransparentIcon, UserGroupIcon, HeartIcon, MusicalNoteIcon, BanknotesIcon, } from '@heroicons/vue/24/outline'
+
+import { Image } from "astro:assets";
+import Brootherhood from "@/assets/movies/RA-Brotherhood-movie-2019.jpg";
+import Percy from "@/assets/movies/RA-Percy.jpg";
+import Bones from "@/assets/movies/RA-Bones_of_Crows.jpg";
 ---
 
 <Layout title="Reel Alternative Film">
@@ -16,7 +19,7 @@ import { FilmIcon, CubeTransparentIcon, UserGroupIcon, HeartIcon, MusicalNoteIco
   <HeroSecondary
     tagline="Experience the Unconventional"
     title="Reel alternatitive film"
-    content="Small writeup about what will be on this page">
+    content="Dive into a world of unique and captivating indie films">
   </HeroSecondary>
 
   <!-- <Main>
@@ -73,7 +76,60 @@ import { FilmIcon, CubeTransparentIcon, UserGroupIcon, HeartIcon, MusicalNoteIco
               <span><strong class="font-semibold text-gray-900">Community Focus:</strong> With the recent closure of Edmonton's The Princess on Whyte Avenue, DaysArts remains one of the few venues offering such exclusive content.</span>
             </li>
           </ul>
-          <p class="mt-8">The Reel Alternative initiative, while cherished, has been subsidized by our regular movie screenings. To sustain and grow this beloved program, we are thrilled to announce the formation of the Reel Alternative Club. For an annual fee of $100, members gain access to every Reel Alternative movie for 12 months from the date of purchase. This membership not only offers incredible value but also supports the upfront costs of acquiring these exceptional films.</p>
+          <p class="mt-8">The Reel Alternative initiative, while cherished, has been subsidized by our regular movie screenings. To sustain and grow this beloved program, we are thrilled to announce the formation of the Reel Alternative Club. For an annual fee of $100, members gain access to every Reel Alternative movie for 12 months from the date of purchase. This membership supports the upfront costs of acquiring these exceptional films.</p>
+
+
+
+
+
+
+          <div class="my-4 flex justify-center gap-5 py-4 sm:gap-8">
+            <div class="relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-xl rotate-2">
+              <Image
+                src={Brootherhood}
+                format="avif"
+                quality="mid"
+                width={1024}
+                height={1024 * 1.5}
+                alt="Brotherhood : It’s a hell of a tale – and a true one"
+                class="absolute inset-0 h-full w-full object-cover lg:col-span-2 lg:row-span-2 rounded-lg"
+              />
+              <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white p-2 font-semibold text-sm">
+                Brotherhood
+              </div>
+            </div>
+
+            <div class="relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-xl -rotate-2">
+              <Image
+              src={Percy}
+              format="avif"
+              quality="mid"
+              width={1024}
+              height={1024 * 1.5}
+              alt="Percy 2020 film"
+              class="absolute inset-0 h-full w-full object-cover lg:col-span-2 lg:row-span-2 rounded-lg"
+            />
+            <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white p-2 font-semibold text-sm">
+              Percy
+            </div>
+          </div>
+          <div class="relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-xl rotate-2">
+            <Image
+            src={Bones}
+            format="avif"
+            quality="mid"
+            width={1024}
+            height={1024 * 1.5}
+            alt="Bones of Crows"
+            class="absolute inset-0 h-full w-full object-cover lg:col-span-2 lg:row-span-2 rounded-lg"
+          />
+          <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white p-2 font-semibold text-sm">
+            Bones of Crows
+          </div>
+        </div>
+      </div>
+
+
 
           <h2 class="mt-16 text-2xl font-bold tracking-tight text-gray-900">Membership Benefits and Changes</h2>
 
@@ -92,7 +148,7 @@ import { FilmIcon, CubeTransparentIcon, UserGroupIcon, HeartIcon, MusicalNoteIco
             </li>
           </ul>
 
-          <p class="mt-6">We're deeply grateful for your continued support and enthusiasm. Your involvement has been instrumental in keeping the spirit of cinema alive at the Palace Theatre. As we navigate these changing times, including some adjustments to our concession prices this fall, we remain committed to bringing exceptional movie experiences to our community.</p>
+          <p class="mt-6">We're deeply grateful for your continued support and enthusiasm. Your involvement has been instrumental in keeping the spirit of cinema alive at the Palace Theatre. As we navigate these changing times, including some adjustments to our concession prices we remain committed to bringing exceptional movie experiences to our community.</p>
           <p class="mt-6">To join, you can purchase passes at the theatre, or reach out to us at <a href="tel:+17803742403" class="whitespace-nowrap text-base font-semibold leading-7 text-indigo-600 hover:underline" aria-label="Call us at 780-374-2403">780-374-2403</a> or
             <a href="mailto:info@daysarts.ca" class="whitespace-nowrap text-base font-semibold leading-7 text-indigo-600 hover:underline" aria-label="Email us at info@daysarts.ca">info@daysarts.ca</a>.</p>
         </div>
