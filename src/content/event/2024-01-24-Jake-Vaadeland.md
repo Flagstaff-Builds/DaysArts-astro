@@ -12,6 +12,7 @@ instagram: https://www.instagram.com/jake_vaadeland/
 youtube: https://www.youtube.com/@jakevaadeland1712
 concertSponsor: ["D2 Electric"]
 receptionSponsor: ["HOM of Well Being"]
+past: true
 ---
 
 Jake Vaadeland is a self-taught multi-instrumentalist and songwriter from Saskatchewan, Canada. His traditional sound and unique style could be defined as a blend of Bluegrass and 50’s Rockabilly, with Jake also specializing in guitar and banjo in addition to his impressive vocals.

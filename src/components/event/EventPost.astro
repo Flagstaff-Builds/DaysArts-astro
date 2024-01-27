@@ -22,8 +22,9 @@ const formattedDate = eventDate.toLocaleDateString('en-US', {
 
 ---
 
+{!event.data.past && (
 <li>
-  <a href={`/event/${event.slug}`} class="block text-zinc-900 hover:scale-105 hover:rotate-1 transition-transform">
+  <a href={`/event/${event.slug}`} class="block text-zinc-900">
     {event.data.poster && (
       <Image
         src={event.data.poster}
@@ -37,22 +38,23 @@ const formattedDate = eventDate.toLocaleDateString('en-US', {
     )}
     <h3 class="mt-6 text-xl font-semibold leading-8 text-gray-900">{event.data.title}</h3>
     <p class="flex items-center text-base leading-7 text-gray-700">
-      <CalendarDaysIcon class="mr-1 h-5 w-5 text-indigo-600" aria-hidden="true" /> {formattedDate}
+      <CalendarDaysIcon class="mr-1 h-4 w-4 text-indigo-600" aria-hidden="true" /> {formattedDate}
     </p>
     <p class="flex items-center text-base leading-7 text-gray-700">
-      <ClockIcon class="mr-1 h-5 w-5 text-indigo-600" aria-hidden="true" /> {event.data.time}
+      <ClockIcon class="mr-1 h-4 w-4 text-indigo-600" aria-hidden="true" /> {event.data.time}
     </p>
     <!-- <p class="mt-4 text-base leading-7 text-gray-600">{event.data.description}.</p> -->
 
     <!-- Sponsors -->
     <div class="mt-4">
-      <h2 class="text-xs font-bold text-gray-500 uppercase">Sponsored by:</h2>
-      <ul>
+      <h2 class="text-xs font-bold text-gray-500 uppercase">Sponsors:</h2>
+      <ul class="">
         <li>
           {event.data.concertSponsor?.map((sponsor) => (
             <span class="text-sm font-medium text-gray-400">{sponsor}</span>
           ))}
         </li>
+        <!-- <div aria-hidden="true" class="mx-4 text-sm text-gray-400">·</div> -->
         <li>
           {event.data.receptionSponsor?.map((sponsor) => (
             <span class="text-sm font-medium text-gray-400">{sponsor}</span>
@@ -62,7 +64,7 @@ const formattedDate = eventDate.toLocaleDateString('en-US', {
     </div>
   </a>
 </li>
-
+)}
 <!--
 
   <h2 class="text-2xl font-bold">
