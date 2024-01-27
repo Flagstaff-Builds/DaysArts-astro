@@ -1,11 +1,14 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import HeroSecondary from "../components/hero-secondary.astro";
+import Layout from "@/layouts/Layout.astro";
+import HeroSecondary from "@/components/hero-secondary.astro";
 import { TrophyIcon, VideoCameraIcon, SparklesIcon } from '@heroicons/vue/24/outline';
 import { Image } from "astro:assets";
-import equipmentImg from "../assets/equipment-list.jpg";
-import stageImg from "../assets/stage-dimensions.jpg";
-import theatreIntImg from "../assets/palace-theatre-daysland-alberta.jpg";
+import equipmentImg from "@/assets/equipment-list.jpg";
+import stageImg from "@/assets/stage-dimensions.jpg";
+import theatreIntImg from "@/assets/palace-theatre-daysland-alberta.jpg";
+import Wedding1 from '@assets/wedding-01.jpg';
+import Wedding2 from '@assets/wedding-02.jpg';
+import Wedding3 from '@assets/wedding-03.jpg';
 ---
 
 <Layout title="Rent the Daysland Palace theatre">
@@ -53,6 +56,15 @@ import theatreIntImg from "../assets/palace-theatre-daysland-alberta.jpg";
             </figcaption>
           </figure>
         </div>
+
+
+
+
+
+
+
+
+
         <div class="max-w-xl text-base leading-7 text-gray-700 lg:col-span-7">
           <p>Our historic theatre, with its dazzling marquee lights and classic Hollywood charm, offers a unique and glamorous setting for a variety of occasions. From dream weddings to dynamic community events, The Palace Theatre is more than just a location; it's a gateway to creating lasting memories.</p>
           <ul role="list" class="mt-8 max-w-xl space-y-8 text-gray-600">
@@ -83,9 +95,60 @@ import theatreIntImg from "../assets/palace-theatre-daysland-alberta.jpg";
           </p>
           <h2 class="mt-16 text-2xl font-bold tracking-tight text-gray-900">A Wedding Venue Like No Other</h2>
 
-          <p class="mt-6">Imagine your wedding day set against the backdrop of our illustrious theatre, where every detail from the red carpet aisle to the star-studded decor is tailored to your vision. Exchange vows under the spotlight, creating a scene straight out of a romantic film, with your guests comfortably seated in plush theatre seats. Opt for a 1940s Old Hollywood theme or personalize your day to reflect your favorite cinematic moments. With a <span class="font-bold tracking-tight text-gray-900">venue fee of just $250.00</span>, transform the Palace Theatre into your stage, making your wedding a splendid showcase of your love story.</p>
+          <p class="mt-6">Imagine your wedding day set against the backdrop of our illustrious theatre, where every detail from the red carpet aisle to the star-studded decor is tailored to your vision. Exchange vows under the spotlight, creating a scene straight out of a romantic film, with your guests comfortably seated in plush theatre seats. Opt for a 1940s Old Hollywood theme or personalize your day to reflect your favorite cinematic moments. With a <span class="font-bold tracking-tight text-gray-900">low venue fee</span>, transform the Palace Theatre into your stage, making your wedding a splendid showcase of your love story.</p>
           <p class="mt-6">Ready to transform The Daysland Palace Theatre into your personal event space? For more information and to start planning your unforgettable event, contact Sharon at <a href="tel:+17803742403" class="whitespace-nowrap text-base font-semibold leading-7 text-indigo-600 hover:underline" aria-label="Call us at 780-374-2403">780-374-2403</a> or
           <a href="mailto:info@daysarts.ca" class="whitespace-nowrap text-base font-semibold leading-7 text-indigo-600 hover:underline" aria-label="Email us at info@daysarts.ca">info@daysarts.ca</a>.</p>
+
+
+
+
+
+
+
+
+          <div class="my-4 flex justify-center gap-5 py-4 sm:gap-8">
+            <div class="relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-xl rotate-2">
+              <Image
+                src={Wedding1}
+                format="avif"
+                quality="mid"
+                width={1024}
+                height={1024 * 1.5}
+                alt=""
+                class="absolute inset-0 h-full w-full object-cover lg:col-span-2 lg:row-span-2 rounded-lg"
+              />
+            </div>
+
+            <div class="relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-xl -rotate-2">
+              <Image
+                src={Wedding2}
+                format="avif"
+                quality="mid"
+                width={1024}
+                height={1024 * 1.5}
+                alt=""
+                class="absolute inset-0 h-full w-full object-cover lg:col-span-2 lg:row-span-2 rounded-lg"
+              />
+            </div>
+            <div class="relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-xl rotate-2">
+              <Image
+              src={Wedding3}
+              format="avif"
+              quality="mid"
+              width={1024}
+              height={1024 * 1.5}
+              alt=""
+              class="absolute inset-0 h-full w-full object-cover lg:col-span-2 lg:row-span-2 rounded-lg"
+            />
+          </div>
+        </div>
+
+
+
+
+
+
+
           <p class="mt-10">
             <Image
               src={equipmentImg}
