@@ -13,7 +13,7 @@ const { movie } = Astro.props;
 
 
 <!-- this is the repeatable component within an <li> -->
-<article class="items-start md:flex rounded-xl shadow-xl bg-white overflow-hidden">
+<article class={`relative items-start md:flex rounded-xl shadow-xl bg-white overflow-hidden ${movie.data.reelAlternative ? 'border-2 border-indigo-100 bg-indigo-50' : ''}`}>
 
   <div class="aspect-[2/3] md:w-1/3">
     {movie.data.poster && (
@@ -71,7 +71,7 @@ const { movie } = Astro.props;
     <div class="w-full h-px bg-gray-200 my-6" style="opacity: 1; transform-origin: 50% 50% 0px;"></div>
 
     <dl class="mt-2 flex flex-wrap text-sm leading-6 font-medium ">
-      <div class="flex flex-nowrap">
+      <div class="flex flex-nowrap w-full">
         <div>
           <dt class="sr-only">Rating</dt>
           <dd class="px-1.5 ring-1 ring-slate-200 rounded dark:ring-slate-600">
@@ -127,4 +127,10 @@ const { movie } = Astro.props;
 
     </dl>
   </div>
+
+  {movie.data.reelAlternative && (
+    <div class="absolute bottom-4 right-2">
+      <a href="/reel-alternative-film" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Reel Alternative Film</a>
+    </div>
+  )}
 </article>

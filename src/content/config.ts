@@ -1,9 +1,10 @@
+import { boolean } from "astro/zod";
 import { defineCollection, z } from "astro:content";
 
 const movieCollection = defineCollection({
   type: 'content',
   schema: ({ image }) => z.object({
-    sortOrder: z.number(),
+    sortOrder: z.number().optional(),
     title: z.string(),
     description: z.string().optional(),
     rating: z.string().optional(),
@@ -14,6 +15,7 @@ const movieCollection = defineCollection({
     poster: image().optional(),
     trailer: z.string().url().optional(),
     socialImage: image().optional(),
+    reelAlternative: z.boolean().optional(),
   }),
 });
 
