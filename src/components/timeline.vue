@@ -28,7 +28,7 @@ const timeline = [
   },
   {
     name: 'DaysArts Founded',
-    description: 'In 1999, Daysland and District Cultural Arts Society (DaysArts) was founded, leading to the purchase of the Palace Theatre.',
+    description: 'In 1999, Daysland and District Cultural Arts Society (DaysArts) was founded, leading to the purchase by the town of Daysland of the Palace Theatre.',
     date: '1999',
     dateTime: '1999',
   },
@@ -46,7 +46,7 @@ const timeline = [
   },
   {
     name: 'Renovation and New Seats',
-    description: 'In 2014/15, DaysArts raised another $120,000 for floor replacement and new seats.',
+    description: 'DaysArts raised another $120,000 for floor replacement and new seats.',
     date: '2014 - 2015',
     dateTime: '2014-01/2015-12',
   },

@@ -109,7 +109,7 @@
 import { defineComponent, h, ref } from 'vue'
 
 const stats = [
-  { label: 'bags of popcorn', value: '🍿 400lbs' },
+  { label: 'popcorn', value: '🍿 400lbs' },
   { label: 'chocolate bars enjoyed', value: '🍫 440' },
   { label: 'bottles of water drank', value: '💧 1,200' },
 ]
@@ -125,9 +125,9 @@ const values = [
       'The Arts Touring Alliance of Alberta is dedicated to enhancing and ensuring the viability of the performing arts touring network in Alberta. It facilitates touring opportunities for a diverse range of artistic disciplines and supports the professional development of those in the arts sector. ATAA serves as a vital connector between artists, presenters, and communities.',
   },
   {
-    name: 'Canada Council for the Arts',
+    name: 'Motion Picture Theater Association of Alberta',
     description:
-      'The Canada Council for the Arts is a national organization committed to the promotion and support of the arts in Canada. It offers a range of grants and services to professional Canadian artists and arts organizations, fostering a vibrant cultural scene. The Council plays a crucial role in recognizing artistic excellence and innovation across the country.',
+      'The Motion Picture Theatre Association of Alberta (MPTAA) is a trade organization representing the interests of exhibitors behind more than 300 movie screens in Alberta.',
   }
 ]
 const team = [
