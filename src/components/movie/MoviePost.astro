@@ -13,7 +13,7 @@ const { movie } = Astro.props;
 
 
 <!-- this is the repeatable component within an <li> -->
-<article class={`relative items-start md:flex rounded-xl shadow-xl bg-white overflow-hidden ${movie.data.reelAlternative ? 'border-2 border-indigo-100 bg-indigo-50' : ''}`}>
+<article class={`relative items-start md:flex rounded-xl shadow-xl overflow-hidden ${movie.data.reelAlternative ? 'border-2 border-indigo-100 bg-indigo-50' : 'bg-white'}`}>
 
   <div class="aspect-[2/3] md:w-1/3">
     {movie.data.poster && (
@@ -36,7 +36,7 @@ const { movie } = Astro.props;
       <!-- <a href={`/movie/${movie.slug}`} class="text-inherit underline hover:underline-offset-4"></a> -->
 
       {movie.data.genre && (
-        <a href={movie.data.trailer} class="absolute top-0 right-0 z-10 h-7 w-7 text-slate-400 hover:scale-125" target="_blank">
+        <a href={movie.data.trailer} class="absolute top-0 right-0 z-1 h-7 w-7 text-slate-400 hover:scale-125" target="_blank">
           <span class="sr-only">Play trailer</span>
           <PlayCircleIcon aria-hidden="true" />
         </a>
@@ -55,7 +55,7 @@ const { movie } = Astro.props;
       <dt class="uppercase font-semibold text-xs text-slate-400">Cast</dt>
       <dd class="flex items-center mt-2 text-sm">
         {movie.data.cast && movie.data.cast.length > 0 && (
-          <ul class="flex flex-wrap gap-x-1 text-slate-500">
+          <ul class="flex flex-wrap sm:flex-nowrap gap-x-1  text-slate-500">
             {movie.data.cast.map((cast, index, array) => (
               <li>
                 {cast}{index < array.length - 1 ? ', ' : ''}
@@ -71,7 +71,7 @@ const { movie } = Astro.props;
     <div class="w-full h-px bg-gray-200 my-6" style="opacity: 1; transform-origin: 50% 50% 0px;"></div>
 
     <dl class="mt-2 flex flex-wrap text-sm leading-6 font-medium ">
-      <div class="flex flex-nowrap w-full">
+      <div class="flex flex-wrap sm:flex-nowrap w-full">
         <div>
           <dt class="sr-only">Rating</dt>
           <dd class="px-1.5 ring-1 ring-slate-200 rounded dark:ring-slate-600">
@@ -93,7 +93,7 @@ const { movie } = Astro.props;
             <div aria-hidden="true" class="mx-4 text-sm text-gray-400">·</div>
 
             {movie.data.genre && movie.data.genre.length > 0 && (
-              <ul class="flex gap-x-1">
+              <ul class="flex flex-wrap sm:flex-nowrap gap-x-1 ">
                 {movie.data.genre.map((genre, index, array) => (
                   <li>
                     {genre}{index < array.length - 1 ? ', ' : ''}
@@ -108,10 +108,10 @@ const { movie } = Astro.props;
 
       <div class="mt-6">
         <dt class="uppercase font-semibold text-xs text-slate-400">Showtimes</dt>
-        <dd class="flex items-center mt-2 text-sm">
+        <dd class="flex flex-wrap sm:flex-nowrap items-center mt-2 text-sm">
 
           {movie.data.showtimes && movie.data.showtimes.length > 0 && (
-            <ul class="flex gap-x-6 justify-between text-slate-500">
+            <ul class="flex flex-wrap sm:flex-nowrap gap-x-6 justify-between text-slate-500">
               {movie.data.showtimes.map((showtimes) => (
                 <li class="flex justify-between">
                   <CalendarDaysIcon class="h-5 w-5 flex-none text-slate-400 pr-1" aria-hidden="true" />

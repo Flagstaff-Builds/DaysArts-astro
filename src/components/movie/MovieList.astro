@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import MoviePost from './MoviePost.astro';
+import { TicketIcon } from '@heroicons/vue/24/outline';
 
 type Props = {
   movieEntries: CollectionEntry<'movie'>[];
@@ -11,18 +12,19 @@ const { movieEntries } = Astro.props;
 ---
 
 <!-- This is the event listings page -->
-<div class="mx-auto grid grid-cols-1 gap-x-8 gap-y-20 xl:grid-cols-3">
-  <div class="">
-    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Showtimes</h2>
+<div class="mx-auto grid grid-cols-1 gap-x-8 gap-y-2 xl:gap-y-20 xl:grid-cols-3">
+  <div class="mx-auto flex flex-col lg:mx-0 lg:max-w-none w-full col-span-2 lg:col-span-1">
+    <h2 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-4xl">Showtimes</h2>
     <p class="mt-6 text-lg leading-2 text-slate-600">Evening shows: 7:30pm
-    <br>Matinee: 2:00pm</p>
+    <p>Matinee: 2:00pm</p>
 
-    <p class="text-slate-600">We no longer have evening shows on Sundays</p>
-      <div class="shadow-sm overflow-hidden my-8 rounded-lg">
+    <p class="mt-6 text-slate-400">We no longer have evening shows on Sundays</p>
+      <div class="shadow-sm overflow-hidden my-8 rounded-lg max-w-4xl">
         <table class="border-collapse w-full text-sm table-auto">
-          <thead class="bg-slate-50 ">
+          <thead class="bg-slate-50">
             <tr>
-              <th colspan="2" class="border-b font-semibold p-4 text-slate-400  text-left">Ticket Pricing</th>
+              <th class="border-b font-semibold p-4 text-slate-400 text-left">Ticket Pricing</th>
+              <th class="border-b font-semibold p-4 text-slate-400 "><TicketIcon class="not-sr-only h-5 w-5"/></th>
             </tr>
           </thead>
           <tbody class="bg-white dark:bg-slate-800">

@@ -3,18 +3,21 @@ import HeroWithImageTiles from "../tailwindUI/Marketing/Page-Sections/Hero-Secti
 import { DevicePhoneMobileIcon, AtSymbolIcon } from "@heroicons/vue/20/solid";
 ---
 <div class="sticky top-0 z-10 bg-white shadow-[0_1px_3px_rgba(15,23,42,0.08)]">
-  <div class="hidden lg:block w-full sticky top-0 z-10">
-    <div class="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8">
+  <div class="block w-full sticky top-0 z-10">
+    <div class="mx-auto flex flex-wrap max-w-7xl items-center justify-between px-6 lg:px-8 z-auto py-2">
 
       <div class="flex">
-        <p class="text-sm font-semibold leading-7 text-slate-400">
+        <p class="text-sm font-semibold leading-7 text-slate-600 md:text-slate-400">
           Daysland Palace Theatre
         </p>
       </div>
 
-      <div class="flex gap-x-2 text-sm leading-7 text-slate-400">
+    <!-- horizontal line
+    <div class="w-full h-px bg-gray-200 my-2 sm:my-6 block sm:hidden" style="opacity: 1; transform-origin: 50% 50% 0px;"></div> -->
+
+      <div class="flex flex-wrap gap-x-2 text-sm leading-7 text-slate-400 py-2 sm:py-0">
         <p class="flex font-semibold">
-          showtimes
+          showtimes <span class="inline md:hidden">:</span>
         </p>
         <div class="flex">
           <DevicePhoneMobileIcon class="mt-1 h-5 w-5 flex-none text-slate-400" aria-hidden="true" />
@@ -29,8 +32,10 @@ import { DevicePhoneMobileIcon, AtSymbolIcon } from "@heroicons/vue/20/solid";
     </div>
   </div>
 
+  <!-- horizontal line -->
+  <div class="w-full h-px bg-gray-200 my-2 sm:my-6 block sm:hidden" style="opacity: 1; transform-origin: 50% 50% 0px;"></div>
 
-  <div class="sm:py-8 md:py-2">
+  <div class="py-4">
     <HeroWithImageTiles client:load></HeroWithImageTile>
   </div>
 </div>
