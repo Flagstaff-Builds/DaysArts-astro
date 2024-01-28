@@ -109,7 +109,7 @@
 import { defineComponent, h, ref } from 'vue'
 
 const stats = [
-  { label: 'popcorn', value: '🍿 400lbs' },
+  { label: 'of popcorn', value: '🍿 400lbs' },
   { label: 'chocolate bars enjoyed', value: '🍫 440' },
   { label: 'bottles of water drank', value: '💧 1,200' },
 ]

@@ -98,7 +98,7 @@ const navigation = {
   about: [
     { name: 'About us', href: '/about' },
     { name: 'Kamotion dance', href: '/kamotion-dance' },
-    { name: 'Get involved', href: '/membership' },
+    { name: 'Get involved', href: '/volunteer' },
   ],
   // rental: [
   //   { name: 'Claim', href: '#' },

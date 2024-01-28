@@ -1,24 +1,25 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import HeroSecondary from "../components/hero-secondary.astro";
+import Layout from "@/layouts/Layout.astro";
+import HeroSecondary from "@/components/hero-secondary.astro";
 import { HeartIcon, GiftTopIcon } from '@heroicons/vue/24/outline';
 import { Image } from "astro:assets";
-import buckleyImg from "../assets/Buckley-trio.jpg";
-import steveImg from "../assets/steve-pineo-elvis-show.jpg";
-import speedContolImg from "../assets/speed-control.jpg";
+import Concession from "@/assets/concession.jpg";
+import Helpers from "@/assets/helpers.jpg";
+import TheatreOld from "@/assets/theatre-exterior-old.jpg";
 ---
 
-<Layout title="DaysArts membership benefits">
+<Layout title="DaysArts volunteer benefits">
   <!-- HeroSecondary text structure
     title case
     sentence case
     sentence case
   -->
   <HeroSecondary
-    tagline="Volunteer; It Feels Great"
-    title="Become a member of the DaysArts Family"
-    content="Small writeup about what will be on this page">
-  </HeroSecondary>
+  tagline="Empower Your Community, Enrich Your Life"
+  title="Join the DaysArts family as a valued volunteer"
+  content="Be part of a vibrant community that celebrates the arts & culture.">
+</HeroSecondary>
+
 
 
     <!-- background -->
@@ -69,30 +70,30 @@ import speedContolImg from "../assets/speed-control.jpg";
             <div class="my-4 flex justify-center gap-5 py-4 sm:gap-8">
               <div class="relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-xl rotate-2">
                   <Image
-                  src={buckleyImg}
+                  src={Concession}
                   format="avif"
                   quality="mid"
                   width={1024}
                   height={1024 * 1.5}
-                  alt="Buckley Trio concert"
+                  alt="our concession area"
                   class="absolute inset-0 h-full w-full object-cover lg:col-span-2 lg:row-span-2 rounded-lg"
                 />
               </div>
 
               <div class="relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-xl -rotate-2">
                 <Image
-                src={steveImg}
+                src={Helpers}
                 format="avif"
                 quality="mid"
                 width={1024}
                 height={1024 * 1.5}
-                alt="Steve Pineo concert"
+                alt="helping out"
                 class="absolute inset-0 h-full w-full object-cover lg:col-span-2 lg:row-span-2 rounded-lg"
               />
             </div>
             <div class="relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-xl rotate-2">
               <Image
-              src={speedContolImg}
+              src={TheatreOld}
               format="avif"
               quality="mid"
               width={1024}
@@ -105,7 +106,7 @@ import speedContolImg from "../assets/speed-control.jpg";
 
             <h2 class="mt-16 text-2xl font-bold tracking-tight text-gray-900">Immerse Yourself in the World of Performing Arts</h2>
 
-            <p class="mt-6">Join us and unlock a world of exclusive benefits. Members receive priority booking, discounts on tickets and workshops, and invitations to special gatherings. Embrace the opportunity to deepen your connection with the arts and be part of our mission to keep the magic of theatre alive.</p>
+            <p class="mt-6">Join us and unlock a world of exclusive benefits. Volunteers receive priority booking on tickets and workshops, and invitations to special gatherings. Embrace the opportunity to deepen your connection with the arts and be part of our mission to keep the magic of theatre alive.</p>
             <p>For more information, contact Sharon at <a href="tel:+17803742403" class="whitespace-nowrap text-base font-semibold leading-7 text-indigo-600" aria-label="Call us at 780-374-2403">780-374-2403</a> or
             <a href="mailto:info@daysarts.ca" class="whitespace-nowrap text-base font-semibold leading-7 text-indigo-600" aria-label="Email us at info@daysarts.ca">info@daysarts.ca</a>.</p>
 
