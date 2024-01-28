@@ -31,7 +31,7 @@ const { movie } = Astro.props;
 
   <div class="p-6 md:w-2/3">
     <!-- <h2 class="mt-6 text-lg leading-8 sm:max-w-md font-bold lg:max-w-none">Current Showcase</h2> -->
-    <h2 class="flex-auto text-2xl font-semibold text-slate-900 relative">
+    <h2 class="flex-auto text-2xl font-semibold text-slate-900 relative target-element" id={movie.data.title.replace(/\s+/g, '-')}>
       {movie.data.title}
       <!-- <a href={`/movie/${movie.slug}`} class="text-inherit underline hover:underline-offset-4"></a> -->
 
@@ -55,7 +55,7 @@ const { movie } = Astro.props;
       <dt class="uppercase font-semibold text-xs text-slate-400">Cast</dt>
       <dd class="flex items-center mt-2 text-sm">
         {movie.data.cast && movie.data.cast.length > 0 && (
-          <ul class="flex flex-wrap sm:flex-nowrap gap-x-1  text-slate-500">
+          <ul class="flex flex-wrap gap-x-1 text-slate-500">
             {movie.data.cast.map((cast, index, array) => (
               <li>
                 {cast}{index < array.length - 1 ? ', ' : ''}
@@ -134,3 +134,11 @@ const { movie } = Astro.props;
     </div>
   )}
 </article>
+
+
+<style is:global>
+.target-element {
+  scroll-margin-top: 80px;
+}
+
+</style>
