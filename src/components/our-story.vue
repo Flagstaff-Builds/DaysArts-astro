@@ -127,7 +127,7 @@ const values = [
   {
     name: 'Motion Picture Theater Association of Alberta',
     description:
-      'The Motion Picture Theatre Association of Alberta (MPTAA) is a trade organization representing the interests of exhibitors behind more than 300 movie screens in Alberta.',
+      'The Motion Picture Theater Association of Alberta (MPTAA) is a trade organization representing the interests of exhibitors behind more than 300 movie screens in Alberta.',
   }
 ]
 const team = [
