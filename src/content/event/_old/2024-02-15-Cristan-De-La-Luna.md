@@ -12,6 +12,7 @@ twitter: https://twitter.com/Delalunamusique
 youtube: https://www.youtube.com/channel/UC8LWxa3NUYLT3CNunCirGYA
 concertSponsor: ["Andreassen Borth"]
 receptionSponsor: ["Pie Raffle"]
+past: true
 ---
 
 

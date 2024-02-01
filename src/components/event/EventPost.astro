@@ -47,15 +47,19 @@ const formattedDate = eventDate.toLocaleDateString('en-US', {
 
     <!-- Sponsors -->
     <div class="mt-4">
-      <h2 class="text-xs font-bold text-gray-500 uppercase">Sponsors:</h2>
+      <h2 class="text-sm font-bold text-gray-500 uppercase">Sponsors:</h2>
       <ul class="">
         <li>
+          <span class="text-xs font-medium uppercase text-slate-500">Concert</span>
+          <span aria-hidden="true" class="mx-4 text-sm text-gray-400">·</span>
           {event.data.concertSponsor?.map((sponsor) => (
             <span class="text-sm font-medium text-gray-400">{sponsor}</span>
           ))}
         </li>
         <!-- <div aria-hidden="true" class="mx-4 text-sm text-gray-400">·</div> -->
         <li>
+          <span class="text-xs font-medium uppercase text-slate-500">Reception</span>
+          <span aria-hidden="true" class="mx-4 text-sm text-gray-400">·</span>
           {event.data.receptionSponsor?.map((sponsor) => (
             <span class="text-sm font-medium text-gray-400">{sponsor}</span>
           ))}
