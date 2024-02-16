@@ -6,6 +6,7 @@ import MovieList from "@components/movie/MovieList.astro";
 import HeroSecondary from "@components/hero-secondary.astro";
 // import TheatreClosed from "@/components/theatre-closed.astro";
 
+import { VideoCameraIcon } from '@heroicons/vue/24/outline';
 const movieEntries = await getCollection("movie");
 ---
 
@@ -19,6 +20,7 @@ const movieEntries = await getCollection("movie");
     tagline="Experience Adventure"
     title="Now playing"
     content="Dive into our latest cinematic adventure">
+    <VideoCameraIcon slot="icon" class="h-10" />
   </HeroSecondary>
 
   <Main>

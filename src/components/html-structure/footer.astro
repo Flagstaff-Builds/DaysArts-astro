@@ -3,7 +3,7 @@ import navigation from '@/data/nav.json';
 // icons don't import properly from the .json file so it's easier to do them when needed, as icons aren't always wanted in all navigation elements.
 ---
 
-<footer aria-labelledby="footer-heading">
+<footer aria-labelledby="footer-heading" class="bg-charade-800 text-white">
   <h2 id="footer-heading" class="sr-only">Footer</h2>
   <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 lg:px-8">
     <div class="xl:grid xl:grid-cols-3 xl:gap-8 border-t border-gray-900/10 pt-8">
@@ -11,13 +11,13 @@ import navigation from '@/data/nav.json';
 
         <!-- Branding -->
         <div class="flex lg:flex-1">
-          <a href="/" class="-m-1.5 p-1.5 hover:text-gray-600">
-            <p class=" w-auto font-black text-lg">DaysArts</p>
+          <a href="/" class="-m-1.5 p-1.5">
+            <p class="w-auto font-black text-lg">DaysArts</p>
           </a>
         </div>
 
-        <h2 class="text-regular text-gray-800 mb-4">Daysland and District Cultural Arts Society</h2>
-        <address itemscope itemtype="http://schema.org/Organization" class="text-sm leading-6 text-gray-600">
+        <h2 class="text-regular mb-4">Daysland and District Cultural Arts Society</h2>
+        <address itemscope itemtype="http://schema.org/Organization" class="text-sm leading-6">
           <span itemprop="name">Palace Theatre</span>
           <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
             <span itemprop="streetAddress">5012-50 Street</span><br>
@@ -47,24 +47,24 @@ import navigation from '@/data/nav.json';
           <div class="flex-1 md:gap-8 mt-10 md:mt-0">
             {item.dropdown ? (
               <div>
-                <h3 class="text-sm font-semibold leading-6 text-gray-900">{item.name}</h3>
+                <h3 class="text-sm font-semibold leading-6 text-white">{item.name}</h3>
                 <ul role="list" class="mt-6 space-y-4">
                   {item.dropdownItems.map((dropdownItem) => (
                     <li>
-                      <a href={dropdownItem.href} class="text-sm leading-6 text-gray-600 hover:text-gray-900 underline hover:underline-offset-4">{dropdownItem.name}</a>
+                      <a href={dropdownItem.href} class="text-sm leading-6 text-white hover:text-gray-200 underline hover:underline-offset-4">{dropdownItem.name}</a>
                     </li>
                   ))}
 
                   {/* Check for and render CTA items */}
                   {item.cta && item.cta.map((ctaItem) => (
                     <li>
-                      <a href={ctaItem.href} class="text-sm leading-6 text-gray-600 hover:text-gray-900 underline hover:underline-offset-4">{ctaItem.name}</a>
+                      <a href={ctaItem.href} class="text-sm leading-6 text-white hover:text-gray-200 underline hover:underline-offset-4">{ctaItem.name}</a>
                     </li>
                   ))}
                 </ul>
               </div>
             ) : (
-              <a href={item.href} class="text-sm leading-6 text-gray-600 hover:text-gray-900 underline hover:underline-offset-4">
+              <a href={item.href} class="text-sm leading-6 text-white hover:text-gray-200 underline hover:underline-offset-4">
                 <h3>{item.name}</h3>
               </a>
             )}
@@ -75,7 +75,7 @@ import navigation from '@/data/nav.json';
     </div>
 
     <div class="mt-16 border-t border-gray-900/10 pt-8 sm:mt-20 lg:mt-24">
-      <p class="text-xs leading-5 text-gray-500">&copy; Daysland and District Cultural Arts Society. All rights reserved.</p>
+      <p class="text-xs leading-5 text-gray-300">&copy; Daysland and District Cultural Arts Society. All rights reserved.</p>
     </div>
   </div>
 </footer>

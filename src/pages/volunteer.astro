@@ -1,7 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import HeroSecondary from "@/components/hero-secondary.astro";
-import { HeartIcon, GiftTopIcon } from '@heroicons/vue/24/outline';
+import { HeartIcon, GiftTopIcon, TicketIcon } from '@heroicons/vue/24/outline';
 import { Image } from "astro:assets";
 import Concession from "@/assets/concession.jpg";
 import Helpers from "@/assets/helpers.jpg";
@@ -16,8 +16,9 @@ import TheatreOld from "@/assets/theatre-exterior-old.jpg";
   -->
   <HeroSecondary
   tagline="Empower Your Community, Enrich Your Life"
-  title="Join the DaysArts family as a valued volunteer"
+  title="Become family as a valued volunteer"
   content="Be part of a vibrant community that celebrates the arts & culture.">
+  <TicketIcon slot="icon" class="h-10" />
 </HeroSecondary>
 
 

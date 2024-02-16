@@ -4,6 +4,7 @@ import Layout from "@/layouts/Layout.astro";
 import Main from "@/components/html-structure/Main.astro";
 import EventList from "@/components/event/EventList.astro";
 import HeroSecondary from "@/components/hero-secondary.astro";
+import { CalendarDaysIcon } from "@heroicons/vue/24/outline";
 
 const eventEntries = await getCollection("event");
 ---
@@ -19,6 +20,7 @@ const eventEntries = await getCollection("event");
     title="Upcoming shows & events"
     content="All six concerts $180 or $35 per event"
   >
+  <CalendarDaysIcon slot="icon" class="h-10" />
   </HeroSecondary>
 
 

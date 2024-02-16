@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Main from "../components/html-structure/Main.astro";
 import HeroSecondary from "../components/hero-secondary.astro";
+import { FireIcon } from "@heroicons/vue/24/outline";
 const people = [
   {
     name: 'Leslie Alexander',
@@ -26,6 +27,7 @@ const people = [
     tagline="Relive the Magic"
     title="Past shows"
     content="Explore the highlights of shows">
+    <FireIcon slot="icon" class="h-10" />
   </HeroSecondary>
 
   <Main>

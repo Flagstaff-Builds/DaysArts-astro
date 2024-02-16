@@ -1,7 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import HeroSecondary from "@/components/hero-secondary.astro";
-import { TrophyIcon, VideoCameraIcon, SparklesIcon } from '@heroicons/vue/24/outline';
+import { TrophyIcon, VideoCameraIcon, SparklesIcon, AtSymbolIcon } from '@heroicons/vue/24/outline';
 import { Image } from "astro:assets";
 import equipmentImg from "@/assets/equipment-list.jpg";
 import stageImg from "@/assets/stage-dimensions.jpg";
@@ -19,8 +19,9 @@ import Wedding3 from '@assets/wedding-03.jpg';
   -->
   <HeroSecondary
     tagline="Rent Your Stage at Daysland Palace Theatre"
-    title="Host your dream event at Daysland Palace Theatre"
+    title="Your dream event at a Nostalgic Theatre"
     content="Creating unforgettable memories at a historic venue">
+    <AtSymbolIcon slot="icon" class="h-10" />
   </HeroSecondary>
 
 
