@@ -34,7 +34,7 @@ const movies = await getCollection("movie");
                   <Image
                     src={movie.data.poster}
                     alt={movie.data.title}
-                    class="aspect-[3/2] w-full rounded-xl object-cover z-0"
+                    class="aspect-[2/3] w-full rounded-xl object-cover z-0 bg-purple-100"
                   />
 
                 )}
@@ -94,7 +94,7 @@ const movies = await getCollection("movie");
                             width="850"
                             height="504"
                             alt="Event Poster"
-                            class="object-cover h-full w-full max-h-52 md:max-h-none"
+                            class="object-cover h-full w-full max-h-52 md:max-h-none bg-purple-100"
                           />
                         </div>
                       )}
