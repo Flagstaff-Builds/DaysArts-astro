@@ -1,7 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import HeroSecondary from "@/components/hero-secondary.astro";
-import { TrophyIcon, VideoCameraIcon, SparklesIcon, AtSymbolIcon } from '@heroicons/vue/24/outline';
+import { TrophyIcon, VideoCameraIcon, SparklesIcon, AtSymbolIcon, CakeIcon } from '@heroicons/vue/24/outline';
 import { Image } from "astro:assets";
 import equipmentImg from "@/assets/equipment-list.jpg";
 import stageImg from "@/assets/stage-dimensions.jpg";
@@ -69,6 +69,11 @@ import Wedding3 from '@assets/wedding-03.jpg';
         <div class="max-w-xl text-base leading-7 text-gray-700 lg:col-span-7">
           <p>Our historic theatre, with its dazzling marquee lights and classic Hollywood charm, offers a unique and glamorous setting for a variety of occasions. From dream weddings to dynamic community events, The Palace Theatre is more than just a location; it's a gateway to creating lasting memories.</p>
           <ul role="list" class="mt-8 max-w-xl space-y-8 text-gray-600">
+
+            <li class="flex gap-x-3">
+              <CakeIcon class="mt-1 h-5 w-5 flex-none text-indigo-600" aria-hidden="true" />
+              <span><strong class="font-semibold text-gray-900">Movie Magic Birthday Parties:</strong> Choose your favorite movie and let us host a private screening for you and your guests. Immerse yourselves in cinematic wonder, with popcorn and refreshments to complete the experience.</span>
+            </li>
             <li class="flex gap-x-3">
               <TrophyIcon class="mt-1 h-5 w-5 flex-none text-indigo-600" aria-hidden="true" />
               <span><strong class="font-semibold text-gray-900">Epic Gaming Nights:</strong> Turn our theatre into the ultimate gaming arena, where you can play your favorite video games on the big screen, complete with immersive sound.</span>
