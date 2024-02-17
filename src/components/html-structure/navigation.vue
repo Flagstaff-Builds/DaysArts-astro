@@ -43,7 +43,7 @@
             enter-active-class="transition ease-out duration-200" enter-from-class="opacity-0 translate-y-1" enter-to-class="opacity-100 translate-y-0" leave-active-class="transition ease-in duration-150" leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 translate-y-1"
           >
             <PopoverPanel class="absolute left-1/2 z-10 mt-5 flex w-screen max-w-max -translate-x-1/2 px-4">
-              <div class="w-screen max-w-md flex-auto overflow-hidden rounded-xl text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
+              <div class="w-screen max-w-md flex-auto overflow-hidden rounded-xl text-sm leading-6 shadow-purple-400/30 shadow-lg ring-1 ring-gray-900/5">
                 <div class="p-4 bg-white">
                   <div v-for="dropdownItem in item.dropdownItems" :key="dropdownItem.name" class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-yellow-300">
                     <div class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white group-hover:text-yellow-400 text-gray-600">
@@ -74,7 +74,7 @@
         <a v-else :href="item.href" class="cursor-pointer inline-flex w-full items-center justify-center gap-x-1.5 px-3 py-2 text-sm font-semibold ">{{ item.name }}</a>
 
         <transition v-if="item.dropdown" enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
-          <MenuItems class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <MenuItems class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md shadow-purple-400/30 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div class="py-1">
               <MenuItem v-for="dropdownItem in item.dropdownItems" :key="dropdownItem.name" v-slot="{ active }">
                 <a :href="dropdownItem.href" :class="[active ? 'bg-gray-100 cursor-pointer text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm ']">{{ dropdownItem.name }}</a>

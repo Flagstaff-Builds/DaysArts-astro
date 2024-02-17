@@ -13,7 +13,7 @@ const { movie } = Astro.props;
 
 
 <!-- this is the repeatable component within an <li> -->
-<article class={`relative items-start md:flex rounded-xl shadow-xl overflow-hidden ${movie.data.reelAlternative ? 'border-2 border-purple-100 bg-purple-50' : 'bg-white'}`}>
+<article class={`relative items-start md:flex rounded-xl shadow-purple-400/30 shadow-xl overflow-hidden ${movie.data.reelAlternative ? 'border-2 border-purple-100 bg-purple-50' : 'bg-white'}`}>
 
   <div class="aspect-[2/3] md:w-1/3">
     {movie.data.poster && (

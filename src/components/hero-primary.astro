@@ -58,7 +58,7 @@ const movie = await getEntry("movie", "02-02-2024-migration")
           <div class="absolute top-2 left-2 rounded-md text-sm px-3.5 py-2.5 font-semibold leading-6 text-slate-900 bg-slate-100">Now playing</div>
           <div class="lg:-mr-20 mx-auto sm:mx-0 sm:max-w-none"></div>
 
-            <div class="aspect-[2/3] bg-purple-100 rounded-2xl">
+            <div class="aspect-[2/3] bg-purple-100 rounded-2xl rounded-b-none">
               {movie.data.poster && (
                 <Image
                   src={movie.data.poster}

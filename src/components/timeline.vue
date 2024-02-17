@@ -3,7 +3,7 @@
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="mx-auto grid max-w-2xl grid-cols-1 gap-8 overflow-hidden lg:mx-0 lg:max-w-none lg:grid-cols-4">
         <div v-for="item in timeline" :key="item.name">
-          <time :datetime="item.dateTime" class="flex items-center text-sm font-semibold leading-6 text-indigo-600">
+          <time :datetime="item.dateTime" class="flex items-center text-sm font-semibold leading-6 text-purple-600">
             <svg viewBox="0 0 4 4" class="mr-4 h-1 w-1 flex-none" aria-hidden="true">
               <circle cx="2" cy="2" r="2" fill="currentColor" />
             </svg>
