@@ -15,7 +15,7 @@ const { title, tagline, content } = Astro.props;
       <p class="text-base font-semibold leading-7">{tagline}</p>
       <h1 class="flex mt-2 text-4xl font-bold tracking-tight sm:text-6xl items-start">
         {title}
-        <span class="px-4">
+        <span class="px-4 text-yellow-400">
           <slot name="icon" />
         </span>
       </h1>

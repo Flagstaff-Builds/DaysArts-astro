@@ -45,9 +45,9 @@
             <PopoverPanel class="absolute left-1/2 z-10 mt-5 flex w-screen max-w-max -translate-x-1/2 px-4">
               <div class="w-screen max-w-md flex-auto overflow-hidden rounded-xl text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
                 <div class="p-4 bg-white">
-                  <div v-for="dropdownItem in item.dropdownItems" :key="dropdownItem.name" class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50">
-                    <div class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                      <component :is="dropdownItem.icon" class="h-6 w-6 text-gray-600 group-hover:text-indigo-600" aria-hidden="true" />
+                  <div v-for="dropdownItem in item.dropdownItems" :key="dropdownItem.name" class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-yellow-300">
+                    <div class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white group-hover:text-yellow-400 text-gray-600">
+                      <component :is="dropdownItem.icon" class="h-6 w-6" aria-hidden="true" />
                     </div>
                     <div>
                       <a :href="dropdownItem.href" class="cursor-pointer font-semibold text-gray-900">
@@ -62,8 +62,8 @@
                 <!-- call to actions if any -->
                 <div v-if="item.cta && item.cta.length" class="grid divide-x divide-gray-900/5 bg-gray-50">
 
-                  <a v-for="ctaItem in item.cta" :key="ctaItem.name" :href="ctaItem.href" class="cursor-pointer flex w-full items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-100">
-                     <component :is="ctaItem.icon" class="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
+                  <a v-for="ctaItem in item.cta" :key="ctaItem.name" :href="ctaItem.href" class="cursor-pointer flex w-full items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-500 hover:text-yellow-400 hover:bg-charade-700">
+                     <component :is="ctaItem.icon" class="h-5 w-5 flex-none" aria-hidden="true" />
                     {{ ctaItem.name }}
                   </a>
                 </div>
@@ -71,13 +71,13 @@
             </PopoverPanel>
           </transition>
         </Popover>
-        <a v-else :href="item.href" class="cursor-pointer inline-flex w-full items-center justify-center gap-x-1.5 px-3 py-2 text-sm font-semibold">{{ item.name }}</a>
+        <a v-else :href="item.href" class="cursor-pointer inline-flex w-full items-center justify-center gap-x-1.5 px-3 py-2 text-sm font-semibold ">{{ item.name }}</a>
 
         <transition v-if="item.dropdown" enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
           <MenuItems class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div class="py-1">
               <MenuItem v-for="dropdownItem in item.dropdownItems" :key="dropdownItem.name" v-slot="{ active }">
-                <a :href="dropdownItem.href" :class="[active ? 'bg-gray-100 cursor-pointer text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">{{ dropdownItem.name }}</a>
+                <a :href="dropdownItem.href" :class="[active ? 'bg-gray-100 cursor-pointer text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm ']">{{ dropdownItem.name }}</a>
               </MenuItem>
             </div>
           </MenuItems>
@@ -147,12 +147,13 @@
 import { Dialog, DialogPanel, Menu, MenuButton, MenuItem, MenuItems, Popover, PopoverButton, PopoverPanel } from '@headlessui/vue';
 import { ref } from 'vue';
 
-import { XMarkIcon, Bars3Icon, ChevronDownIcon, TicketIcon, CursorArrowRippleIcon, SparklesIcon } from '@heroicons/vue/20/solid';
+import { XMarkIcon, Bars3Icon, ChevronDownIcon, CursorArrowRippleIcon, SparklesIcon } from '@heroicons/vue/20/solid';
 
 import {
   CalendarDaysIcon,
   VideoCameraIcon,
   FilmIcon,
+  TicketIcon,
   FireIcon
 } from '@heroicons/vue/24/outline';
 

@@ -5,7 +5,7 @@ import { getEntry } from 'astro:content';
 const movie = await getEntry("movie", "02-02-2024-migration")
 ---
 
-<div class="relative isolate overflow-hidden">
+<div class="relative isolate overflow-x-clip">
   <div class="absolute bottom-1/4 inset-0 -z-10 rotate-[-4deg] scale-125 bg-gradient-to-b from-charade-800 via-charade-800 to-charade-950"></div>
 
   <svg class="absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-charade-200/30 [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]" aria-hidden="true">

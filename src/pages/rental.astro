@@ -1,7 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import HeroSecondary from "@/components/hero-secondary.astro";
-import { TrophyIcon, VideoCameraIcon, SparklesIcon, AtSymbolIcon, CakeIcon } from '@heroicons/vue/24/outline';
+import { TrophyIcon, VideoCameraIcon, SparklesIcon, CakeIcon } from '@heroicons/vue/24/outline';
 import { Image } from "astro:assets";
 import equipmentImg from "@/assets/equipment-list.jpg";
 import stageImg from "@/assets/stage-dimensions.jpg";
@@ -21,14 +21,14 @@ import Wedding3 from '@assets/wedding-03.jpg';
     tagline="Rent Your Stage at Daysland Palace Theatre"
     title="Your dream event at a Nostalgic Theatre"
     content="Creating unforgettable memories at a historic venue">
-    <AtSymbolIcon slot="icon" class="h-10" />
+    <CakeIcon slot="icon" class="h-10" />
   </HeroSecondary>
 
 
   <!-- background -->
   <div class="relative overflow-x-clip mt-10">
     <div class="absolute -top-80 left-[max(6rem,33%)] -z-10 transform-gpu blur-3xl sm:left-1/2 md:top-20 lg:ml-20 xl:top-3 xl:ml-56" aria-hidden="true">
-      <div class="aspect-[801/1036] w-[50.0625rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30" style="clip-path: polygon(63.1% 29.6%, 100% 17.2%, 76.7% 3.1%, 48.4% 0.1%, 44.6% 4.8%, 54.5% 25.4%, 59.8% 49.1%, 55.3% 57.9%, 44.5% 57.3%, 27.8% 48%, 35.1% 81.6%, 0% 97.8%, 39.3% 100%, 35.3% 81.5%, 97.2% 52.8%, 63.1% 29.6%)"></div>
+      <div class="aspect-[801/1036] w-[50.0625rem] bg-gradient-to-tr from-pink-200 to-purple-700 opacity-30" style="clip-path: polygon(63.1% 29.6%, 100% 17.2%, 76.7% 3.1%, 48.4% 0.1%, 44.6% 4.8%, 54.5% 25.4%, 59.8% 49.1%, 55.3% 57.9%, 44.5% 57.3%, 27.8% 48%, 35.1% 81.6%, 0% 97.8%, 39.3% 100%, 35.3% 81.5%, 97.2% 52.8%, 63.1% 29.6%)"></div>
     </div>
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="mx-auto max-w-2xl lg:mx-0">
@@ -45,7 +45,7 @@ import Wedding3 from '@assets/wedding-03.jpg';
             </defs>
             <rect width="100%" height="100%" stroke-width="0" fill="url(#e87443c8-56e4-4c20-9111-55b82fa704e3)" />
           </svg>
-          <figure class="border-l border-indigo-600 pl-8">
+          <figure class="border-l border-purple-600 pl-8">
             <blockquote class="text-xl font-semibold leading-8 tracking-tight text-gray-900">
               <p>“Experience the magic of DaysArts and make your next event truly unforgettable by hosting it at the iconic Daysland Palace Theatre, where every occasion becomes a masterpiece of memories.”</p>
             </blockquote>
@@ -71,19 +71,19 @@ import Wedding3 from '@assets/wedding-03.jpg';
           <ul role="list" class="mt-8 max-w-xl space-y-8 text-gray-600">
 
             <li class="flex gap-x-3">
-              <CakeIcon class="mt-1 h-5 w-5 flex-none text-indigo-600" aria-hidden="true" />
+              <CakeIcon class="mt-1 h-5 w-5 flex-none text-purple-600" aria-hidden="true" />
               <span><strong class="font-semibold text-gray-900">Movie Magic Birthday Parties:</strong> Choose your favorite movie and let us host a private screening for you and your guests. Immerse yourselves in cinematic wonder, with popcorn and refreshments to complete the experience.</span>
             </li>
             <li class="flex gap-x-3">
-              <TrophyIcon class="mt-1 h-5 w-5 flex-none text-indigo-600" aria-hidden="true" />
+              <TrophyIcon class="mt-1 h-5 w-5 flex-none text-purple-600" aria-hidden="true" />
               <span><strong class="font-semibold text-gray-900">Epic Gaming Nights:</strong> Turn our theatre into the ultimate gaming arena, where you can play your favorite video games on the big screen, complete with immersive sound.</span>
             </li>
             <li class="flex gap-x-3">
-              <VideoCameraIcon class="mt-1 h-5 w-5 flex-none text-indigo-600" aria-hidden="true" />
+              <VideoCameraIcon class="mt-1 h-5 w-5 flex-none text-purple-600" aria-hidden="true" />
               <span><strong class="font-semibold text-gray-900">Classic Movie Marathons:</strong> Host a movie marathon night, selecting films from a specific genre, era, or director, ideal for cinephiles or a unique gathering with friends.</span>
             </li>
             <li class="flex gap-x-3">
-              <SparklesIcon class="mt-1 h-5 w-5 flex-none text-indigo-600" aria-hidden="true" />
+              <SparklesIcon class="mt-1 h-5 w-5 flex-none text-purple-600" aria-hidden="true" />
               <span><strong class="font-semibold text-gray-900">Talent Showcases:</strong> Utilize the stage for an open mic night, local talent show, or comedy evening, offering a fantastic platform for artists and entertainers in the community.</span>
             </li>
           </ul>
@@ -102,8 +102,8 @@ import Wedding3 from '@assets/wedding-03.jpg';
           <h2 class="mt-16 text-2xl font-bold tracking-tight text-gray-900">A Wedding Venue Like No Other</h2>
 
           <p class="mt-6">Imagine your wedding day set against the backdrop of our illustrious theatre, where every detail from the red carpet aisle to the star-studded decor is tailored to your vision. Exchange vows under the spotlight, creating a scene straight out of a romantic film, with your guests comfortably seated in plush theatre seats. Opt for a 1940s Old Hollywood theme or personalize your day to reflect your favorite cinematic moments. With a <span class="font-bold tracking-tight text-gray-900">low venue fee</span>, transform the Palace Theatre into your stage, making your wedding a splendid showcase of your love story.</p>
-          <p class="mt-6">Ready to transform The Daysland Palace Theatre into your personal event space? For more information and to start planning your unforgettable event, contact Sharon at <a href="tel:+17803742403" class="whitespace-nowrap text-base font-semibold leading-7 text-indigo-600 hover:underline" aria-label="Call us at 780-374-2403">780-374-2403</a> or
-          <a href="mailto:info@daysarts.ca" class="whitespace-nowrap text-base font-semibold leading-7 text-indigo-600 hover:underline" aria-label="Email us at info@daysarts.ca">info@daysarts.ca</a>.</p>
+          <p class="mt-6">Ready to transform The Daysland Palace Theatre into your personal event space? For more information and to start planning your unforgettable event, contact Sharon at <a href="tel:+17803742403" class="whitespace-nowrap text-base font-semibold leading-7 text-purple-600 hover:underline" aria-label="Call us at 780-374-2403">780-374-2403</a> or
+          <a href="mailto:info@daysarts.ca" class="whitespace-nowrap text-base font-semibold leading-7 text-purple-600 hover:underline" aria-label="Email us at info@daysarts.ca">info@daysarts.ca</a>.</p>
 
 
 
@@ -166,7 +166,7 @@ import Wedding3 from '@assets/wedding-03.jpg';
               class="lg:col-span-2 lg:row-span-2 rounded-lg bg-cover"
             />
 
-            Lichak Technical Services Ltd. <a href="tel:7807815965" itemprop="telephone" class="whitespace-nowrap font-semibold leading-7 text-indigo-600 hover:underline">780-781-5965</a>
+            Lichak Technical Services Ltd. <a href="tel:7807815965" itemprop="telephone" class="whitespace-nowrap font-semibold leading-7 text-purple-600 hover:underline">780-781-5965</a>
           </p>
           <p class="mt-10">
             <Image

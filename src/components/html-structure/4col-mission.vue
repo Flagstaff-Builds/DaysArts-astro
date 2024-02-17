@@ -22,7 +22,7 @@
                 <span itemprop="addressRegion">Alberta</span>
             </div>
             <p class="mt-4">
-              <a href="tel:7803742403" itemprop="telephone" class="whitespace-nowrap font-semibold leading-7 text-indigo-600 hover:underline">780-374-2403</a>
+              <a href="tel:7803742403" itemprop="telephone" class="whitespace-nowrap font-semibold leading-7 text-purple-600 hover:underline">780-374-2403</a>
             </p>
           </address>
 
