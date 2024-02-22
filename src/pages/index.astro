@@ -3,13 +3,10 @@ import Layout from "@/layouts/Layout.astro";
 import Main from "@components/html-structure/Main.astro";
 import Hero from "@components/hero-primary.astro";
 import { Image } from "astro:assets";
-import Movie1 from '@assets/Hentriks-Gregory.jpg';
-import { TicketIcon, ComputerDesktopIcon, VideoCameraIcon, SparklesIcon } from '@heroicons/vue/24/outline'
-
+import { TicketIcon } from '@heroicons/vue/24/outline'
 
 import { getCollection } from "astro:content";
 const events = await getCollection("event");
-
 const movies = await getCollection("movie");
 ---
 
@@ -17,13 +14,13 @@ const movies = await getCollection("movie");
 <Layout title="Daysland and District Cultural Arts Society | Theatre">
   <Hero></Hero>
 
-
     <!-- now playing movies -->
     <div class="py-24">
       <div class="mx-auto max-w-7xl px-6 lg:px-8 xl:grid-cols-3">
         <div class="mx-auto max-w-2xl lg:mx-0 mb-6">
           <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            <a href="now-playing" class="underline hover:no-underline">Upcoming movies</a></h2>
+            <a href="now-playing" class="underline hover:no-underline">Upcoming movies</a>
+          </h2>
           <p class="mt-6 text-lg leading-8 text-gray-600">Experience the magic of cinema like never before at our movie theatre. Immerse yourself in stunning visuals and captivating soundscapes that transport you right into the heart of the story. Join us for an unforgettable movie-going adventure where every showing is an event in itself!</p>
         </div>
         <ul class="mx-auto grid max-w-2xl grid-cols-1 gap-x-6 gap-y-20 sm:grid-cols-2 md:grid-cols-3 lg:mx-0 lg:max-w-none lg:gap-x-8 xl:col-span-2">
@@ -128,6 +125,15 @@ const movies = await getCollection("movie");
         <a href="tel:7803742403" itemprop="telephone" class="rounded-md bg-purple-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600">Call to Purchase</a>
       </div>
     </div>
+  </div>
+
+  <div class="w-full h-96 overflow-hidden">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d163916.76757823752!2d-112.40435658943628!3d52.90692709179249!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x530aef9a439d9cfd%3A0xdc3a8bfe77899030!2sPalace%20Theatre!5e0!3m2!1sen!2sca!4v1708622148073!5m2!1sen!2sca"
+      class="w-full h-full border-none"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
   </div>
 
 

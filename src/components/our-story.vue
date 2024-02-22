@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white">
+  <div class="bg-white pb-6">
 
     <main class="isolate">
 
@@ -33,7 +33,7 @@
 
       <!-- Image section -->
       <div class="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
-        <img src="https://palacetheatredaysarts.files.wordpress.com/2018/07/last-day-at-theatre-082.jpg" alt="" class="aspect-[5/3] w-full object-cover xl:rounded-xl bg-purple-100" />
+        <img src="../assets/palace-theatre-daysland-alberta.jpg" alt="Dayland Palace Theatre" class="aspect-[5/3] w-full object-cover xl:rounded-xl bg-purple-100" />
       </div>
 
       <!-- Values section -->
@@ -46,6 +46,11 @@
           <div v-for="value in values" :key="value.name">
             <dt class="font-semibold text-gray-900">{{ value.name }}</dt>
             <dd class="mt-1 text-gray-600">{{ value.description }}</dd>
+
+            <div class="mt-4 mb-4">
+              <img :src="value.logo" :alt="value.name" class="max-w-64" />
+            </div>
+
           </div>
         </dl>
       </div>
@@ -67,16 +72,19 @@ const values = [
     name: 'Alberta Foundation for the Arts (AFA)',
     description:
       'The Alberta Foundation for the Arts is a dynamic provincial agency that fosters and supports the arts community in Alberta. It provides funding and grants to artists and art organizations, aiming to enrich the cultural landscape of the province. The AFA plays a pivotal role in promoting artistic creativity and cultural development in Alberta.',
+    logo: '../src/assets/afa_logo-blk2.jpg',
   },
   {
     name: 'Arts Touring Alliance of Alberta (ATAA)',
     description:
       'The Arts Touring Alliance of Alberta is dedicated to enhancing and ensuring the viability of the performing arts touring network in Alberta. It facilitates touring opportunities for a diverse range of artistic disciplines and supports the professional development of those in the arts sector. ATAA serves as a vital connector between artists, presenters, and communities.',
+    logo: '../src/assets/ataalogosm.webp',
   },
   {
     name: 'Motion Picture Theater Association of Alberta',
     description:
       'The Motion Picture Theater Association of Alberta (MPTAA) is a trade organization representing the interests of exhibitors behind more than 300 movie screens in Alberta.',
+    logo: '../src/assets/mtacLogo.png',
   }
 ]
 
