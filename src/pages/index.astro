@@ -20,13 +20,13 @@ const movies = await getCollection("movie");
 
     <!-- now playing movies -->
     <div class="py-24 md:py-32 lg:py-40">
-      <div class="mx-auto grid max-w-7xl grid-cols-1 gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3">
-        <div class="mx-auto max-w-2xl lg:mx-0">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8 xl:grid-cols-3">
+        <div class="mx-auto max-w-2xl lg:mx-0 mb-6">
           <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             <a href="now-playing" class="underline hover:no-underline">Upcoming movies</a></h2>
           <p class="mt-6 text-lg leading-8 text-gray-600">Experience the magic of cinema like never before at our movie theatre. Immerse yourself in stunning visuals and captivating soundscapes that transport you right into the heart of the story. Join us for an unforgettable movie-going adventure where every showing is an event in itself!</p>
         </div>
-        <ul class="mx-auto grid max-w-2xl grid-cols-1 gap-x-6 gap-y-20 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:gap-x-8 xl:col-span-2">
+        <ul class="mx-auto grid max-w-2xl grid-cols-1 gap-x-6 gap-y-20 sm:grid-cols-2 md:grid-cols-3 lg:mx-0 lg:max-w-none lg:gap-x-8 xl:col-span-2">
           {movies.map((movie) => (
             <a href={`now-playing#${movie.data.title.replace(/\s+/g, '-')}`}>
               <li class="bg-white transform transition duration-500 hover:scale-105">
