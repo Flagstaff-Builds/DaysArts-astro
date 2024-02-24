@@ -14,8 +14,6 @@ localhost:4321
 - movie
 - event
 
-
-
 ## Dependencies
 - don't forget to add multiple dependencies
 
@@ -36,3 +34,22 @@ alias astro='npm run dev'
 alias ad='npm run dev'
 alias astrob='npm run build'
 alias ab='npm run dev'
+
+
+
+
+## DNS
+### daysarts.ca
+- Registered with webnames.ca
+- DNS managed by Cloudflare
+- Hosted on Netlify
+
+### palacetheatre-daysarts.ca
+- Registered with webnames.ca
+- DNS managed by Cloudflare (after transfer from WordPress)
+- Redirects to daysarts.ca, which is hosted on Netlify
+
+palacetheatre-daysarts.ca --DNS managed by--> Cloudflare --redirects to--> daysarts.ca
+                                                                       |
+                                                                       v
+                                                          Netlify <--- hosts --- webnames.ca
