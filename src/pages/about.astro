@@ -1,9 +1,74 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import OurStory from "../components/our-story.vue";
-import Timeline from "../components/timeline.vue";
-import HeroSecondary from "../components/hero-secondary.astro";
+import Layout from "@/layouts/Layout.astro";
+import HeroSecondary from "@/components/hero-secondary.astro";
 import { CursorArrowRippleIcon } from "@heroicons/vue/24/outline";
+import { Image } from "astro:assets";
+import BackgroundImg from '@assets/palace-theatre-daysland-alberta.jpg';
+
+const timeline = [
+  {
+    name: 'Tury Family Retirement',
+    description: 'After the retirement of the Tury family in 1996, the Palace Theatre languished for three years.',
+    date: '1996 - 1999',
+    dateTime: '1996-01/1999-12',
+  },
+  {
+    name: 'DaysArts Founded',
+    description: 'In 1999, Daysland and District Cultural Arts Society (DaysArts) was founded, leading to the purchase by the town of Daysland of the Palace Theatre.',
+    date: '1999',
+    dateTime: '1999',
+  },
+  {
+    name: 'Stage Construction',
+    description: 'In March 2001, a stage was constructed by two dozen volunteers in a single day, showcasing the community\'s dedication.',
+    date: 'Mar 2001',
+    dateTime: '2001-03',
+  },
+  {
+    name: 'Digital Projector and Audio System',
+    description: 'Over $100,000 was raised by DaysArts in 2013 to install a new digital projector and updated audio system.',
+    date: '2013',
+    dateTime: '2013',
+  },
+  {
+    name: 'Renovation and New Seats',
+    description: 'DaysArts raised another $120,000 for floor replacement and new seats.',
+    date: '2014 - 2015',
+    dateTime: '2014-01/2015-12',
+  },
+  {
+    name: 'Performances and Events',
+    description: 'DaysArts has hosted a variety of events including concerts, movies, drama performances, and even weddings.',
+    date: 'Ongoing',
+    dateTime: '2023',
+  },
+]
+const stats = [
+  { label: 'of popcorn', value: '🍿 400lbs' },
+  { label: 'chocolate bars enjoyed', value: '🍫 440' },
+  { label: 'bottles of water drank', value: '💧 1,200' },
+]
+const values = [
+  {
+    name: 'Alberta Foundation for the Arts (AFA)',
+    description:
+      'The Alberta Foundation for the Arts is a dynamic provincial agency that fosters and supports the arts community in Alberta. It provides funding and grants to artists and art organizations, aiming to enrich the cultural landscape of the province. The AFA plays a pivotal role in promoting artistic creativity and cultural development in Alberta.',
+    logo: '../src/assets/afa_logo-blk2.jpg',
+  },
+  {
+    name: 'Arts Touring Alliance of Alberta (ATAA)',
+    description:
+      'The Arts Touring Alliance of Alberta is dedicated to enhancing and ensuring the viability of the performing arts touring network in Alberta. It facilitates touring opportunities for a diverse range of artistic disciplines and supports the professional development of those in the arts sector. ATAA serves as a vital connector between artists, presenters, and communities.',
+    logo: '../src/assets/ataalogosm.webp',
+  },
+  {
+    name: 'Motion Picture Theater Association of Alberta',
+    description:
+      'The Motion Picture Theater Association of Alberta (MPTAA) is a trade organization representing the interests of exhibitors behind more than 300 movie screens in Alberta.',
+    logo: '../src/assets/mtacLogo.png',
+  }
+]
+
 ---
 
 <Layout title="About DaysArts">
@@ -26,7 +91,93 @@ import { CursorArrowRippleIcon } from "@heroicons/vue/24/outline";
 
     </div>
 
-    <Timeline client:load>Our History</Timeline>
-    <OurStory client:load />
+    <!-- Timeline -->
+    <div class="bg-white py-24 sm:py-32">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8 pb-6">
+        <div class="mx-auto grid max-w-2xl grid-cols-1 gap-8 overflow-hidden lg:mx-0 lg:max-w-none lg:grid-cols-4">
+          {timeline.map(item => (
+            <div>
+              <time :datetime="item.dateTime" class="flex items-center text-sm font-semibold leading-6 text-purple-600">
+              <svg viewBox="0 0 4 4" class="mr-4 h-1 w-1 flex-none" aria-hidden="true">
+                <circle cx="2" cy="2" r="2" fill="currentColor" />
+              </svg>
+              { item.date }
+              <div class="absolute -ml-2 h-px w-screen -translate-x-full bg-gray-900/10 sm:-ml-4 lg:static lg:-mr-6 lg:ml-8 lg:w-auto lg:flex-auto lg:translate-x-0" aria-hidden="true" />
+            </time>
+            <p class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">{ item.name }</p>
+            <p class="mt-1 text-base leading-7 text-gray-600">{ item.description }</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Exciting insights -->
+    <div class="bg-white pb-6">
+      <main class="isolate">
+        <div class="mx-auto -mt-12 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-8">
+          <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Exciting Insights from DaysArts!</h2>
+            <div class="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
+              <div class="lg:w-full lg:max-w-2xl lg:flex-auto">
+                <p class="mt-10 text-lg font-semibold leading-8 tracking-tight text-gray-900">Where Every Snack Counts!</p>
+                <div class="mt-4 max-w-xl text-base leading-7 text-gray-700">
+                  <p>Did you know that every treat you purchase at our concession stand fuels the magic of DaysArts? Yes, that's right! Each popcorn, soda, and snack you enjoy contributes directly to keeping the Daysland Palace Theatre alive and buzzing. From essential utilities like heat and power to those crucial supplies that keep our space clean and welcoming (think napkins, hand soaps, and more), your munching matters!</p>
+                </div>
+                <p class="mt-10 text-lg font-semibold leading-8 tracking-tight text-gray-900">Powered by Passion and Volunteers</p>
+                <div class="mt-4 max-w-xl text-base leading-7 text-gray-700">
+                  <p>And here's something truly special about us: The Daysland Palace Theatre is a marvel of community spirit, operated entirely by volunteers! Every ticket you buy, every show you attend is brought to life by dedicated individuals who volunteer their time and energy. This isn't just a theatre; it's a testament to what we can achieve when we come together for the love of art and community. So, next time you're here, remember: each moment of your experience is made possible by the incredible efforts of our volunteers. Let's celebrate this extraordinary journey together at DaysArts!</p>
+                </div>
+              </div>
+              <div class="lg:flex lg:flex-auto lg:justify-center">
+                <dl class="w-64 space-y-8 xl:w-80">
+                  {stats.map(stat => (
+                    <div class="flex flex-col-reverse gap-y-4">
+                      <dt class="text-base leading-7 text-gray-600">{stat.label}</dt>
+                      <dd class="text-5xl font-bold tracking-tight text-gray-900">{stat.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image section -->
+        <div class="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
+          <Image
+            src={BackgroundImg}
+            alt="Dayland Palace Theatre"
+            class="aspect-[5/3] w-full object-cover xl:rounded-xl bg-purple-100"
+          />
+
+          <!-- <img src="../assets/palace-theatre-daysland-alberta.jpg" alt="Dayland Palace Theatre" class="aspect-[5/3] w-full object-cover xl:rounded-xl bg-purple-100" /> -->
+        </div>
+
+        <!-- Values section -->
+        <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-8">
+          <div class="mx-auto max-w-2xl lg:mx-0">
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our Partners: The Associations and Friends of DaysArts</h2>
+            <p class="mt-6 text-lg leading-8 text-gray-600">Discover the robust network of established foundations, alliances, and councils that form the backbone of DaysArts, each playing a pivotal role in enriching and sustaining our thriving cultural community.</p>
+          </div>
+          <dl class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+            { values.map(value => (
+              <div>
+                <dt class="font-semibold text-gray-900">{ value.name }</dt>
+                <dd class="mt-1 text-gray-600">{ value.description }</dd>
+
+                <div class="mt-4 mb-4">
+                  <img src={value.logo} alt={value.name} class="max-w-64" />
+                </div>
+              </div>
+            )) }
+          </dl>
+        </div>
+      </main>
+
+    </div>
+
+
   </div>
 </Layout>
