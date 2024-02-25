@@ -60,12 +60,11 @@ const movie = await getEntry("movie", "03-01-2024-the-smurfs-party")
             <article class="p-4 sm:p-6 lg:p-4 xl:p-6 space-x-4 items-start sm:space-x-6 lg:space-x-4 xl:space-x-6 flex rounded-b-2xl bg-white text-slate-900">
               <div class="min-w-0 relative flex-auto">
 
-                <!-- <h2 class="mt-6 text-lg leading-8 sm:max-w-md font-bold lg:max-w-none">Current Showcase</h2> -->
-                <h2 class="font-semibold truncate sm:pr-20 dark:text-slate-100">{movie.data.title}</h2>
+                <h2 class="font-semibold truncate sm:pr-20">{movie.data.title}</h2>
                 <dl class="mt-2 flex flex-wrap text-sm leading-6 font-medium">
-                  <div class="dark:text-slate-200 ">
+                  <div class="">
                     <dt class="sr-only">Rating</dt>
-                    <dd class="px-1.5 ring-1 ring-slate-200 rounded dark:ring-slate-600">{movie.data.rating}</dd>
+                    <dd class="px-1.5 ring-1 ring-slate-200 rounded">{movie.data.rating}</dd>
                   </div>
                   <div>
                     <dt class="sr-only">Genre</dt>
