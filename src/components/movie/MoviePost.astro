@@ -121,24 +121,21 @@ const { movie } = Astro.props;
             </ul>
           )}
 
+          {movie.data.reelAlternative && (
+            <div class="mt-10 md:absolute md:bottom-4 md:right-2">
+              <a href="/reel-alternative-film" class="rounded-md bg-purple-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600">Reel Alternative Film</a>
+            </div>
+          )}
         </dd>
       </div>
-
-
     </dl>
   </div>
 
-  {movie.data.reelAlternative && (
-    <div class="absolute bottom-4 right-2">
-      <a href="/reel-alternative-film" class="rounded-md bg-purple-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600">Reel Alternative Film</a>
-    </div>
-  )}
 </article>
 
 
 <style is:global>
-.target-element {
-  scroll-margin-top: 80px;
-}
-
+  .target-element {
+    scroll-margin-top: 80px;
+  }
 </style>
