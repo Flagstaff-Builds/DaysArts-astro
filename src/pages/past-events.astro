@@ -3,6 +3,13 @@ import Layout from "../layouts/Layout.astro";
 import Main from "@components/html-structure/Main.astro";
 import HeroSecondary from "@components/hero-secondary.astro";
 import { FireIcon } from "@heroicons/vue/24/outline";
+
+import type { CollectionEntry } from 'astro:content';
+type Props = {
+  events: CollectionEntry<'event'>;
+};
+const events = await Astro.glob('../content/event/_old/*.md')
+
 ---
 
 <Layout title="Past events">
@@ -34,7 +41,11 @@ import { FireIcon } from "@heroicons/vue/24/outline";
         <div>
           <dt class="text-lg font-bold leading-7 text-gray-900">2023 - 2024</dt>
           <dd class="mt-2 text-base leading-7 text-gray-600">
-            Jake Vaadeland, Christan De La Luna, Chris Funk
+            {events.map((event, index) => (
+              <span>
+                {event.frontmatter.title}{index < events.length - 1 ? ', ' : ''}
+              </span>
+            ))}
           </dd>
         </div>
 
