@@ -14,6 +14,10 @@ localhost:4321
 - movie
 - event
 
+### Update collections
+- Create new movie or event, copy the _YYYY-MM-DD-event.md template
+- Move past movie or event into their "_old" folder
+
 ## Dependencies
 - don't forget to add multiple dependencies
 
