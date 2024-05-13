@@ -49,15 +49,17 @@ const { title, description, socialImage="./days-arts.jpg", ogType="website" } = 
 
 
     <!-- Visitor App tracking code -->
-    <script async defer src='https://app.visitortracking.com/assets/js/tracer.js'></script>
     <script type="module">
-    function init_tracer() {
-      var tracer = new Tracer({
-      websiteId : "38ec2c75-c5cd-4ee3-83cd-6b6cc0a47f55",
-      async : true,
-      debug : false });
-    }
+      window.init_tracer = function() {
+        function init_tracer() {
+          var tracer = new Tracer({
+          websiteId : "38ec2c75-c5cd-4ee3-83cd-6b6cc0a47f55",
+          async : true,
+          debug : false });
+        }
+      };
     </script>
+    <script async defer src='https://app.visitortracking.com/assets/js/tracer.js'></script>
   </head>
 
   <body>
