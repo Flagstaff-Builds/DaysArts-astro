@@ -37,7 +37,7 @@ const eventCollection = defineCollection({
     socialImage: image().optional(),
     concertSponsor: z.array(z.string()).optional(),
     receptionSponsor: z.array(z.string()).optional(),
-    past: z.boolean().optional(),
+    // past: z.boolean().optional(),
   }),
 });
 
