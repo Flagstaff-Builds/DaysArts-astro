@@ -42,9 +42,7 @@ const formattedDate = eventDate.toLocaleDateString('en-US', {
     <p class="flex items-center text-base leading-7 text-gray-700">
       <ClockIcon class="mr-1 h-4 w-4 text-purple-600" aria-hidden="true" /> {event.data.time}
     </p>
-    <!-- <p class="mt-4 text-base leading-7 text-gray-600">{event.data.description}.</p> -->
 
-    <!-- Sponsors -->
     <div class="mt-4">
       <h2 class="text-sm font-bold text-gray-500 uppercase">Sponsors:</h2>
       <ul class="">
@@ -55,7 +53,6 @@ const formattedDate = eventDate.toLocaleDateString('en-US', {
             <span class="text-sm font-medium text-gray-400">{sponsor}</span>
           ))}
         </li>
-        <!-- <div aria-hidden="true" class="mx-4 text-sm text-gray-400">·</div> -->
         <li>
           <span class="text-xs font-medium uppercase text-slate-500">Reception</span>
           <span aria-hidden="true" class="mx-4 text-sm text-gray-400">·</span>
@@ -68,20 +65,3 @@ const formattedDate = eventDate.toLocaleDateString('en-US', {
   </a>
 </li>
 )}
-<!--
-
-  <h2 class="text-2xl font-bold">
-    <a href={`/event/${event.slug}`} class="text-zinc-900">{event.data.title}</a>
-  </h2>
-  <p class="text-sm text-gray-600">{event.data.time} on {event.data.date}</p>
-  <p class="text-sm text-gray-600">{event.data.description}</p>
-  <div>
-    how does this work?
-    {event.data.entertainment?.map(entertainmentI => (
-
-      <span class="inline-block bg-gray-200 rounded-sm px-3 py-1 text-xs text-gray-700 mr-2 mb-2">
-        {entertainmentI}
-      </span>
-    ))}
-
-  </div> -->
