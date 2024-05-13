@@ -41,7 +41,7 @@ const { title, description, socialImage="./days-arts.jpg", ogType="website" } = 
     <meta property="twitter:image" content={new URL(socialImage, Astro.url)} />
 
     <!-- Sitemap -->
-    <!-- <link rel="sitemap" href="/sitemap-index.xml" /> -->
+    <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- CMS -->
     <!-- <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"
@@ -50,7 +50,7 @@ const { title, description, socialImage="./days-arts.jpg", ogType="website" } = 
 
     <!-- Visitor App tracking code -->
     <script async defer src='https://app.visitortracking.com/assets/js/tracer.js'></script>
-    <script>
+    <script type="module">
     function init_tracer() {
       var tracer = new Tracer({
       websiteId : "38ec2c75-c5cd-4ee3-83cd-6b6cc0a47f55",
