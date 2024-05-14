@@ -1,6 +1,6 @@
 ---
 import Header from "@components/html-structure/Header.astro";
-import Footer from "@/components/html-structure/footer.astro";
+import Footer from "@components/html-structure/footer.astro";
 
 interface Props {
   title?: string;
@@ -41,7 +41,7 @@ const { title, description, socialImage="./days-arts.jpg", ogType="website" } = 
     <meta property="twitter:image" content={new URL(socialImage, Astro.url)} />
 
     <!-- Sitemap -->
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <!-- <link rel="sitemap" href="/sitemap-index.xml" /> -->
 
     <!-- CMS -->
     <!-- <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"
@@ -49,17 +49,18 @@ const { title, description, socialImage="./days-arts.jpg", ogType="website" } = 
 
 
     <!-- Visitor App tracking code -->
-    <script type="module">
-      window.init_tracer = function() {
-        function init_tracer() {
-          var tracer = new Tracer({
-          websiteId : "38ec2c75-c5cd-4ee3-83cd-6b6cc0a47f55",
-          async : true,
-          debug : false });
-        }
-      };
+    <script async defer src='https://app.visitortracking.com/assets/js/tracer.js' client:only onload="init_tracer()"></script>
+
+    <script type="module" client:only>
+      function init_tracer() {
+        var tracer = new Tracer({
+          websiteId: "38ec2c75-c5cd-4ee3-83cd-6b6cc0a47f55",
+          async: true,
+          debug: false
+        });
+      }
     </script>
-    <script async defer src='https://app.visitortracking.com/assets/js/tracer.js'></script>
+
   </head>
 
   <body>
