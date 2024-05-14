@@ -49,20 +49,16 @@ const { title, description, socialImage="./days-arts.jpg", ogType="website" } = 
 
 
     <!-- Visitor App tracking code -->
-    <script defer src='https://app.visitortracking.com/assets/js/tracer.js'></script>
+    <script async defer src='https://app.visitortracking.com/assets/js/tracer.js' client:only onload="init_tracer()"></script>
 
     <script type="module" client:only>
-      document.addEventListener('DOMContentLoaded', () => {
-        if (typeof Tracer === 'function') {
-          var tracer = new Tracer({
-            websiteId: '38ec2c75-c5cd-4ee3-83cd-6b6cc0a47f55',
-            async: true,
-            debug: false
-          });
-        } else {
-          console.error('Tracer class is not defined.');
-        }
-      });
+      function init_tracer() {
+        var tracer = new Tracer({
+          websiteId: "38ec2c75-c5cd-4ee3-83cd-6b6cc0a47f55",
+          async: true,
+          debug: false
+        });
+      }
     </script>
 
 
