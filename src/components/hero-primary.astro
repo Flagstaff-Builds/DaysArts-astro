@@ -3,9 +3,20 @@ import { getCollection } from "astro:content";
 import { Image } from 'astro:assets';
 import BackgroundImg from '@assets/palace-theatre-daysland-alberta.jpg';
 
-let movieEntries = [];
+interface MovieEntry {
+  id: string;
+  title: string;
+  description: string;
+  poster?: string;
+  genre?: string[];
+  cast?: string[];
+  rating?: string;
+  length?: string;
+}
+
+let movieEntries: MovieEntry[] = [];
 try {
-  const collection = await getCollection("movie");
+  const collection = await getCollection<MovieEntry>("movie");
   movieEntries = Array.isArray(collection) ? collection : [];
 } catch (error) {
   movieEntries = [];
@@ -13,9 +24,9 @@ try {
 
 const firstMovie = movieEntries.length > 0 ? movieEntries[0] : null;
 
-const hasPoster = firstMovie && firstMovie.data && firstMovie.data.poster;
-const hasGenres = firstMovie && firstMovie.data && firstMovie.data.genre && firstMovie.data.genre.length > 0;
-const hasCast = firstMovie && firstMovie.data && firstMovie.data.cast && firstMovie.data.cast.length > 0;
+const hasPoster = firstMovie && firstMovie.data.poster;
+const hasGenres = firstMovie && firstMovie.data.genre && firstMovie.data.genre.length > 0;
+const hasCast = firstMovie && firstMovie.data.cast && firstMovie.data.cast.length > 0;
 ---
 
 <div class="relative isolate overflow-x-clip">
