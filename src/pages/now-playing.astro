@@ -4,10 +4,19 @@ import Layout from "../layouts/Layout.astro";
 import Main from "@components/html-structure/Main.astro";
 import MovieList from "@components/movie/MovieList.astro";
 import HeroSecondary from "@components/hero-secondary.astro";
-// import TheatreClosed from "@/components/theatre-closed.astro";
+import TheatreClosed from "@/components/theatre-closed.astro";
 
 import { VideoCameraIcon } from '@heroicons/vue/24/outline';
-const movieEntries = await getCollection("movie");
+
+interface MovieEntry {
+  id: string;
+  title: string;
+  description: string;
+  // Add other relevant fields based on your content schema
+}
+
+let movieEntries: MovieEntry[] = await getCollection<MovieEntry>("movie");
+let hasMovies = movieEntries && movieEntries.length > 0;
 ---
 
 <Layout title="Now playing at Daysland Theatre">
@@ -24,8 +33,10 @@ const movieEntries = await getCollection("movie");
   </HeroSecondary>
 
   <Main>
-    <!-- <TheatreClosed/> -->
-
-    <MovieList movieEntries={movieEntries} />
+    {hasMovies ? (
+      <MovieList movieEntries={movieEntries} />
+    ) : (
+      <TheatreClosed />
+    )}
   </Main>
 </Layout>
