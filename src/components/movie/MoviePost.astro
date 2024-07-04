@@ -25,7 +25,7 @@ type Props = {
   movie: Movie;
 };
 
-const { movie } = Astro.props || {} as Props;
+const { movie } = Astro.props as Props;
 ---
 
 

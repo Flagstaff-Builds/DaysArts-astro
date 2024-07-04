@@ -3,64 +3,75 @@ import type { CollectionEntry } from 'astro:content';
 import MoviePost from './MoviePost.astro';
 import { TicketIcon } from '@heroicons/vue/24/outline';
 
+interface MovieData {
+  title: string;
+  poster?: string;
+  description?: string;
+  cast?: string[];
+  rating?: string;
+  length?: string;
+  genre?: string[];
+  trailer?: string;
+  showtimes?: string[];
+  reelAlternative?: boolean;
+}
+
+interface Movie {
+  data: MovieData;
+  slug: string;
+}
+
 type Props = {
-  movieEntries: CollectionEntry<'movie'>[];
+  movieEntries: Movie[];
 };
 
-const { movieEntries } = Astro.props;
-
+const { movieEntries } = Astro.props as Props;
 ---
 
 <!-- This is the event listings page -->
 <div class="mx-auto grid grid-cols-1 gap-x-8 gap-y-2 xl:gap-y-20 xl:grid-cols-3">
   <div class="mx-auto flex flex-col lg:mx-0 lg:max-w-none w-full col-span-2 lg:col-span-1">
     <h2 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-4xl">Showtimes</h2>
-    <p class="mt-6 text-lg leading-2 text-slate-600">Evening shows: 7:30pm
+    <p class="mt-6 text-lg leading-2 text-slate-600">Evening shows: 7:30pm</p>
     <p>Matinee: 2:00pm</p>
 
     <p class="mt-6 text-slate-400">We no longer have evening shows on Sundays</p>
-      <div class="shadow-sm overflow-hidden my-8 rounded-lg max-w-4xl">
-        <table class="border-collapse w-full text-sm table-auto">
-          <thead class="bg-slate-50">
-            <tr>
-              <th class="border-b font-semibold p-4 text-slate-400 text-left">Ticket Pricing</th>
-              <th class="border-b font-semibold p-4 text-slate-400 "><TicketIcon class="not-sr-only h-5 w-5" aria-hidden="true"/></th>
-            </tr>
-          </thead>
-          <tbody class="bg-white">
-            <tr>
-              <td class="border-b border-slate-100 p-4 text-slate-500">Adults</td>
-              <td class="border-b border-slate-100 p-4 text-slate-500">$10</td>
-            </tr>
+    <div class="shadow-sm overflow-hidden my-8 rounded-lg max-w-4xl">
+      <table class="border-collapse w-full text-sm table-auto">
+        <thead class="bg-slate-50">
+          <tr>
+            <th class="border-b font-semibold p-4 text-slate-400 text-left">Ticket Pricing</th>
+            <th class="border-b font-semibold p-4 text-slate-400">
+              <TicketIcon class="not-sr-only h-5 w-5" aria-hidden="true"/>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bg-white">
+          <tr>
+            <td class="border-b border-slate-100 p-4 text-slate-500">Adults</td>
+            <td class="border-b border-slate-100 p-4 text-slate-500">$10</td>
+          </tr>
+          <tr>
+            <td class="border-b border-slate-100 p-4 text-slate-500">Seniors</td>
+            <td class="border-b border-slate-100 p-4 text-slate-500">$8</td>
+          </tr>
+          <tr>
+            <td class="border-b border-slate-100 p-4 text-slate-500">Students</td>
+            <td class="border-b border-slate-100 p-4 text-slate-500">$8</td>
+          </tr>
+          <tr>
+            <td class="border-b border-slate-100 p-4 text-slate-500">Children 3-11</td>
+            <td class="border-b border-slate-100 p-4 text-slate-500">$5</td>
+          </tr>
+          <tr>
+            <td class="border-b border-slate-100 p-4 text-slate-500">Family</td>
+            <td class="border-b border-slate-100 p-4 text-slate-500">$25</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-            <tr>
-              <td class="border-b border-slate-100 p-4 text-slate-500">Seniors</td>
-              <td class="border-b border-slate-100 p-4 text-slate-500">$8</td>
-            </tr>
-
-            <tr>
-              <td class="border-b border-slate-100 p-4 text-slate-500">Students</td>
-              <td class="border-b border-slate-100 p-4 text-slate-500">$8</td>
-            </tr>
-
-            <tr>
-              <td class="border-b border-slate-100 p-4 text-slate-500">Children 3-11</td>
-              <td class="border-b border-slate-100 p-4 text-slate-500">$5</td>
-            </tr>
-
-            <tr>
-              <td class="border-b border-slate-100 p-4 text-slate-500">Family</td>
-              <td class="border-b border-slate-100 p-4 text-slate-500">$25</td>
-            </tr>
-
-
-          </tbody>
-        </table>
-      </div>
-
-      <p class="text-gray-400">For showtimes call <a href="tel:1780-673-1325" itemprop="telephone" class="whitespace-nowrap text-sm text-purple-600 hover:underline">780-673-1325</a>
-      </p>
-
+    <p class="text-gray-400">For showtimes call <a href="tel:1780-673-1325" itemprop="telephone" class="whitespace-nowrap text-sm text-purple-600 hover:underline">780-673-1325</a></p>
   </div>
 
   <ul role="list" class="mx-auto flex flex-col lg:mx-0 lg:max-w-none w-full col-span-2">
@@ -70,5 +81,4 @@ const { movieEntries } = Astro.props;
       </li>
     ))}
   </ul>
-
 </div>
