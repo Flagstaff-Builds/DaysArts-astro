@@ -9,13 +9,24 @@ import TheatreClosed from "@/components/theatre-closed.astro";
 import { VideoCameraIcon } from '@heroicons/vue/24/outline';
 
 interface MovieEntry {
-  id: string;
   title: string;
-  description: string;
-  // Add other relevant fields based on your content schema
+  poster?: string;
+  description?: string;
+  cast?: string[];
+  rating?: string;
+  length?: string;
+  genre?: string[];
+  trailer?: string;
+  showtimes?: string[];
+  reelAlternative?: boolean;
 }
 
-let movieEntries = await getCollection("movie") as MovieEntry[];
+interface Movie extends MovieEntry {
+  data: any;
+  slug: string;
+}
+
+let movieEntries = (await getCollection("movie") as MovieEntry[])
 let hasMovies = movieEntries && movieEntries.length > 0;
 ---
 

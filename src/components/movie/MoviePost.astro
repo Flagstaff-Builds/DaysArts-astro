@@ -48,19 +48,21 @@ const { movie } = Astro.props as Props;
 
   <div class="p-6 md:w-2/3">
     <!-- <h2 class="mt-6 text-lg leading-8 sm:max-w-md font-bold lg:max-w-none">Current Showcase</h2> -->
-    <h2 class="flex-auto text-2xl font-semibold text-slate-900 relative target-element" id={movie.data.title.replace(/\s+/g, '-')}>
-      {movie.data.title}
-      <!-- <a href={`/movie/${movie.slug}`} class="text-inherit underline hover:underline-offset-4"></a> -->
+    {movie.data.title && (
+      <h2 class="flex-auto text-2xl font-semibold text-slate-900 relative target-element" id={movie.data.title.replace(/\s+/g, '-')}>
+        {movie.data.title}
+        <!-- <a href={`/movie/${movie.slug}`} class="text-inherit underline hover:underline-offset-4"></a> -->
 
-      {movie.data.genre && (
-        <a href={movie.data.trailer} class="absolute top-0 right-0 z-1 h-7 w-7 text-slate-400 hover:scale-125" target="_blank">
-          <span class="sr-only">Play trailer</span>
-          <PlayCircleIcon aria-hidden="true" />
-        </a>
-      )}
-    </h2>
+        {movie.data.genre && (
+          <a href={movie.data.trailer} class="absolute top-0 right-0 z-1 h-7 w-7 text-slate-400 hover:scale-125" target="_blank">
+            <span class="sr-only">Play trailer</span>
+            <PlayCircleIcon aria-hidden="true" />
+          </a>
+        )}
+      </h2>
+    )}
 
-    { movie.data.description && (
+    {movie.data.description && (
     <div class="flex-none w-full mt-2 text-lg leading-tight">
       <dt class="sr-only">Description</dt>
       <dd class="text-slate-500 line-clamp-3">
@@ -91,7 +93,7 @@ const { movie } = Astro.props as Props;
 
     <dl class="mt-2 flex flex-wrap text-sm leading-6 font-medium ">
       <div class="flex flex-wrap sm:flex-nowrap w-full">
-        { movie.data.rating && (
+        {movie.data.rating && (
         <div>
           <dt class="sr-only">Rating</dt>
           <dd class="px-1.5 ring-1 ring-slate-200 rounded">
@@ -100,7 +102,7 @@ const { movie } = Astro.props as Props;
         </div>
         )}
 
-        { movie.data.length && (
+        {movie.data.length && (
         <div>
           <dt class="sr-only">Runtime</dt>
           <dd class="flex items-center">
@@ -110,7 +112,7 @@ const { movie } = Astro.props as Props;
         </div>
         )}
 
-        { movie.data.genre && (
+        {movie.data.genre && (
         <div>
           <dt class="sr-only">Genre</dt>
           <dd class="flex flex-nowrap items-center">
