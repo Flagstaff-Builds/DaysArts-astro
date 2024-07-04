@@ -3,11 +3,29 @@ import type { CollectionEntry } from "astro:content";
 import { Image } from 'astro:assets';
 import { CalendarDaysIcon, PlayCircleIcon } from '@heroicons/vue/20/solid';
 
+interface MovieData {
+  title: string;
+  poster?: string;
+  description?: string;
+  cast?: string[];
+  rating?: string;
+  length?: string;
+  genre?: string[];
+  trailer?: string;
+  showtimes?: string[];
+  reelAlternative?: boolean;
+}
+
+interface Movie {
+  data: MovieData;
+  slug: string;
+}
+
 type Props = {
-  movie: CollectionEntry<'movie'>;
+  movie: Movie;
 };
 
-const { movie } = Astro.props as Props | undefined;
+const { movie } = Astro.props || {} as Props;
 ---
 
 
