@@ -3,9 +3,20 @@ import { getCollection } from "astro:content";
 import { Image } from 'astro:assets';
 import BackgroundImg from '@assets/palace-theatre-daysland-alberta.jpg';
 
-let movieEntries: string | any[] = [];
+interface MovieEntry {
+  id: string;
+  title: string;
+  description: string;
+  poster?: string;
+  genre?: string[];
+  cast?: string[];
+  rating?: string;
+  length?: string;
+}
+
+let movieEntries: MovieEntry[] = [];
 try {
-  const collection = await getCollection("movie");
+  const collection = await getCollection<MovieEntry>("movie");
   movieEntries = Array.isArray(collection) ? collection : [];
 } catch (error) {
   movieEntries = [];
@@ -13,14 +24,14 @@ try {
 
 const firstMovie = movieEntries.length > 0 ? movieEntries[0] : null;
 
-const hasPoster = firstMovie && firstMovie.data && firstMovie.data.poster;
-const hasGenres = firstMovie && firstMovie.data && firstMovie.data.genre && firstMovie.data.genre.length > 0;
-const hasCast = firstMovie && firstMovie.data && firstMovie.data.cast && firstMovie.data.cast.length > 0;
+const hasPoster = firstMovie && firstMovie.data.poster;
+const hasGenres = firstMovie && firstMovie.data.genre && firstMovie.data.genre.length > 0;
+const hasCast = firstMovie && firstMovie.data.cast && firstMovie.data.cast.length > 0;
 ---
+
 
 <div class="relative isolate overflow-x-clip">
   <div class="absolute bottom-1/4 inset-0 -z-10 rotate-[-4deg] scale-125 bg-gradient-to-b from-charade-800 via-charade-800 to-charade-950 overflow-hidden">
-
     <Image
       src={BackgroundImg}
       alt="Theatre"
@@ -51,16 +62,13 @@ const hasCast = firstMovie && firstMovie.data && firstMovie.data.cast && firstMo
         </div>
 
         {!firstMovie && (
-          <div class="md:h-[40rem]">
-          </div>
+          <div class="md:h-[40rem]"></div>
         )}
 
-
         {firstMovie && (
-        <div class="px-0 relative shadow-purple-400/30 shadow-2xl rounded-xl">
-          <div class="absolute top-2 left-2 rounded-md text-sm px-3.5 py-2.5 font-semibold leading-6 text-slate-900 bg-slate-100">Now playing</div>
-          <div class="lg:-mr-20 mx-auto sm:mx-0 sm:max-w-none"></div>
-
+          <div class="px-0 relative shadow-purple-400/30 shadow-2xl rounded-xl">
+            <div class="absolute top-2 left-2 rounded-md text-sm px-3.5 py-2.5 font-semibold leading-6 text-slate-900 bg-slate-100">Now playing</div>
+            <div class="lg:-mr-20 mx-auto sm:mx-0 sm:max-w-none"></div>
             <div>
               <div class="aspect-[2/3] bg-purple-100 rounded-2xl rounded-b-none">
                 {hasPoster && (
@@ -88,7 +96,7 @@ const hasCast = firstMovie && firstMovie.data && firstMovie.data.cast && firstMo
                         <div aria-hidden="true" class="mx-4 text-sm text-gray-400">·</div>
                         {hasGenres && (
                           <span>
-                            {firstMovie.data.genre.map((genre, index, array) => (
+                            {firstMovie.data.genre.map((genre: string, index: number, array: string[]) => (
                               <span key={index}>
                                 {genre}{index < array.length - 1 ? ', ' : ''}
                               </span>
@@ -109,7 +117,7 @@ const hasCast = firstMovie && firstMovie.data && firstMovie.data.cast && firstMo
                       <dd class="text-slate-500">
                         {hasCast && (
                           <span>
-                            {firstMovie.data.cast.map((cast, index, array) => (
+                            {firstMovie.data.cast.map((cast: string, index: number, array: string[]) => (
                               <span key={index}>
                                 {cast}{index < array.length - 1 ? ', ' : ''}
                               </span>
@@ -123,10 +131,8 @@ const hasCast = firstMovie && firstMovie.data && firstMovie.data.cast && firstMo
               </article>
             </div>
           </div>
-          )}
-        </div>
+        )}
       </div>
-
     </div>
   </div>
 </div>
