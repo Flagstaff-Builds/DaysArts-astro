@@ -1,32 +1,41 @@
 ---
 import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import { Image } from 'astro:assets';
 import BackgroundImg from '@assets/palace-theatre-daysland-alberta.jpg';
 
-interface MovieEntry {
-  id: string;
-  title: string;
-  description: string;
-  poster?: string;
-  genre?: string[];
-  cast?: string[];
-  rating?: string;
-  length?: string;
-}
+// Define the type for movie entries
+type MovieEntry = {
+  data: {
+    title: string;
+    description?: string;
+    rating?: string;
+    genre?: string[];
+    length?: string;
+    cast?: string[];
+    showtimes?: string[];
+    poster?: ImageMetadata;
+    trailer?: string;
+    socialImage?: ImageMetadata;
+    reelAlternative?: boolean;
+  };
+};
 
 let movieEntries: MovieEntry[] = [];
 try {
   const collection = await getCollection<MovieEntry>("movie");
-  movieEntries = Array.isArray(collection) ? collection : [];
+  if (Array.isArray(collection)) {
+    movieEntries = collection;
+  }
 } catch (error) {
-  movieEntries = [];
+  console.error('Error fetching movie collection:', error);
 }
 
-const firstMovie = movieEntries.length > 0 ? movieEntries[0] : null;
+const firstMovie: MovieEntry | null = movieEntries.length > 0 ? movieEntries[0] : null;
 
-const hasPoster = firstMovie && firstMovie.data.poster;
-const hasGenres = firstMovie && firstMovie.data.genre && firstMovie.data.genre.length > 0;
-const hasCast = firstMovie && firstMovie.data.cast && firstMovie.data.cast.length > 0;
+const hasPoster = firstMovie?.data?.poster;
+const hasGenres = firstMovie?.data?.genre?.length > 0;
+const hasCast = firstMovie?.data?.cast?.length > 0;
 ---
 
 
@@ -96,7 +105,7 @@ const hasCast = firstMovie && firstMovie.data.cast && firstMovie.data.cast.lengt
                         <div aria-hidden="true" class="mx-4 text-sm text-gray-400">·</div>
                         {hasGenres && (
                           <span>
-                            {firstMovie.data.genre.map((genre: string, index: number, array: string[]) => (
+                            {firstMovie.data.genre.map((genre, index, array) => (
                               <span key={index}>
                                 {genre}{index < array.length - 1 ? ', ' : ''}
                               </span>
@@ -117,7 +126,7 @@ const hasCast = firstMovie && firstMovie.data.cast && firstMovie.data.cast.lengt
                       <dd class="text-slate-500">
                         {hasCast && (
                           <span>
-                            {firstMovie.data.cast.map((cast: string, index: number, array: string[]) => (
+                            {firstMovie.data.cast.map((cast, index, array) => (
                               <span key={index}>
                                 {cast}{index < array.length - 1 ? ', ' : ''}
                               </span>
