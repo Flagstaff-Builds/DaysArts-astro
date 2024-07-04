@@ -17,7 +17,7 @@ type Props = {
   movie: CollectionEntry<'movie'>;
 }
 
-const { movie } = Astro.props;
+const { movie } = Astro.props as Props | undefined;
 // const { Content } = await movie.render();
 ---
 

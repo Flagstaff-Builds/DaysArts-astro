@@ -1,6 +1,5 @@
 ---
 import { getCollection } from "astro:content";
-import type { CollectionEntry } from "astro:content";
 import { Image } from 'astro:assets';
 import BackgroundImg from '@assets/palace-theatre-daysland-alberta.jpg';
 
@@ -21,9 +20,11 @@ type MovieEntry = {
   };
 };
 
+
+
 let movieEntries: MovieEntry[] = [];
 try {
-  const collection = await getCollection<MovieEntry>("movie");
+  const collection = await getCollection("movie") as MovieEntry[];
   if (Array.isArray(collection)) {
     movieEntries = collection as MovieEntry[];
   }

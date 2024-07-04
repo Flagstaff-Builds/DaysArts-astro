@@ -15,7 +15,7 @@ interface MovieEntry {
   // Add other relevant fields based on your content schema
 }
 
-let movieEntries: MovieEntry[] = await getCollection<MovieEntry>("movie");
+let movieEntries = await getCollection("movie") as MovieEntry[];
 let hasMovies = movieEntries && movieEntries.length > 0;
 ---
 

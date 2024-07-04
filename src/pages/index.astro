@@ -8,7 +8,7 @@ import { TicketIcon } from '@heroicons/vue/24/outline';
 import { getCollection } from "astro:content";
 
 const events = await getCollection("event");
-const movies = await getCollection("movie");
+const movies: any[] = await getCollection("movie");
 
 const hasMovies = movies && movies.length > 0;
 
