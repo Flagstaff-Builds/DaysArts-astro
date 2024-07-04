@@ -7,7 +7,7 @@ type Props = {
   movie: CollectionEntry<'movie'>;
 };
 
-const { movie } = Astro.props as Props;
+const { movie } = Astro.props as Props | undefined;
 ---
 
 
@@ -57,7 +57,7 @@ const { movie } = Astro.props as Props;
       <dt class="uppercase font-semibold text-xs text-slate-400">Cast</dt>
       <dd class="flex items-center mt-2 text-sm">
           <ul class="flex flex-wrap gap-x-1 text-slate-500">
-            {movie.data.cast.map((cast, index, array) => (
+            {movie?.data?.cast?.map((cast: unknown, index: number, array: string | any[]) => (
               <li>
                 {cast}{index < array.length - 1 ? ', ' : ''}
               </li>
@@ -100,7 +100,7 @@ const { movie } = Astro.props as Props;
 
             {movie.data.genre && movie.data.genre.length > 0 && (
               <ul class="flex flex-wrap sm:flex-nowrap gap-x-1 ">
-                {movie.data.genre.map((genre, index, array) => (
+                {movie.data.genre.map((genre: unknown, index: number, array: string | any[]) => (
                   <li>
                     {genre}{index < array.length - 1 ? ', ' : ''}
                   </li>
@@ -119,7 +119,7 @@ const { movie } = Astro.props as Props;
 
           {movie.data.showtimes && movie.data.showtimes.length > 0 && (
             <ul class="flex flex-wrap sm:flex-nowrap gap-x-6 justify-between text-slate-500">
-              {movie.data.showtimes.map((showtimes) => (
+              {movie.data.showtimes?.map((showtimes: string) => (
                 <li class="flex justify-between">
                   <CalendarDaysIcon class="h-5 w-5 flex-none text-slate-400 pr-1" aria-hidden="true" />
                   {showtimes}

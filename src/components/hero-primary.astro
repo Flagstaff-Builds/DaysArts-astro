@@ -33,7 +33,6 @@ try {
 
 const firstMovie: MovieEntry | null = movieEntries.length > 0 ? movieEntries[0] : null;
 
-const hasPoster = firstMovie?.data?.poster;
 const hasGenres = firstMovie?.data?.genre?.length ?? 0 > 0;
 const hasCast = firstMovie?.data?.cast?.length ?? 0 > 0;
 ---
@@ -80,7 +79,7 @@ const hasCast = firstMovie?.data?.cast?.length ?? 0 > 0;
             <div class="lg:-mr-20 mx-auto sm:mx-0 sm:max-w-none"></div>
             <div>
               <div class="aspect-[2/3] bg-purple-100 rounded-2xl rounded-b-none">
-                {hasPoster && (
+                {firstMovie.data.poster && (
                   <Image
                     src={firstMovie.data.poster}
                     width="2432"
