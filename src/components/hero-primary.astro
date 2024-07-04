@@ -25,7 +25,7 @@ let movieEntries: MovieEntry[] = [];
 try {
   const collection = await getCollection<MovieEntry>("movie");
   if (Array.isArray(collection)) {
-    movieEntries = collection;
+    movieEntries = collection as MovieEntry[];
   }
 } catch (error) {
   console.error('Error fetching movie collection:', error);
@@ -34,8 +34,8 @@ try {
 const firstMovie: MovieEntry | null = movieEntries.length > 0 ? movieEntries[0] : null;
 
 const hasPoster = firstMovie?.data?.poster;
-const hasGenres = firstMovie?.data?.genre?.length > 0;
-const hasCast = firstMovie?.data?.cast?.length > 0;
+const hasGenres = firstMovie?.data?.genre?.length ?? 0 > 0;
+const hasCast = firstMovie?.data?.cast?.length ?? 0 > 0;
 ---
 
 
@@ -105,8 +105,8 @@ const hasCast = firstMovie?.data?.cast?.length > 0;
                         <div aria-hidden="true" class="mx-4 text-sm text-gray-400">·</div>
                         {hasGenres && (
                           <span>
-                            {firstMovie.data.genre.map((genre, index, array) => (
-                              <span key={index}>
+                            {firstMovie?.data?.genre?.map((genre, index, array) => (
+                              <span>
                                 {genre}{index < array.length - 1 ? ', ' : ''}
                               </span>
                             ))}
@@ -126,8 +126,8 @@ const hasCast = firstMovie?.data?.cast?.length > 0;
                       <dd class="text-slate-500">
                         {hasCast && (
                           <span>
-                            {firstMovie.data.cast.map((cast, index, array) => (
-                              <span key={index}>
+                            {firstMovie?.data?.cast?.map((cast, index, array) => (
+                              <span>
                                 {cast}{index < array.length - 1 ? ', ' : ''}
                               </span>
                             ))}
