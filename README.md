@@ -1,37 +1,28 @@
 # DaysArts
 
-This is the private repo with all build files. Built on Astro, Vue, Tailwind.
+This is the repo for the DaysArts theater website with all build files. Built on Astro, Vue, Tailwind.
 
 
-To build a project in the browser, run:
+To build a project in your local machine:
+1. clone repo
+2. `npm install` to install dependancies
+3.
 ```sh
 npm run dev
 ```
-localhost:4321
+4. open browser to localhost:4321
 
 
 ## Featured collections
 - movie
 - event
 
-### Update collections
-- Create new movie or event, copy the _YYYY-MM-DD-event.md template
-- Move past movie or event into their "_old" folder
-
-## Dependencies
-- don't forget to add multiple dependencies
+### To update collections
+- To create new movie or event, copy the _YYYY-MM-DD-event.md template
+- To remove a past movie or event, delete the .mdx file or move into their "_old" folder
 
 
-## created some helpers
-
-### my alias for git
-alias gs='git status'
-alias gp='git push'
-alias gpl='git pull'
-alias gc='git commit -m'
-alias ga='git add .'
-alias gl='git log'
-alias gd='git diff'
+## Helpful bash shortcuts
 
 ### my alias for astro
 alias astro='npm run dev'

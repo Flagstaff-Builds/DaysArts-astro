@@ -21,3 +21,6 @@ pnpm-debug.log*
 
 # frontmatter VScode plugin
 .frontmatter
+
+# VSCode workspace settings
+.vscode
