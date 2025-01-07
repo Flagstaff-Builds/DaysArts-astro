@@ -7,7 +7,7 @@ import { TicketIcon } from '@heroicons/vue/24/outline';
 
 import { getCollection } from "astro:content";
 
-import ChristmasTickets from "@/components/christmas-tickets.astro";
+// import ChristmasTickets from "@/components/christmas-tickets.astro";
 
 const events = await getCollection("event");
 const movies: any[] = await getCollection("movie");
@@ -21,7 +21,7 @@ import TheatreClosed from "@/components/theatre-closed.astro";
 
 <Layout title="Daysland and District Cultural Arts Society | Theatre">
 
-  <ChristmasTickets></ChristmasTickets>
+  <!-- <ChristmasTickets></ChristmasTickets> -->
   <Hero></Hero>
 
   <!-- now playing movies -->
