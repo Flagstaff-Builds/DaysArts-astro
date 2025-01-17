@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://daysarts.com/sitemap-index.xml
