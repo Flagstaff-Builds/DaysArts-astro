@@ -4,14 +4,20 @@ import Main from "@components/html-structure/Main.astro";
 import HeroSecondary from "@components/hero-secondary.astro";
 import { FireIcon } from "@heroicons/vue/24/outline";
 
-import type { CollectionEntry } from 'astro:content';
-type Props = {
-  events: CollectionEntry<'event'>;
-};
+interface EventFrontmatter {
+  title: string;
+  date?: string;
+  description?: string;
+}
+
+interface EventModule {
+  frontmatter: EventFrontmatter;
+  default: unknown;
+}
 
 // Load all event files using import.meta.glob
 const eventFiles = await Promise.all(
-  Object.values(await import.meta.glob('../content/event/_old/*.md'))
+  Object.values(await import.meta.glob<EventModule>('../content/event/_old/*.md'))
     .map(event => event())
 );
 
