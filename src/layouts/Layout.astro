@@ -60,17 +60,19 @@ const { title, description, socialImage="./days-arts.jpg", ogType="website" } = 
       async 
       defer 
       src='https://app.visitortracking.com/assets/js/tracer.js'
-      client:only="true"
-      onload="init_tracer()"
+      data-website-id="38ec2c75-c5cd-4ee3-83cd-6b6cc0a47f55"
+      onload="initTracer()"
     ></script>
 
-    <script define:vars={{ websiteId: "38ec2c75-c5cd-4ee3-83cd-6b6cc0a47f55" }}>
-      window.init_tracer = function() {
-        const tracer = new Tracer({
-          websiteId,
-          async: true,
-          debug: false
-        });
+    <script is:inline>
+      function initTracer() {
+        if (typeof Tracer !== 'undefined') {
+          new Tracer({
+            websiteId: document.currentScript?.getAttribute('data-website-id') || '',
+            async: true,
+            debug: false
+          });
+        }
       }
     </script>
 

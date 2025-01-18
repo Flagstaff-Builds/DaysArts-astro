@@ -10,15 +10,27 @@ interface EventFrontmatter {
   description?: string;
 }
 
-interface EventModule {
+type EventFile = {
   frontmatter: EventFrontmatter;
-  default: unknown;
-}
+  file: string;
+  url: string;
+};
 
 // Load all event files using import.meta.glob
 const eventFiles = await Promise.all(
-  Object.values(await import.meta.glob<EventModule>('../content/event/_old/*.md'))
-    .map(event => event())
+  Object.entries(await import.meta.glob<{ frontmatter: EventFrontmatter }>('../content/event/_old/*.md'))
+    .map(async ([file, importFunc]) => {
+      const event = await importFunc();
+      return {
+        ...event,
+        file,
+        url: file.replace('../content/event/_old', '/events').replace('.md', '')
+      } as EventFile;
+    })
+);
+
+const sortedEvents = eventFiles.sort((a, b) => 
+  (b.frontmatter.date || '').localeCompare(a.frontmatter.date || '')
 );
 
 ---
@@ -52,9 +64,9 @@ const eventFiles = await Promise.all(
         <div>
           <dt class="text-lg font-bold leading-7 text-gray-900">2023 - 2024</dt>
           <dd class="mt-2 text-base leading-7 text-gray-600">
-            {eventFiles.map((event, index) => (
+            {sortedEvents.map((event, index) => (
               <span>
-                {event.frontmatter.title}{index < eventFiles.length - 1 ? ', ' : ''}
+                {event.frontmatter.title}{index < sortedEvents.length - 1 ? ', ' : ''}
               </span>
             ))}
           </dd>

@@ -2,23 +2,11 @@
 /// <reference types="astro/client" />
 
 
-// Extend AstroScript attributes
-declare namespace astroHTML.JSX {
-  interface ScriptHTMLAttributes {
-    'client:only'?: boolean;
-  }
-}
-
 // Visitortracking.com snippet
 interface Tracer {
-  new (config: { websiteId: string; async: boolean; debug: boolean }): any;
+  new (config: { websiteId: string; async: boolean; debug: boolean }): void;
 }
 
-declare var Tracer: Tracer;
-
-// Extend Window interface
 declare global {
-  interface Window {
-    init_tracer: () => void;
-  }
+  var Tracer: Tracer;
 }
