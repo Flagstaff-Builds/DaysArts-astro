@@ -3,28 +3,28 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
+    "dev": "NODE_OPTIONS='--max-old-space-size=8192' astro dev",
+    "start": "NODE_OPTIONS='--max-old-space-size=8192' astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.3.1",
-    "@astrojs/mdx": "^2.0.0",
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.0.6",
     "@astrojs/sitemap": "^3.2.1",
-    "@astrojs/tailwind": "^5.0.3",
-    "@astrojs/vue": "^4.0.1",
-    "@headlessui/vue": "^1.7.16",
-    "@heroicons/vue": "^2.0.18",
-    "@sentry/astro": "^7.85.0",
-    "@spotlightjs/astro": "^0.0.26",
+    "@astrojs/tailwind": "^5.1.4",
+    "@astrojs/vue": "^5.0.5",
+    "@headlessui/vue": "^1.7.23",
+    "@heroicons/vue": "^2.2.0",
+    "@sentry/astro": "^8.50.0",
+    "@spotlightjs/astro": "^2.3.0",
     "@tailwindcss/forms": "^0.5.7",
-    "astro": "^4.0.1",
-    "date-fns": "^2.30.0",
+    "astro": "^5.1.7",
+    "date-fns": "^4.1.0",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5.3.2",
-    "vue": "^3.3.9"
+    "typescript": "^5.7.3",
+    "vue": "3.3.9"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10"

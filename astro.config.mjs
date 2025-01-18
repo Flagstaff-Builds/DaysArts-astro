@@ -8,10 +8,38 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://daysarts.com',
+  site: 'https://daysarts.ca',
+  output: 'static',
+  build: {
+    inlineStylesheets: 'auto',
+  },
+  vite: {
+    build: {
+      cssCodeSplit: true,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vue': ['vue'],
+            'heroicons': ['@heroicons/vue/24/outline']
+          }
+        }
+      }
+    },
+    optimizeDeps: {
+      include: ['vue', '@heroicons/vue/24/outline']
+    },
+    ssr: {
+      noExternal: ['@heroicons/vue']
+    }
+  },
   integrations: [
-    tailwind(), 
-    vue(), 
+    tailwind({
+      applyBaseStyles: false
+    }), 
+    vue({
+      jsx: true,
+      appEntrypoint: '/src/pages/_app'
+    }), 
     mdx(), 
     sentry(), 
     spotlightjs(),

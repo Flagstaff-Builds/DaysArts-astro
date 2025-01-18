@@ -1,6 +1,7 @@
 ---
 import Header from "@components/html-structure/Header.astro";
 import Footer from "@components/html-structure/footer.astro";
+import '../styles/base.css';
 
 interface Props {
   title?: string;
@@ -25,6 +26,12 @@ const { title, description, socialImage="./days-arts.jpg", ogType="website" } = 
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
+
+    <!-- Performance optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.youtube.com" />
+    <link rel="dns-prefetch" href="https://vimeo.com" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content={ogType} />

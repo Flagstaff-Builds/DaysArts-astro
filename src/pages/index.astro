@@ -9,11 +9,14 @@ import { getCollection } from "astro:content";
 
 // import ChristmasTickets from "@/components/christmas-tickets.astro";
 
-const events = await getCollection("event");
-const movies: any[] = await getCollection("movie");
+// Optimized collection queries
+const movies = (await getCollection("movie"))
+  .sort((a, b) => a.id.localeCompare(b.id));
 
-const hasMovies = movies && movies.length > 0;
+const events = (await getCollection("event"))
+  .sort((a, b) => a.id.localeCompare(b.id));
 
+const hasMovies = movies.length > 0;
 
 import TheatreClosed from "@/components/theatre-closed.astro";
 ---
