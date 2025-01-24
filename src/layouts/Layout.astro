@@ -1,6 +1,7 @@
 ---
 import Header from "@components/html-structure/Header.astro";
 import Footer from "@components/html-structure/footer.astro";
+import BackgroundImg from '@assets/palace-theatre-daysland-alberta.jpg';
 import '../styles/base.css';
 
 interface Props {
@@ -10,7 +11,7 @@ interface Props {
   ogType?: string;
 }
 
-const { title, description, socialImage="./days-arts.jpg", ogType="website" } = Astro.props;
+const { title, description, socialImage="/social-image.jpg", ogType="website" } = Astro.props;
 ---
 
 <!doctype html>
@@ -32,6 +33,14 @@ const { title, description, socialImage="./days-arts.jpg", ogType="website" } = 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://www.youtube.com" />
     <link rel="dns-prefetch" href="https://vimeo.com" />
+    
+    <!-- Additional performance optimizations -->
+    <link rel="preload" as="image" href={BackgroundImg.src} />
+    <meta http-equiv="Cache-Control" content="max-age=31536000" />
+    
+    <!-- Responsive image loading -->
+    <link rel="preload" as="image" href={BackgroundImg.src} media="(min-width: 1024px)" />
+    <link rel="preload" as="image" href={BackgroundImg.src} media="(max-width: 1023px)" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content={ogType} />

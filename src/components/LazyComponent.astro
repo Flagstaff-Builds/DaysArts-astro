@@ -1,0 +1,7 @@
+---
+const { componentPath } = Astro.props;
+
+const Component = await import(componentPath).then(mod => mod.default);
+---
+
+<Component {...Astro.props} />

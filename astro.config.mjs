@@ -13,10 +13,23 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // https://astro.build/config
 export default defineConfig({
   site: 'https://daysarts.ca',
+  output: 'static',
+  compressHTML: true,
+  build: {
+    inlineStylesheets: 'auto',
+  },
   vite: {
     build: {
+      cssMinify: true,
       rollupOptions: {
-        external: (id) => id.includes('_old') || id === '/src/_app'
+        external: (id) => id.includes('_old') || id === '/src/_app',
+        output: {
+          manualChunks: {
+            'vue': ['vue'],
+            'heroicons': ['@heroicons/vue/24/outline'],
+            'utils': ['/src/utils/lazyLoad.ts']
+          }
+        }
       }
     },
     resolve: {

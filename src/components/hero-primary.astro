@@ -11,8 +11,10 @@ let movieEntries: MovieEntry[] = [];
 try {
   const collection = await getCollection("movie");
   if (Array.isArray(collection)) {
-    // Filter out entries from _old directory
-    movieEntries = collection.filter(entry => !entry.slug.startsWith('_old/'));
+    // Filter out entries from _old directory and sort by filename
+    movieEntries = collection
+      .filter(entry => !entry.slug.startsWith('_old/'))
+      .sort((a, b) => a.id.localeCompare(b.id));
   }
 } catch (error) {
   console.error('Error fetching movie collection:', error);
@@ -31,6 +33,10 @@ const hasCast = firstMovie?.data?.cast?.length ?? 0 > 0;
       alt="Theatre"
       class="absolute inset-x-0 top-0 -z-10 h-[64rem] w-[64rem] lg:w-full bg-contain opacity-15 filter backdrop-brightness-70"
       aria-hidden="true"
+      loading="eager"
+      decoding="async"
+      format="avif"
+      quality="mid"
     />
   </div>
 
