@@ -92,21 +92,29 @@ export default defineConfig({
         'https://daysarts.ca/about',
         'https://daysarts.ca/contact',
       ],
-      changefreq: 'weekly',
-      lastmod: new Date(),
-      priority: 0.85,
+      outfile: 'sitemap.xml',
       serialize: (item) => {
         // Remove _old from sitemap
         if (item.url.includes('_old')) {
           return undefined;
         }
+
+        // Determine change frequency based on the page type
+        let changefreq;
+        if (item.url.includes('/now-playing') || item.url.includes('/movie/')) {
+          changefreq = 'weekly';
+        } else if (item.url.includes('/event/') || item.url.includes('/events')) {
+          changefreq = 'monthly';
+        } else {
+          changefreq = 'yearly';
+        }
+
         return {
           url: item.url,
-          changefreq: item.changefreq,
           lastmod: item.lastmod,
-          priority: item.priority
+          changefreq
         };
-      },
+      }
     }),
     sentry(),
     spotlightjs()
