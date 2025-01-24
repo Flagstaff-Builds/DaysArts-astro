@@ -153,12 +153,14 @@ function isValidUrl(urlString: string) {
 
               <Image
                 src={event.data.poster}
-                format="avif"
-                quality="mid"
-                width={1024}
-                height={1024 * 1.5}
+                format="webp"
+                quality="high"
+                widths={[640, 768, 1024, 1280, 1536]}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 800px"
                 alt={`${event.data.title} poster`}
                 class="lg:col-span-2 lg:row-span-2 rounded-2xl object-cover bg-purple-100 h-full w-full shadow-purple-400/30 shadow-2xl"
+                loading="eager"
+                decoding="async"
               />
             </div>
           </div>

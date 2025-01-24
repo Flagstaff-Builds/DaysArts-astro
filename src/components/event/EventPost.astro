@@ -5,9 +5,10 @@ import { CalendarDaysIcon, ClockIcon } from '@heroicons/vue/24/outline';
 
 interface Props {
   event: CollectionEntry<'event'>;
+  index: number;
 }
 
-const { event }: Props = Astro.props;
+const { event, index }: Props = Astro.props;
 
 // Format the date as UTC
 const eventDate = new Date(event.data.date + 'T00:00:00Z');
@@ -18,6 +19,8 @@ const formattedDate = eventDate.toLocaleDateString('en-US', {
   day: '2-digit'
 });
 
+// Determine loading strategy based on index and screen size
+const shouldEagerLoad = index === 0 || (index === 1 && 'only screen and (min-width: 640px)');
 
 ---
 
@@ -27,12 +30,14 @@ const formattedDate = eventDate.toLocaleDateString('en-US', {
     {event.data.poster && (
       <Image
         src={event.data.poster}
-        format="avif"
-        quality="mid"
-        width={800}
-        height={450 / 1.5}
+        format="webp"
+        quality="high"
+        widths={[240, 540, 720, 1080]}
+        sizes="(max-width: 640px) 240px, (max-width: 1024px) 540px, 720px"
         alt={`${event.data.title} thumbnail`}
         class="aspect-[2/3] w-full rounded-xl bg-purple-100 object-cover shadow-purple-400/30 shadow-lg"
+        loading={shouldEagerLoad ? "eager" : "lazy"}
+        decoding="async"
       />
     )}
     <h3 class="mt-6 text-xl font-semibold leading-8 text-gray-900">{event.data.title}</h3>
