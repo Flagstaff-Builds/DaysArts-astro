@@ -21,11 +21,15 @@ interface Movie {
   slug: string;
 }
 
-type Props = {
+interface Props {
   movieEntries: CollectionEntry<'movie'>[];
-};
+}
 
 const { movieEntries } = Astro.props as Props;
+
+// Filter out entries from _old directory
+const activeMovies = movieEntries.filter(entry => !entry.id.startsWith('_old/'));
+
 ---
 
 <!-- This is the event listings page -->
@@ -74,11 +78,13 @@ const { movieEntries } = Astro.props as Props;
     <p class="text-gray-400">For showtimes call <a href="tel:1780-673-1325" itemprop="telephone" class="whitespace-nowrap text-sm text-purple-600 hover:underline">780-673-1325</a></p>
   </div>
 
-  <ul role="list" class="mx-auto flex flex-col lg:mx-0 lg:max-w-none w-full col-span-2">
-    {movieEntries.map((movieEntry) => (
-      <li class="mb-10 max-w-4xl">
-        <MoviePost movie={movieEntry as Movie} />
-      </li>
-    ))}
-  </ul>
+  <div class="col-span-2">
+    <ul role="list" class="space-y-12 lg:space-y-12">
+      {activeMovies.map((movie) => (
+        <li>
+          <MoviePost movie={movie as Movie} />
+        </li>
+      ))}
+    </ul>
+  </div>
 </div>

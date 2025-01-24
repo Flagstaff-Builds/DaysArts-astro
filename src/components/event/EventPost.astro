@@ -3,11 +3,11 @@ import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import { CalendarDaysIcon, ClockIcon } from '@heroicons/vue/24/outline';
 
-type Props = {
+interface Props {
   event: CollectionEntry<'event'>;
-};
+}
 
-const { event } = Astro.props;
+const { event }: Props = Astro.props;
 
 // Format the date as UTC
 const eventDate = new Date(event.data.date + 'T00:00:00Z');
@@ -49,7 +49,7 @@ const formattedDate = eventDate.toLocaleDateString('en-US', {
         <li>
           <span class="text-xs font-medium uppercase text-slate-500">Concert</span>
           <span aria-hidden="true" class="mx-4 text-sm text-gray-400">·</span>
-          {event.data.concertSponsor?.map((sponsor) => (
+          {event.data.concertSponsor?.map((sponsor: string) => (
             <span class="text-sm font-medium text-gray-400">{sponsor}</span>
           ))}
         </li>

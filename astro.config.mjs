@@ -1,32 +1,52 @@
 import { defineConfig } from 'astro/config';
-import tailwind from "@astrojs/tailwind";
+import mdx from '@astrojs/mdx';
+import tailwind from '@astrojs/tailwind';
+import sitemap from '@astrojs/sitemap';
 import vue from "@astrojs/vue";
-import mdx from "@astrojs/mdx";
 import sentry from "@sentry/astro";
 import spotlightjs from "@spotlightjs/astro";
-import sitemap from "@astrojs/sitemap";
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://daysarts.ca',
-  output: 'static',
-  build: {
-    inlineStylesheets: 'auto',
-  },
   vite: {
     build: {
-      cssCodeSplit: true,
       rollupOptions: {
-        output: {
-          manualChunks: {
-            'vue': ['vue'],
-            'heroicons': ['@heroicons/vue/24/outline']
+        external: (id) => id.includes('_old') || id === '/src/_app'
+      }
+    },
+    resolve: {
+      alias: {
+        './images/': path.resolve(__dirname, 'src/content/movie/images/')
+      }
+    },
+    plugins: [
+      {
+        name: 'exclude-old-content',
+        enforce: 'pre',
+        resolveId(id) {
+          if (id.includes('_old')) {
+            return false;
+          }
+        }
+      },
+      {
+        name: 'exclude-old-content',
+        enforce: 'pre',
+        resolveId(id) {
+          if (id.includes('_old')) {
+            return false;
           }
         }
       }
-    },
+    ],
     optimizeDeps: {
-      include: ['vue', '@heroicons/vue/24/outline']
+      include: ['vue', '@heroicons/vue/24/outline'],
+      exclude: ['@resvg/resvg-js']
     },
     ssr: {
       noExternal: ['@heroicons/vue']
@@ -34,42 +54,39 @@ export default defineConfig({
   },
   integrations: [
     tailwind({
-      applyBaseStyles: false
-    }), 
-    vue({
-      jsx: true,
-      appEntrypoint: '/src/pages/_app'
-    }), 
-    mdx(), 
-    sentry(), 
+      applyBaseStyles: false,
+    }),
+    mdx(),
+    vue(),
+    sentry(),
     spotlightjs(),
     sitemap({
-      filter: (page) => !page.includes('admin'),
+      filter: (page) => !page.includes('_old'),
+      customPages: [
+        'https://daysarts.ca/now-playing',
+        'https://daysarts.ca/events',
+        'https://daysarts.ca/about',
+        'https://daysarts.ca/contact',
+      ],
       changefreq: 'weekly',
       lastmod: new Date(),
-      serialize(item) {
-        // Special handling for different page types
-        if (item.url.includes('/events/') || item.url.includes('/now-playing/')) {
-          return {
-            ...item,
-            changefreq: 'daily',
-            priority: 0.9,
-          };
+      priority: 0.85,
+      serialize: (item) => {
+        // Remove _old from sitemap
+        if (item.url.includes('_old')) {
+          return undefined;
         }
-        if (item.url.includes('/movie/')) {
-          return {
-            ...item,
-            changefreq: 'weekly',
-            priority: 0.8,
-          };
-        }
-        // Default for other pages
         return {
-          ...item,
-          changefreq: 'monthly',
-          priority: 0.7,
+          url: item.url,
+          changefreq: item.changefreq,
+          lastmod: item.lastmod,
+          priority: item.priority
         };
       },
     })
-  ]
+  ],
+  markdown: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  }
 });

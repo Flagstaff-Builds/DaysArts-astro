@@ -1,4 +1,3 @@
-// import { boolean } from "astro/zod";
 import { defineCollection, z } from "astro:content";
 
 const movieCollection = defineCollection({
@@ -16,7 +15,7 @@ const movieCollection = defineCollection({
     trailer: z.string().url().optional(),
     socialImage: image().optional(),
     reelAlternative: z.boolean().optional(),
-  }),
+  })
 });
 
 const eventCollection = defineCollection({
@@ -29,16 +28,12 @@ const eventCollection = defineCollection({
     time: z.string().optional(),
     price: z.string().optional(),
     poster: image().optional(),
-    website: z.string().url().optional(),
-    facebook: z.string().url().optional(),
-    twitter: z.string().url().optional(),
-    instagram: z.string().url().optional(),
-    youtube: z.string().url().optional(),
     socialImage: image().optional(),
+    trailer: z.string().url().optional(),
     concertSponsor: z.array(z.string()).optional(),
     receptionSponsor: z.array(z.string()).optional(),
     past: z.boolean().optional(),
-  }),
+  })
 });
 
 export const collections = {

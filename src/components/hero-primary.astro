@@ -1,30 +1,18 @@
 ---
 import { getCollection } from "astro:content";
 import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
 import BackgroundImg from '@assets/palace-theatre-daysland-alberta.jpg';
 
 // Define the type for movie entries
-type MovieEntry = {
-  data: {
-    title: string;
-    description?: string;
-    rating?: string;
-    genre?: string[];
-    length?: string;
-    cast?: string[];
-    showtimes?: string[];
-    poster?: ImageMetadata;
-    trailer?: string;
-    socialImage?: ImageMetadata;
-    reelAlternative?: boolean;
-  };
-};
+type MovieEntry = CollectionEntry<'movie'>;
 
 let movieEntries: MovieEntry[] = [];
 try {
-  const collection = await getCollection("movie") as MovieEntry[];
+  const collection = await getCollection("movie");
   if (Array.isArray(collection)) {
-    movieEntries = collection;
+    // Filter out entries from _old directory
+    movieEntries = collection.filter(entry => !entry.slug.startsWith('_old/'));
   }
 } catch (error) {
   console.error('Error fetching movie collection:', error);
