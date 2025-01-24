@@ -26,8 +26,7 @@ export default defineConfig({
         output: {
           manualChunks: {
             'vue': ['vue'],
-            'heroicons': ['@heroicons/vue/24/outline'],
-            'utils': ['/src/utils/lazyLoad.ts']
+            'heroicons': ['@heroicons/vue/24/outline']
           }
         }
       }
@@ -37,42 +36,54 @@ export default defineConfig({
         './images/': path.resolve(__dirname, 'src/content/movie/images/')
       }
     },
-    plugins: [
-      {
-        name: 'exclude-old-content',
-        enforce: 'pre',
-        resolveId(id) {
-          if (id.includes('_old')) {
-            return false;
-          }
-        }
+    // Dev mode optimizations
+    server: {
+      hmr: {
+        overlay: false // Disable HMR overlay for better performance
       },
-      {
-        name: 'exclude-old-content',
-        enforce: 'pre',
-        resolveId(id) {
-          if (id.includes('_old')) {
-            return false;
-          }
-        }
+      watch: {
+        usePolling: false, // Disable polling in dev mode
+        ignored: ['**/node_modules/**', '**/.git/**', '**/dist/**'] // Ignore watching unnecessary files
       }
-    ],
+    },
     optimizeDeps: {
       include: ['vue', '@heroicons/vue/24/outline'],
-      exclude: ['@resvg/resvg-js']
+      exclude: ['@resvg/resvg-js'],
+      // Disable dependency optimization for certain paths
+      entries: [
+        '!src/content/**/*.mdx',
+        '!src/content/**/*.md'
+      ]
+    },
+    // Improve build performance
+    esbuild: {
+      logOverride: { 'this-is-undefined-in-esm': 'silent' }
     },
     ssr: {
       noExternal: ['@heroicons/vue']
     }
   },
   integrations: [
-    tailwind({
-      applyBaseStyles: false,
+    mdx({
+      optimize: true, // Enable MDX optimization
+      extendPlugins: false // Disable plugin extension for better performance
     }),
-    mdx(),
-    vue(),
-    sentry(),
-    spotlightjs(),
+    vue({
+      jsx: false, // Disable JSX support if not needed
+      template: {
+        compilerOptions: {
+          whitespace: 'condense' // Optimize template whitespace handling
+        }
+      }
+    }),
+    tailwind({
+      // Optimize Tailwind for development
+      config: {
+        future: {
+          hoverOnlyWhenSupported: true
+        }
+      }
+    }),
     sitemap({
       filter: (page) => !page.includes('_old'),
       customPages: [
@@ -96,7 +107,9 @@ export default defineConfig({
           priority: item.priority
         };
       },
-    })
+    }),
+    sentry(),
+    spotlightjs()
   ],
   markdown: {
     remarkPlugins: [],
