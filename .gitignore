@@ -27,4 +27,4 @@ pnpm-debug.log*
 .vscode
 
 # windsurf docs
-windsurf
+/windsurf/

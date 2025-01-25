@@ -1,0 +1,1 @@
+/Users/jeremy/Sites/Flagstaff-websites/clients/DaysArts/DaysArts-astro/windsurf/windsurf-instructions.md

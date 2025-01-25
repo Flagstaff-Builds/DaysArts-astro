@@ -1,0 +1,17 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProtectedRoute from '../../components/auth/ProtectedRoute.vue';
+import MovieManagement from '../../components/admin/MovieManagement.vue';
+---
+
+<Layout title="Manage Movies - Days Arts">
+    <ProtectedRoute client:load>
+        <div class="container mx-auto px-4 py-8">
+            <div class="flex items-center justify-between mb-8">
+                <h1 class="text-3xl font-bold">Manage Movies</h1>
+                <a href="/admin" class="text-blue-600 hover:text-blue-800">← Back to Dashboard</a>
+            </div>
+            <MovieManagement client:load />
+        </div>
+    </ProtectedRoute>
+</Layout>
