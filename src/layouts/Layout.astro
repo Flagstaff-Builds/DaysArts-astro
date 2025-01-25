@@ -35,13 +35,15 @@ const { title, description, socialImage="/social-image.jpg", ogType="website" } 
     <link rel="dns-prefetch" href="https://vimeo.com" />
     
     <!-- Additional performance optimizations -->
-    <link rel="preload" as="image" href={BackgroundImg.src} />
-    <meta http-equiv="Cache-Control" content="max-age=31536000" />
+    <link 
+      rel="preload" 
+      as="image" 
+      href={BackgroundImg.src} 
+      type="image/jpeg"
+      media="(min-width: 768px)"
+      fetchpriority="high"
+    />
     
-    <!-- Responsive image loading -->
-    <link rel="preload" as="image" href={BackgroundImg.src} media="(min-width: 1024px)" />
-    <link rel="preload" as="image" href={BackgroundImg.src} media="(max-width: 1023px)" />
-
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={Astro.url} />
@@ -62,29 +64,6 @@ const { title, description, socialImage="/social-image.jpg", ogType="website" } 
     <!-- CMS -->
     <!-- <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"
     ></script> -->
-
-
-    <!-- Visitor App tracking code -->
-    <script 
-      async 
-      defer 
-      src='https://app.visitortracking.com/assets/js/tracer.js'
-      data-website-id="38ec2c75-c5cd-4ee3-83cd-6b6cc0a47f55"
-      onload="initTracer()"
-    ></script>
-
-    <script is:inline>
-      function initTracer() {
-        if (typeof Tracer !== 'undefined') {
-          new Tracer({
-            websiteId: "38ec2c75-c5cd-4ee3-83cd-6b6cc0a47f55",
-            async: true,
-            debug: false
-          });
-        }
-      }
-    </script>
-
 
 
   </head>
@@ -115,6 +94,65 @@ const { title, description, socialImage="/social-image.jpg", ogType="website" } 
         });
       }
     </script> -->
+
+    <style is:global>
+      :root {
+        --accent: 136, 58, 234;
+        --accent-light: 224, 204, 250;
+        --accent-dark: 49, 10, 101;
+        --accent-gradient: linear-gradient(
+          45deg,
+          rgb(var(--accent)),
+          rgb(var(--accent-light)) 30%,
+          white 60%
+        );
+      }
+      html {
+        font-family: system-ui, sans-serif;
+        background: #f6f6f6;
+        background-size: 224px;
+        scroll-behavior: smooth;
+      }
+      code {
+        font-family:
+          Menlo,
+          Monaco,
+          Lucida Console,
+          Liberation Mono,
+          DejaVu Sans Mono,
+          Bitstream Vera Sans Mono,
+          Courier New,
+          monospace;
+      }
+
+      /* Optimize scroll performance */
+      * {
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+      }
+
+      /* Use transform instead of position: sticky for better performance */
+      .sticky-element {
+        position: fixed;
+        transform: translateZ(0);
+        will-change: transform;
+      }
+
+      /* Enable hardware acceleration for smoother scrolling */
+      body {
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* Optimize animations */
+      @media (prefers-reduced-motion: no-preference) {
+        .animated {
+          will-change: transform;
+        }
+      }
+    </style>
 
   </body>
 </html>

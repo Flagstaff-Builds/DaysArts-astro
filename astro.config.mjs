@@ -19,6 +19,10 @@ export default defineConfig({
     inlineStylesheets: 'auto',
   },
   vite: {
+    envPrefix: 'VITE_',
+    define: {
+      'process.env': process.env
+    },
     build: {
       cssMinify: true,
       rollupOptions: {
