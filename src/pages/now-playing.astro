@@ -13,7 +13,7 @@ import type { CollectionEntry } from 'astro:content';
 let movieEntries = await getCollection("movie") as CollectionEntry<'movie'>[];
 
 // Function to parse date from showtime string (format: "Friday January 26")
-function parseShowtime(showtime: string) {
+function parseShowtime(showtime: string): Date {
   const currentYear = new Date().getFullYear();
   const date = new Date(showtime + ", " + currentYear);
   
@@ -26,16 +26,18 @@ function parseShowtime(showtime: string) {
 }
 
 // Function to get the closest showtime for a movie
-function getClosestShowtime(movie: CollectionEntry<'movie'>) {
+function getClosestShowtime(movie: CollectionEntry<'movie'>): number {
   if (!movie.data.showtimes || movie.data.showtimes.length === 0) {
-    return new Date(9999, 11, 31); // Return far future date if no showtimes
+    return new Date(9999, 11, 31).getTime(); // Return far future timestamp
   }
 
   const now = new Date();
-  return Math.min(...movie.data.showtimes.map(showtime => {
+  const timestamps = movie.data.showtimes.map(showtime => {
     const date = parseShowtime(showtime);
-    return date < now ? new Date(9999, 11, 31) : date; // If date is in past, set to far future
-  }).map(date => date.getTime()));
+    return date < now ? new Date(9999, 11, 31).getTime() : date.getTime();
+  });
+  
+  return Math.min(...timestamps);
 }
 
 // Sort movies by closest upcoming showtime
