@@ -12,10 +12,16 @@ import type { CollectionEntry } from 'astro:content';
 
 let movieEntries = await getCollection("movie") as CollectionEntry<'movie'>[];
 
-// Function to parse date from showtime string (format: "Friday January 26")
+// Function to parse date from showtime string (format: "Jan 24th" or "Jan 24th - 2pm Matinee")
 function parseShowtime(showtime: string): Date {
+  // Extract just the date part (e.g., "Jan 24th" from "Jan 24th - 2pm Matinee")
+  const datePart = showtime.split('-')[0].trim();
   const currentYear = new Date().getFullYear();
-  const date = new Date(showtime + ", " + currentYear);
+  
+  // Remove the ordinal suffix (1st, 2nd, 3rd, 4th, etc.)
+  const dateWithoutSuffix = datePart.replace(/(st|nd|rd|th)/, '');
+  const dateString = `${dateWithoutSuffix}, ${currentYear}`;
+  const date = new Date(dateString);
   
   // If the date is in the past and it's early in the year, assume it's next year
   if (!isNaN(date.getTime()) && date < new Date() && new Date().getMonth() < 6) {
@@ -25,25 +31,39 @@ function parseShowtime(showtime: string): Date {
   return isNaN(date.getTime()) ? new Date(9999, 11, 31) : date;
 }
 
-// Function to get the closest showtime for a movie
-function getClosestShowtime(movie: CollectionEntry<'movie'>): number {
-  if (!movie.data.showtimes || movie.data.showtimes.length === 0) {
-    return new Date(9999, 11, 31).getTime(); // Return far future timestamp
-  }
-
-  const now = new Date();
-  const timestamps = movie.data.showtimes.map(showtime => {
-    const date = parseShowtime(showtime);
-    return date < now ? new Date(9999, 11, 31).getTime() : date.getTime();
-  });
-  
-  return Math.min(...timestamps);
+// Function to normalize dates to start of day for comparison
+function normalizeDate(date: Date): Date {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 }
 
-// Sort movies by closest upcoming showtime
+// Function to get the next valid showtime for a movie
+function getNextShowtime(movie: CollectionEntry<'movie'>): number {
+  if (!movie.data.showtimes || movie.data.showtimes.length === 0) {
+    return Number.MAX_SAFE_INTEGER;
+  }
+
+  const today = normalizeDate(new Date());
+  
+  // Get all showtimes as normalized dates (no time component)
+  const showtimes = movie.data.showtimes
+    .map(showtime => normalizeDate(parseShowtime(showtime)))
+    .filter(date => date >= today)
+    .map(date => date.getTime());
+
+  return showtimes.length > 0 ? Math.min(...showtimes) : Number.MAX_SAFE_INTEGER;
+}
+
+// Sort movies by next showing date
 movieEntries = movieEntries
   .filter(entry => !entry.id.startsWith('_old/')) // Filter out old movies
-  .sort((a, b) => getClosestShowtime(a) - getClosestShowtime(b));
+  .filter(movie => {
+    // Keep movie if it has any showings today or in the future
+    const today = normalizeDate(new Date());
+    return movie.data.showtimes?.some(showtime => 
+      normalizeDate(parseShowtime(showtime)) >= today
+    ) ?? false;
+  })
+  .sort((a, b) => getNextShowtime(a) - getNextShowtime(b));
 
 let hasMovies = movieEntries && movieEntries.length > 0;
 ---
