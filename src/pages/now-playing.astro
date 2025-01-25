@@ -11,6 +11,38 @@ import { VideoCameraIcon } from '@heroicons/vue/24/outline';
 import type { CollectionEntry } from 'astro:content';
 
 let movieEntries = await getCollection("movie") as CollectionEntry<'movie'>[];
+
+// Function to parse date from showtime string (format: "Friday January 26")
+function parseShowtime(showtime: string) {
+  const currentYear = new Date().getFullYear();
+  const date = new Date(showtime + ", " + currentYear);
+  
+  // If the date is in the past and it's early in the year, assume it's next year
+  if (!isNaN(date.getTime()) && date < new Date() && new Date().getMonth() < 6) {
+    date.setFullYear(currentYear + 1);
+  }
+  
+  return isNaN(date.getTime()) ? new Date(9999, 11, 31) : date;
+}
+
+// Function to get the closest showtime for a movie
+function getClosestShowtime(movie: CollectionEntry<'movie'>) {
+  if (!movie.data.showtimes || movie.data.showtimes.length === 0) {
+    return new Date(9999, 11, 31); // Return far future date if no showtimes
+  }
+
+  const now = new Date();
+  return Math.min(...movie.data.showtimes.map(showtime => {
+    const date = parseShowtime(showtime);
+    return date < now ? new Date(9999, 11, 31) : date; // If date is in past, set to far future
+  }).map(date => date.getTime()));
+}
+
+// Sort movies by closest upcoming showtime
+movieEntries = movieEntries
+  .filter(entry => !entry.id.startsWith('_old/')) // Filter out old movies
+  .sort((a, b) => getClosestShowtime(a) - getClosestShowtime(b));
+
 let hasMovies = movieEntries && movieEntries.length > 0;
 ---
 
