@@ -92,7 +92,6 @@ export default defineConfig({
         'https://daysarts.ca/about',
         'https://daysarts.ca/contact',
       ],
-      outfile: 'sitemap.xml',
       serialize: (item) => {
         // Remove _old from sitemap
         if (item.url.includes('_old')) {

@@ -18,13 +18,13 @@ type EventFile = {
 
 // Load all event files using import.meta.glob
 const eventFiles = await Promise.all(
-  Object.entries(await import.meta.glob<{ frontmatter: EventFrontmatter }>('../content/event/_old/*.md'))
+  Object.entries(await import.meta.glob<{ frontmatter: EventFrontmatter }>('../../content/event/_old/*.md'))
     .map(async ([file, importFunc]) => {
       const event = await importFunc();
       return {
         ...event,
         file,
-        url: file.replace('../content/event/_old', '/events').replace('.md', '')
+        url: file.replace('../../content/event/_old', '/event').replace('.md', '')
       } as EventFile;
     })
 );
