@@ -9,14 +9,14 @@
     </div>
 
     <div class="rounded-md border">
-      <table class="w-full">
+      <table class="w-full" role="table" aria-label="Movies List">
         <thead>
           <tr class="border-b">
-            <th class="h-12 px-4 text-left align-middle font-medium">Title</th>
-            <th class="h-12 px-4 text-left align-middle font-medium">Release Date</th>
-            <th class="h-12 px-4 text-left align-middle font-medium">Status</th>
-            <th class="h-12 px-4 text-left align-middle font-medium">Show Times</th>
-            <th class="h-12 px-4 text-left align-middle font-medium w-[100px]">Actions</th>
+            <th scope="col" class="h-12 px-4 text-left align-middle font-medium">Title</th>
+            <th scope="col" class="h-12 px-4 text-left align-middle font-medium">Rating</th>
+            <th scope="col" class="h-12 px-4 text-left align-middle font-medium">Runtime</th>
+            <th scope="col" class="h-12 px-4 text-left align-middle font-medium">Show Times</th>
+            <th scope="col" class="h-12 px-4 text-left align-middle font-medium w-[100px]">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -26,35 +26,51 @@
                 <img 
                   v-if="movie.posterUrl" 
                   :src="movie.posterUrl" 
-                  :alt="movie.title" 
+                  :alt="`Movie poster for ${movie.title}`"
                   class="w-12 h-16 object-cover rounded"
                 />
                 <div>
                   <div class="font-medium">{{ movie.title }}</div>
-                  <div class="text-sm text-gray-500">{{ movie.rating }}</div>
+                  <div class="text-sm text-gray-500" v-if="movie.genre?.length">
+                    <span class="sr-only">Genres:</span>
+                    {{ movie.genre.join(', ') }}
+                  </div>
                 </div>
               </div>
             </td>
-            <td class="p-4">{{ formatDate(movie.releaseDate) }}</td>
             <td class="p-4">
-              <span :class="[
-                'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium',
-                movie.status === 'upcoming' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-              ]">
-                {{ movie.status }}
-              </span>
+              <span class="sr-only">Rating:</span>
+              {{ movie.rating }}
+            </td>
+            <td class="p-4">
+              <span class="sr-only">Runtime:</span>
+              {{ movie.runtime }} min
             </td>
             <td class="p-4">
               <div class="text-sm">
-                <div v-for="(showTime, index) in movie.showTimes" :key="index">
-                  {{ formatDate(showTime) }}
+                <span class="sr-only">Showtimes:</span>
+                <div v-for="(showTime, index) in formatShowtimes(movie.showTimes)" :key="index">
+                  {{ showTime }}
                 </div>
               </div>
             </td>
             <td class="p-4">
               <div class="flex space-x-2">
-                <Button variant="ghost" @click="editMovie(movie)">Edit</Button>
-                <Button variant="ghost" class="text-red-600" @click="deleteMovie(movie)">Delete</Button>
+                <Button 
+                  variant="ghost" 
+                  @click="editMovie(movie)"
+                  :aria-label="`Edit ${movie.title}`"
+                >
+                  Edit
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  class="text-red-600" 
+                  @click="handleDeleteMovie(movie)"
+                  :aria-label="`Delete ${movie.title}`"
+                >
+                  Delete
+                </Button>
               </div>
             </td>
           </tr>
@@ -63,7 +79,12 @@
     </div>
 
     <!-- Add/Edit Movie Dialog -->
-    <div v-if="showDialog" class="fixed inset-0 z-50 bg-black/50">
+    <div 
+      v-if="showDialog" 
+      class="fixed inset-0 z-50 bg-black/50"
+      role="dialog"
+      :aria-label="`${isEditing ? 'Edit' : 'Add'} Movie`"
+    >
       <div class="fixed left-[50%] top-[50%] z-50 w-full max-w-3xl translate-x-[-50%] translate-y-[-50%] bg-white p-6 rounded-lg shadow-lg max-h-[90vh] overflow-y-auto">
         <h3 class="text-lg font-semibold">{{ isEditing ? 'Edit Movie' : 'Add Movie' }}</h3>
         <p class="text-sm text-gray-500">
@@ -72,155 +93,117 @@
         
         <div class="grid gap-4 py-4">
           <div class="space-y-2" v-if="!isEditing">
-            <label class="text-sm font-medium">Search TMDB</label>
+            <label for="tmdb-search" class="text-sm font-medium">Search TMDB</label>
             <input
+              id="tmdb-search"
               v-model="searchQuery"
               placeholder="Type to search movies..."
               class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
               @input="searchMovies"
             />
-            <div v-if="searchResults.length > 0" class="mt-2 border rounded-md divide-y">
-              <div
+            <div 
+              v-if="searchResults.length > 0" 
+              class="mt-2 border rounded-md divide-y"
+              role="listbox"
+              aria-label="Search Results"
+            >
+              <button
                 v-for="result in searchResults"
                 :key="result.id"
-                class="p-2 hover:bg-gray-100 cursor-pointer flex items-center space-x-3"
+                class="p-2 hover:bg-gray-100 cursor-pointer flex items-center space-x-3 w-full text-left"
                 @click="selectMovie(result)"
+                role="option"
               >
                 <img 
                   v-if="result.poster_path"
                   :src="`https://image.tmdb.org/t/p/w92${result.poster_path}`"
-                  :alt="result.title"
+                  :alt="`Movie poster for ${result.title}`"
                   class="w-12 h-16 object-cover rounded"
                 />
                 <div>
                   <div class="font-medium">{{ result.title }}</div>
                   <div class="text-sm text-gray-500">{{ result.release_date?.split('-')[0] }}</div>
                 </div>
-              </div>
+              </button>
             </div>
           </div>
 
-          <div class="grid md:grid-cols-2 gap-4">
+          <!-- Movie Form Fields -->
+          <div class="space-y-4">
             <div class="space-y-2">
-              <label class="text-sm font-medium">Title</label>
+              <label for="movie-title" class="text-sm font-medium">Title</label>
               <input
+                id="movie-title"
                 v-model="movieForm.title"
                 class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
-              />
-            </div>
-            
-            <div class="space-y-2">
-              <label class="text-sm font-medium">Release Date</label>
-              <input
-                type="date"
-                v-model="movieForm.releaseDate"
-                class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
+                required
               />
             </div>
 
             <div class="space-y-2">
-              <label class="text-sm font-medium">Status</label>
-              <select
-                v-model="movieForm.status"
-                class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
-              >
-                <option value="upcoming">Upcoming</option>
-                <option value="current">Current</option>
-                <option value="past">Past</option>
-              </select>
+              <label for="movie-description" class="text-sm font-medium">Description</label>
+              <textarea
+                id="movie-description"
+                v-model="movieForm.description"
+                class="flex w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
+                rows="3"
+              ></textarea>
             </div>
 
             <div class="space-y-2">
-              <label class="text-sm font-medium">Runtime (minutes)</label>
+              <label for="movie-rating" class="text-sm font-medium">Rating</label>
               <input
-                type="number"
-                v-model="movieForm.runtime"
-                class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
-              />
-            </div>
-
-            <div class="space-y-2">
-              <label class="text-sm font-medium">Rating</label>
-              <input
+                id="movie-rating"
                 v-model="movieForm.rating"
                 class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
               />
             </div>
 
             <div class="space-y-2">
-              <label class="text-sm font-medium">TMDB ID</label>
+              <label for="movie-runtime" class="text-sm font-medium">Runtime (minutes)</label>
               <input
-                v-model="movieForm.tmdbId"
+                id="movie-runtime"
+                v-model="movieForm.runtime"
+                type="number"
                 class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
               />
             </div>
-          </div>
 
-          <div class="space-y-2">
-            <label class="text-sm font-medium">Poster URL</label>
-            <input
-              v-model="movieForm.posterUrl"
-              class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
-            />
-          </div>
-
-          <div class="space-y-2">
-            <label class="text-sm font-medium">Trailer URL</label>
-            <input
-              v-model="movieForm.trailerUrl"
-              class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
-            />
-          </div>
-
-          <div class="space-y-2">
-            <label class="text-sm font-medium">Description</label>
-            <textarea
-              v-model="movieForm.description"
-              class="flex min-h-[100px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
-            ></textarea>
-          </div>
-
-          <div class="space-y-2">
-            <label class="text-sm font-medium">Cast (comma-separated)</label>
-            <input
-              v-model="movieForm.cast"
-              class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
-            />
-          </div>
-
-          <div class="space-y-2">
-            <label class="text-sm font-medium">Genres (comma-separated)</label>
-            <input
-              v-model="movieForm.genre"
-              class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
-            />
-          </div>
-
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <label class="text-sm font-medium">Show Times</label>
-              <Button variant="outline" @click="addShowTime">Add Show Time</Button>
-            </div>
             <div class="space-y-2">
-              <div v-for="(showTime, index) in movieForm.showTimes" :key="index" class="flex space-x-2">
-                <input
-                  type="datetime-local"
-                  v-model="movieForm.showTimes[index]"
-                  class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
-                />
-                <Button variant="ghost" class="text-red-600" @click="removeShowTime(index)">Remove</Button>
+              <label for="movie-genres" class="text-sm font-medium">Genres (comma-separated)</label>
+              <input
+                id="movie-genres"
+                v-model="movieForm.genre"
+                class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
+              />
+            </div>
+
+            <div class="space-y-2">
+              <label for="movie-cast" class="text-sm font-medium">Cast (comma-separated)</label>
+              <input
+                id="movie-cast"
+                v-model="movieForm.cast"
+                class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
+              />
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-sm font-medium">Showtimes</label>
+              <div class="space-y-2">
+                <div v-for="(showtime, index) in movieForm.showTimes" :key="index" class="flex gap-2">
+                  <input
+                    type="datetime-local"
+                    v-model="movieForm.showTimes[index]"
+                    class="flex h-10 rounded-md border border-input bg-transparent px-3 py-2 text-sm"
+                    :aria-label="`Showtime ${index + 1}`"
+                  />
+                  <Button variant="ghost" @click="removeShowTime(index)" :aria-label="`Remove showtime ${index + 1}`">
+                    Remove
+                  </Button>
+                </div>
+                <Button variant="ghost" @click="addShowTime">Add Showtime</Button>
               </div>
             </div>
-          </div>
-
-          <div class="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              id="isReelAlternative"
-              v-model="movieForm.isReelAlternative"
-              class="rounded border-gray-300"
-            />
-            <label for="isReelAlternative" class="text-sm font-medium">Reel Alternative</label>
           </div>
         </div>
         
@@ -236,20 +219,21 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import Button from '../ui/button/Button.vue'
-import { getMovies, createMovie, updateMovie, deleteMovie as deleteMovieFromDb } from '../../utils/appwrite'
+import { getMovies, createMovie, updateMovie, deleteMovie as deleteMovieFromDb } from '@/utils/appwrite'
 
 const movies = ref([])
 const showDialog = ref(false)
 const isEditing = ref(false)
 const searchQuery = ref('')
 const searchResults = ref([])
+const selectedMovie = ref(null)
+
 const movieForm = ref({
-  id: null,
   title: '',
   releaseDate: '',
   posterUrl: '',
   description: '',
-  status: '',
+  status: 'active',
   trailerUrl: '',
   cast: [],
   genre: [],
@@ -260,40 +244,44 @@ const movieForm = ref({
   showTimes: []
 })
 
-// TMDB API token from environment variables
-const TMDB_ACCESS_TOKEN = import.meta.env.VITE_TMDB_API_ACCESS_TOKEN
-
-onMounted(async () => {
-  await loadMovies()
-})
-
+// Load movies from Appwrite
 async function loadMovies() {
   try {
-    const result = await getMovies()
-    if (result.success) {
-      movies.value = result.movies.map(movie => ({
-        id: movie.$id,
-        title: movie.title,
-        releaseDate: movie.releaseDate,
-        posterUrl: movie.posterUrl,
-        description: movie.description,
-        status: movie.status,
-        trailerUrl: movie.trailerUrl,
-        cast: movie.cast || [],
-        genre: movie.genre || [],
-        tmdbId: movie.tmdbId,
-        rating: movie.rating,
-        isReelAlternative: movie.isReelAlternative || false,
-        runtime: movie.runtime,
-        showTimes: movie.showTimes || []
-      }))
-    } else {
-      console.error('Failed to load movies:', result.error)
-    }
+    const response = await getMovies()
+    movies.value = response
   } catch (error) {
-    console.error('Failed to load movies:', error)
+    console.error('Error loading movies:', error)
   }
 }
+
+// Format date for display
+function formatDate(dateStr) {
+  if (!dateStr) return ''
+  const date = new Date(dateStr)
+  if (isNaN(date.getTime())) return 'Invalid date'
+  return date.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric'
+  })
+}
+
+// Format showtimes for display
+function formatShowtimes(showtimes) {
+  if (!showtimes || !Array.isArray(showtimes)) return []
+  return showtimes.map((showtime, index, array) => {
+    const date = new Date(showtime)
+    const isLastShowtime = index === array.length - 1
+    const isMatinee = array.length === 3 && isLastShowtime
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric'
+    }) + (isMatinee ? ' - Matinee' : '')
+  })
+}
+
+onMounted(() => {
+  loadMovies()
+})
 
 async function searchMovies() {
   if (!searchQuery.value) {
@@ -306,18 +294,16 @@ async function searchMovies() {
       `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(searchQuery.value)}`,
       {
         headers: {
-          'Authorization': `Bearer ${TMDB_ACCESS_TOKEN}`,
+          'Authorization': `Bearer ${import.meta.env.VITE_TMDB_API_ACCESS_TOKEN}`,
           'Content-Type': 'application/json'
         }
       }
     )
-    if (!response.ok) {
-      throw new Error(`TMDB API error: ${response.status}`)
-    }
     const data = await response.json()
-    searchResults.value = data.results.slice(0, 5)
+    searchResults.value = data.results || []
   } catch (error) {
-    console.error('Failed to search movies:', error)
+    console.error('Error searching movies:', error)
+    searchResults.value = []
   }
 }
 
@@ -327,18 +313,14 @@ async function getMovieDetails(tmdbId) {
       `https://api.themoviedb.org/3/movie/${tmdbId}?append_to_response=credits,videos`,
       {
         headers: {
-          'Authorization': `Bearer ${TMDB_ACCESS_TOKEN}`,
+          'Authorization': `Bearer ${import.meta.env.VITE_TMDB_API_ACCESS_TOKEN}`,
           'Content-Type': 'application/json'
         }
       }
     )
-    if (!response.ok) {
-      throw new Error(`TMDB API error: ${response.status}`)
-    }
-    const data = await response.json()
-    return data
+    return await response.json()
   } catch (error) {
-    console.error('Failed to fetch movie details:', error)
+    console.error('Error fetching movie details:', error)
     return null
   }
 }
@@ -346,22 +328,20 @@ async function getMovieDetails(tmdbId) {
 async function selectMovie(movie) {
   const details = await getMovieDetails(movie.id)
   if (details) {
-    const trailer = details.videos?.results?.find(v => v.type === 'Trailer' && v.site === 'YouTube')
     movieForm.value = {
-      ...movieForm.value,
       title: details.title,
       releaseDate: details.release_date,
-      posterUrl: details.poster_path ? `https://image.tmdb.org/t/p/w500${details.poster_path}` : '',
+      posterUrl: details.poster_path ? `https://image.tmdb.org/t/p/original${details.poster_path}` : '',
       description: details.overview,
-      trailerUrl: trailer ? `https://www.youtube.com/watch?v=${trailer.key}` : '',
+      status: 'active',
+      trailerUrl: details.videos?.results?.[0]?.key ? `https://www.youtube.com/watch?v=${details.videos.results[0].key}` : '',
       cast: details.credits?.cast?.slice(0, 5).map(actor => actor.name) || [],
-      genre: details.genres?.map(g => g.name) || [],
+      genre: details.genres?.map(genre => genre.name) || [],
       tmdbId: details.id.toString(),
-      rating: details.vote_average ? `${Math.round(details.vote_average * 10) / 10}/10` : '',
-      runtime: details.runtime || null,
-      showTimes: [],
+      rating: '',
       isReelAlternative: false,
-      status: 'upcoming'
+      runtime: details.runtime,
+      showTimes: []
     }
   }
   searchResults.value = []
@@ -371,12 +351,11 @@ async function selectMovie(movie) {
 function openAddMovieDialog() {
   isEditing.value = false
   movieForm.value = {
-    id: null,
     title: '',
     releaseDate: '',
     posterUrl: '',
     description: '',
-    status: '',
+    status: 'active',
     trailerUrl: '',
     cast: [],
     genre: [],
@@ -391,63 +370,57 @@ function openAddMovieDialog() {
 
 function editMovie(movie) {
   isEditing.value = true
-  movieForm.value = { ...movie }
+  // Create a deep copy of the movie object and ensure showTimes are properly formatted
+  movieForm.value = {
+    ...movie,
+    // Convert showTimes to local datetime-local format
+    showTimes: movie.showTimes?.map(showtime => 
+      new Date(showtime).toISOString().slice(0, 16)
+    ) || []
+  }
   showDialog.value = true
 }
 
 async function saveMovie() {
   try {
-    const movieData = {
-      title: movieForm.value.title,
-      releaseDate: movieForm.value.releaseDate,
-      posterUrl: movieForm.value.posterUrl,
-      description: movieForm.value.description,
-      status: movieForm.value.status,
-      trailerUrl: movieForm.value.trailerUrl,
-      cast: movieForm.value.cast,
-      genre: movieForm.value.genre,
-      tmdbId: movieForm.value.tmdbId,
-      rating: movieForm.value.rating,
-      isReelAlternative: movieForm.value.isReelAlternative,
-      runtime: movieForm.value.runtime,
-      showTimes: movieForm.value.showTimes
+    if (typeof movieForm.value.cast === 'string') {
+      movieForm.value.cast = movieForm.value.cast.split(',').map(item => item.trim())
+    }
+    if (typeof movieForm.value.genre === 'string') {
+      movieForm.value.genre = movieForm.value.genre.split(',').map(item => item.trim())
     }
 
-    let result
+    // Prepare movie data without internal Appwrite fields
+    const { id, $id, $createdAt, $updatedAt, $permissions, $collectionId, $databaseId, ...movieData } = movieForm.value
+
+    const preparedData = {
+      ...movieData,
+      showTimes: movieForm.value.showTimes.map(showtime => new Date(showtime).toISOString()),
+      runtime: Number(movieForm.value.runtime)
+    }
+
     if (isEditing.value) {
-      result = await updateMovie(movieForm.value.id, movieData)
+      await updateMovie(movieForm.value.id || movieForm.value.$id, preparedData)
     } else {
-      result = await createMovie(movieData)
+      await createMovie(preparedData)
     }
 
-    if (result.success) {
-      showDialog.value = false
-      await loadMovies()
-    } else {
-      console.error(`Failed to ${isEditing.value ? 'update' : 'add'} movie:`, result.error)
-    }
+    showDialog.value = false
+    await loadMovies()
   } catch (error) {
-    console.error(`Failed to ${isEditing.value ? 'update' : 'add'} movie:`, error)
+    console.error('Error saving movie:', error)
   }
 }
 
-async function deleteMovie(movie) {
+async function handleDeleteMovie(movie) {
   if (!confirm('Are you sure you want to delete this movie?')) return
 
   try {
-    const result = await deleteMovieFromDb(movie.id)
-    if (result.success) {
-      await loadMovies()
-    } else {
-      console.error('Failed to delete movie:', result.error)
-    }
+    await deleteMovieFromDb(movie.id)
+    await loadMovies()
   } catch (error) {
-    console.error('Failed to delete movie:', error)
+    console.error('Error deleting movie:', error)
   }
-}
-
-function formatDate(date) {
-  return new Date(date).toLocaleString()
 }
 
 function addShowTime() {
