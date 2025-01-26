@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import type { Movie } from '../../utils/appwrite.ts';
 import MoviePost from './MoviePost.astro';
 import { TicketIcon } from '@heroicons/vue/24/outline';
 
@@ -12,23 +13,47 @@ interface MovieData {
   length?: string;
   genre?: string[];
   trailer?: string;
-  showtimes?: string[];
+  showtimes?: { date: string; time: string; }[];
   reelAlternative?: boolean;
 }
 
-interface Movie {
-  data: MovieData;
-  slug: string;
-}
-
 interface Props {
-  movieEntries: CollectionEntry<'movie'>[];
+  movieEntries: Movie[];
 }
 
 const { movieEntries } = Astro.props as Props;
 
-// Filter out entries from _old directory
-const activeMovies = movieEntries.filter(entry => !entry.id.startsWith('_old/'));
+// Map to component format
+const activeMovies = movieEntries.map((movie: Movie) => ({
+  data: {
+    title: movie.title,
+    poster: movie.posterUrl,
+    description: movie.description,
+    cast: movie.cast,
+    rating: movie.rating,
+    length: movie.runtime?.toString(),
+    genre: movie.genre,
+    trailer: movie.trailerUrl,
+    showtimes: movie.showTimes?.map((showtime: string, index: number, array: string[]) => {
+      const date = new Date(showtime);
+      const isLastShowtime = index === array.length - 1;
+      const isMatinee = array.length === 3 && isLastShowtime;
+      
+      return {
+        date: date.toLocaleDateString('en-US', { 
+          month: 'short',
+          day: 'numeric'
+        }) + (isMatinee ? ' - Matinee' : ''),
+        time: date.toLocaleTimeString('en-US', {
+          hour: 'numeric',
+          minute: '2-digit'
+        })
+      };
+    }),
+    reelAlternative: movie.isReelAlternative
+  },
+  slug: movie.id
+}));
 
 ---
 
@@ -80,11 +105,35 @@ const activeMovies = movieEntries.filter(entry => !entry.id.startsWith('_old/'))
 
   <div class="col-span-2">
     <ul role="list" class="space-y-12 lg:space-y-12">
-      {activeMovies.map((movie) => (
+      {activeMovies.map((entry) => (
         <li>
-          <MoviePost movie={movie as Movie} />
+          <MoviePost movie={{
+            data: {
+              title: entry.data.title,
+              poster: entry.data.poster,
+              description: entry.data.description,
+              cast: entry.data.cast,
+              rating: entry.data.rating,
+              length: entry.data.length,
+              genre: entry.data.genre,
+              trailer: entry.data.trailer,
+              showtimes: entry.data.showtimes,
+              reelAlternative: entry.data.reelAlternative
+            },
+            slug: entry.slug
+          }} />
         </li>
       ))}
     </ul>
   </div>
 </div>
+
+<style>
+  .badge {
+    font-size: 0.75rem;
+  }
+  .rating-outline {
+    border: 1px solid;
+    padding: 0.25rem 0.5rem;
+  }
+</style>

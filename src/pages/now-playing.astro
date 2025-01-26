@@ -6,6 +6,7 @@ import HeroSecondary from "@components/hero-secondary.astro";
 import TheatreClosed from "@/components/theatre-closed.astro";
 import { VideoCameraIcon } from '@heroicons/vue/24/outline';
 import { getMovies } from "@/utils/appwrite";
+import type { Movie } from "@/utils/appwrite";
 
 // Fetch movies from Appwrite
 const movies = await getMovies();
@@ -15,54 +16,16 @@ function normalizeDate(date: Date): Date {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 }
 
-// Filter and sort movies
-const movieEntries = movies
-  .filter(movie => {
-    // Keep movie if it has any showings today or in the future
-    const today = normalizeDate(new Date());
-    return movie.showTimes?.some(showtime => 
-      normalizeDate(new Date(showtime)) >= today
-    ) ?? false;
-  })
-  .sort((a, b) => {
-    const aTime = a.showTimes[0] ? new Date(a.showTimes[0]) : new Date(0);
-    const bTime = b.showTimes[0] ? new Date(b.showTimes[0]) : new Date(0);
-    return aTime.getTime() - bTime.getTime();
-  })
-  .map(movie => ({
-    // Transform Appwrite movie data to match the expected format
-    data: {
-      title: movie.title,
-      poster: movie.posterUrl,
-      description: movie.description,
-      cast: movie.cast,
-      rating: movie.rating,
-      length: movie.runtime ? `${movie.runtime}m` : undefined,
-      genre: movie.genre,
-      trailer: movie.trailerUrl,
-      showtimes: movie.showTimes.map(st => {
-        const date = new Date(st);
-        const dateStr = date.toLocaleDateString('en-US', { 
-          month: 'short',
-          day: 'numeric'
-        });
-        const timeStr = date.toLocaleTimeString('en-US', {
-          hour: 'numeric',
-          minute: 'numeric',
-          hour12: true
-        });
-        return {
-          date: dateStr,
-          time: timeStr
-        };
-      }),
-      reelAlternative: movie.isReelAlternative
-    },
-    id: movie.$id,
-    slug: movie.title.toLowerCase().replace(/\s+/g, '-')
-  }));
+// Filter movies to only show those with future showtimes
+const activeMovies = movies.filter(movie => {
+  const today = normalizeDate(new Date());
+  return movie.showTimes?.some((showtime: string) => 
+    normalizeDate(new Date(showtime)) >= today
+  ) ?? false;
+});
 
-let hasMovies = movieEntries && movieEntries.length > 0;
+let hasMovies = activeMovies && activeMovies.length > 0;
+
 ---
 
 <Layout title="Now playing at Daysland Theatre">
@@ -80,7 +43,7 @@ let hasMovies = movieEntries && movieEntries.length > 0;
 
   <Main>
     {hasMovies ? (
-      <MovieList movieEntries={movieEntries} />
+      <MovieList movieEntries={activeMovies} />
     ) : (
       <TheatreClosed />
     )}

@@ -32,7 +32,7 @@ async function migrateMovies() {
             const releaseDate = new Date(`${year}-${month}-${day}`);
 
             // Convert showtimes strings to Date objects
-            const showTimes = frontmatter.showtimes?.map(showtime => {
+            const showTimes = frontmatter.showtimes?.map((showtime: string) => {
                 // Parse the showtime string (e.g., "Jan 24th - 2pm Matinee" or "Jan 24th")
                 const [datePart, timePart] = showtime.split('-').map(s => s.trim());
                 

@@ -80,7 +80,7 @@ const hasCast = firstMovie?.cast?.length ?? 0 > 0;
                         <div aria-hidden="true" class="mx-4 text-sm text-gray-400">·</div>
                         {hasGenres && (
                           <span>
-                            {firstMovie?.genre?.map((genre, index, array) => (
+                            {firstMovie?.genre?.map((genre: string, index: number, array: string[]) => (
                               <span>
                                 {genre}{index < array.length - 1 ? ', ' : ''}
                               </span>
@@ -101,7 +101,7 @@ const hasCast = firstMovie?.cast?.length ?? 0 > 0;
                       <dd class="text-slate-500">
                         {hasCast && (
                           <span>
-                            {firstMovie?.cast?.map((cast, index, array) => (
+                            {firstMovie?.cast?.map((cast: string, index: number, array: string[]) => (
                               <span>
                                 {cast}{index < array.length - 1 ? ', ' : ''}
                               </span>
@@ -110,16 +110,19 @@ const hasCast = firstMovie?.cast?.length ?? 0 > 0;
                         )}
                       </dd>
                     </div>
+                    <div aria-hidden="true" class="w-full h-px bg-gray-200 my-4"></div>
                     <div class="flex-none w-full mt-2 font-normal">
                       <dt class="sr-only">Show Times</dt>
                       <dd class="flex flex-wrap sm:flex-nowrap gap-x-6 text-slate-500">
                         {firstMovie.showTimes && firstMovie.showTimes.length > 0 && (
-                          firstMovie.showTimes?.map((showtime) => {
+                          firstMovie.showTimes?.map((showtime: string, index: number, array: string[]) => {
                             const date = new Date(showtime);
+                            const isLastShowtime = index === array.length - 1;
+                            const isMatinee = array.length === 3 && isLastShowtime;
                             const formattedDate = date.toLocaleDateString('en-US', {
                               month: 'short',
-                              day: 'numeric',
-                            });
+                              day: 'numeric'
+                            }) + (isMatinee ? ' - Matinee' : '');
                             return (
                               <span class="flex items-center">
                                 <CalendarDaysIcon class="h-5 w-5 flex-none text-slate-400 pr-1" aria-hidden="true" />
