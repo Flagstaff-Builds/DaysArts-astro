@@ -6,7 +6,12 @@ import EventList from "@/components/event/EventList.astro";
 import HeroSecondary from "@/components/hero-secondary.astro";
 import { CalendarDaysIcon } from "@heroicons/vue/24/outline";
 
-const eventEntries = await getCollection("event");
+// Only get non-past events and sort by date
+const eventEntries = (await getCollection('event', ({ data }) => {
+  return !data.past;
+})).sort((a, b) => {
+  return new Date(a.data.date).getTime() - new Date(b.data.date).getTime();
+});
 ---
 
 <Layout title="Upcoming shows & events">

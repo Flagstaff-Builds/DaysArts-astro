@@ -10,17 +10,16 @@ interface Props {
 
 const { event, index }: Props = Astro.props;
 
-// Format the date as UTC
-const eventDate = new Date(event.data.date + 'T00:00:00Z');
-const formattedDate = eventDate.toLocaleDateString('en-US', {
-  timeZone: 'UTC',
+// Pre-format the date at build time
+const eventDate = new Date(event.data.date + 'T00:00:00-07:00'); // Use local timezone
+const formattedDate = new Intl.DateTimeFormat('en-US', {
   weekday: 'long',
   month: 'short',
   day: '2-digit'
-});
+}).format(eventDate);
 
-// Determine loading strategy based on index and screen size
-const shouldEagerLoad = index === 0 || (index === 1 && 'only screen and (min-width: 640px)');
+// Simplified eager loading for first item only
+const isFirstItem = index === 0;
 
 ---
 
@@ -31,13 +30,13 @@ const shouldEagerLoad = index === 0 || (index === 1 && 'only screen and (min-wid
       <Image
         src={event.data.poster}
         format="webp"
-        quality="high"
-        widths={[240, 540, 720, 1080]}
-        sizes="(max-width: 640px) 240px, (max-width: 1024px) 540px, 720px"
+        quality={isFirstItem ? "high" : "medium"}
+        widths={[240, 540]}
+        sizes="(max-width: 640px) 240px, 540px"
         alt={`${event.data.title} thumbnail`}
         class="aspect-[2/3] w-full rounded-xl bg-purple-100 object-cover shadow-purple-400/30 shadow-lg"
-        loading={shouldEagerLoad ? "eager" : "lazy"}
-        decoding="async"
+        loading={isFirstItem ? "eager" : "lazy"}
+        decoding={isFirstItem ? "sync" : "async"}
       />
     )}
     <h3 class="mt-6 text-xl font-semibold leading-8 text-gray-900">{event.data.title}</h3>
@@ -51,20 +50,13 @@ const shouldEagerLoad = index === 0 || (index === 1 && 'only screen and (min-wid
     <div class="mt-4">
       <h2 class="text-sm font-bold text-gray-500 uppercase">Sponsors:</h2>
       <ul class="">
-        <li>
-          <span class="text-xs font-medium uppercase text-slate-500">Concert</span>
-          <span aria-hidden="true" class="mx-4 text-sm text-gray-400">·</span>
-          {event.data.concertSponsor?.map((sponsor: string) => (
-            <span class="text-sm font-medium text-gray-400">{sponsor}</span>
-          ))}
-        </li>
-        {/* <li>
-          <span class="text-xs font-medium uppercase text-slate-500">Reception</span>
-          <span aria-hidden="true" class="mx-4 text-sm text-gray-400">·</span>
-          {event.data.receptionSponsor?.map((sponsor) => (
-            <span class="text-sm font-medium text-gray-400">{sponsor}</span>
-          ))}
-        </li> */}
+        {event.data.concertSponsor && event.data.concertSponsor.length > 0 && (
+          <li>
+            <span class="text-xs font-medium uppercase text-slate-500">Concert</span>
+            <span aria-hidden="true" class="mx-4 text-sm text-gray-400">·</span>
+            <span class="text-sm font-medium text-gray-400">{event.data.concertSponsor.join(', ')}</span>
+          </li>
+        )}
       </ul>
     </div>
   </a>

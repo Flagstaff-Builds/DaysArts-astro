@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+  loading?: 'eager' | 'lazy';
+  decoding?: 'sync' | 'async';
+  format?: 'avif' | 'webp';
+  quality?: 'low' | 'mid' | 'high';
+  sizes?: string;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  class: className,
+  loading = 'lazy',
+  decoding = 'async',
+  format = 'webp',
+  quality = 'mid',
+  sizes = '(max-width: 640px) 240px, (max-width: 1024px) 540px, 720px',
+} = Astro.props;
+
+// Calculate optimal widths based on image size and screen breakpoints
+const imageWidth = width || src.width;
+const imageHeight = height || src.height;
+const aspectRatio = imageWidth / imageHeight;
+
+// Generate responsive widths
+const widths = [240, 540].filter(w => w <= imageWidth);
+if (imageWidth > 540) widths.push(imageWidth);
+
+// Determine quality value based on setting
+const qualityValue = quality === 'high' ? 80 : quality === 'mid' ? 60 : 40;
+---
+
+<Image
+  src={src}
+  alt={alt}
+  width={width}
+  height={height}
+  class={className}
+  loading={loading}
+  decoding={decoding}
+  format={format}
+  quality={qualityValue}
+  widths={widths}
+  sizes={sizes}
+/>

@@ -40,28 +40,34 @@ export default defineConfig({
         './images/': path.resolve(__dirname, 'src/content/movie/images/')
       }
     },
-    // Dev mode optimizations
     server: {
       hmr: {
-        overlay: false // Disable HMR overlay for better performance
+        overlay: false,
+        timeout: 1000,
+        protocol: 'ws'
       },
       watch: {
-        usePolling: false, // Disable polling in dev mode
-        ignored: ['**/node_modules/**', '**/.git/**', '**/dist/**'] // Ignore watching unnecessary files
+        usePolling: false,
+        ignored: [
+          '**/node_modules/**',
+          '**/.git/**',
+          '**/dist/**',
+          '**/.astro/**',
+          '**/content/**/*.{md,mdx}' // Ignore content files in dev
+        ]
       }
     },
     optimizeDeps: {
       include: ['vue', '@heroicons/vue/24/outline'],
       exclude: ['@resvg/resvg-js'],
-      // Disable dependency optimization for certain paths
       entries: [
         '!src/content/**/*.mdx',
         '!src/content/**/*.md'
       ]
     },
-    // Improve build performance
     esbuild: {
-      logOverride: { 'this-is-undefined-in-esm': 'silent' }
+      logOverride: { 'this-is-undefined-in-esm': 'silent' },
+      target: 'esnext'
     },
     ssr: {
       noExternal: ['@heroicons/vue']
@@ -69,19 +75,19 @@ export default defineConfig({
   },
   integrations: [
     mdx({
-      optimize: true, // Enable MDX optimization
-      extendPlugins: false // Disable plugin extension for better performance
+      optimize: true,
+      extendPlugins: false
     }),
     vue({
-      jsx: false, // Disable JSX support if not needed
+      jsx: false,
       template: {
         compilerOptions: {
-          whitespace: 'condense' // Optimize template whitespace handling
+          whitespace: 'condense'
         }
-      }
+      },
+      appEntrypoint: '/src/pages/_app'
     }),
     tailwind({
-      // Optimize Tailwind for development
       config: {
         future: {
           hoverOnlyWhenSupported: true
@@ -95,35 +101,9 @@ export default defineConfig({
         'https://daysarts.ca/events',
         'https://daysarts.ca/about',
         'https://daysarts.ca/contact',
-      ],
-      serialize: (item) => {
-        // Remove _old from sitemap
-        if (item.url.includes('_old')) {
-          return undefined;
-        }
-
-        // Determine change frequency based on the page type
-        let changefreq;
-        if (item.url.includes('/now-playing') || item.url.includes('/movie/')) {
-          changefreq = 'weekly';
-        } else if (item.url.includes('/event/') || item.url.includes('/events')) {
-          changefreq = 'monthly';
-        } else {
-          changefreq = 'yearly';
-        }
-
-        return {
-          url: item.url,
-          lastmod: item.lastmod,
-          changefreq
-        };
-      }
+      ]
     }),
     sentry(),
     spotlightjs()
-  ],
-  markdown: {
-    remarkPlugins: [],
-    rehypePlugins: [],
-  }
+  ]
 });
