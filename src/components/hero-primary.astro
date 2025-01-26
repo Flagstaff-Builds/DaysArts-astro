@@ -1,44 +1,40 @@
 ---
-import { getCollection } from "astro:content";
 import { Image } from 'astro:assets';
-import type { CollectionEntry } from 'astro:content';
 import BackgroundImg from '@assets/palace-theatre-daysland-alberta.jpg';
 import { CalendarDaysIcon } from "@heroicons/vue/24/outline";
+import { getMovies } from "@/utils/appwrite";
 
-// Define the type for movie entries
-type MovieEntry = CollectionEntry<'movie'>;
+// Get movies from Appwrite
+const movies = await getMovies();
+const firstMovie = movies.length > 0 ? movies[0] : null;
 
-let movieEntries: MovieEntry[] = [];
-try {
-  const collection = await getCollection("movie");
-  if (Array.isArray(collection)) {
-    // Filter out entries from _old directory and sort by filename
-    movieEntries = collection
-      .filter(entry => !entry.slug.startsWith('_old/'))
-      .sort((a, b) => a.id.localeCompare(b.id));
-  }
-} catch (error) {
-  console.error('Error fetching movie collection:', error);
-}
-
-const firstMovie: MovieEntry | null = movieEntries.length > 0 ? movieEntries[0] : null;
-
-const hasGenres = firstMovie?.data?.genre?.length ?? 0 > 0;
-const hasCast = firstMovie?.data?.cast?.length ?? 0 > 0;
+const hasGenres = firstMovie?.genre?.length ?? 0 > 0;
+const hasCast = firstMovie?.cast?.length ?? 0 > 0;
 ---
 
 <div class="relative isolate overflow-x-clip">
   <div class="absolute bottom-1/4 inset-0 -z-10 rotate-[-4deg] scale-125 bg-gradient-to-b from-charade-800 via-charade-800 to-charade-950 overflow-hidden">
-    <Image
-      src={BackgroundImg}
-      alt="Theatre"
-      class="absolute inset-x-0 top-0 -z-10 h-[64rem] w-[64rem] lg:w-full bg-contain opacity-15 filter backdrop-brightness-70"
-      aria-hidden="true"
-      loading="eager"
-      decoding="async"
-      format="avif"
-      quality="mid"
-    />
+    {firstMovie?.posterUrl ? (
+      <img
+        src={firstMovie.posterUrl}
+        alt={firstMovie.title}
+        class="absolute inset-x-0 top-0 -z-10 h-[64rem] w-[64rem] lg:w-full bg-contain opacity-15 filter backdrop-brightness-70"
+        aria-hidden="true"
+        loading="eager"
+        decoding="async"
+      />
+    ) : (
+      <Image
+        src={BackgroundImg}
+        alt="Theatre"
+        class="absolute inset-x-0 top-0 -z-10 h-[64rem] w-[64rem] lg:w-full bg-contain opacity-15 filter backdrop-brightness-70"
+        aria-hidden="true"
+        loading="eager"
+        decoding="async"
+        format="avif"
+        quality="mid"
+      />
+    )}
   </div>
 
   <div class="absolute left-1/2 right-0 top-20 -z-10 -ml-24 transform-gpu blur-3xl lg:ml-24 xl:ml-48" aria-hidden="true">
@@ -72,13 +68,10 @@ const hasCast = firstMovie?.data?.cast?.length ?? 0 > 0;
             <div class="lg:-mr-20 mx-auto sm:mx-0 sm:max-w-none"></div>
             <div>
               <div class="aspect-[2/3] bg-purple-100 rounded-2xl rounded-b-none">
-                {firstMovie.data.poster && (
-                  <Image
-                    src={firstMovie.data.poster}
-                    width="2432"
-                    height="1442"
+                {firstMovie.posterUrl && (
+                  <img
+                    src={firstMovie.posterUrl}
                     alt="Now Playing"
-                    loading="eager"
                     class="-mb-2 rounded-t-2xl object-cover h-full w-full"
                   />
                 )}
@@ -86,11 +79,11 @@ const hasCast = firstMovie?.data?.cast?.length ?? 0 > 0;
 
               <article class="p-4 sm:p-6 lg:p-4 xl:p-6 space-x-4 items-start sm:space-x-6 lg:space-x-4 xl:space-x-6 flex rounded-b-2xl bg-white text-slate-900">
                 <div class="min-w-0 relative flex-auto">
-                  <h2 class="font-semibold truncate sm:pr-20">{firstMovie.data.title}</h2>
+                  <h2 class="font-semibold truncate sm:pr-20">{firstMovie.title}</h2>
                   <dl class="mt-2 flex flex-wrap text-sm leading-6 font-medium">
                     <div>
                       <dt class="sr-only">Rating</dt>
-                      <dd class="px-1.5 ring-1 ring-slate-200 rounded">{firstMovie.data.rating}</dd>
+                      <dd class="px-1.5 ring-1 ring-slate-200 rounded">{firstMovie.rating}</dd>
                     </div>
                     <div>
                       <dt class="sr-only">Genre</dt>
@@ -98,7 +91,7 @@ const hasCast = firstMovie?.data?.cast?.length ?? 0 > 0;
                         <div aria-hidden="true" class="mx-4 text-sm text-gray-400">·</div>
                         {hasGenres && (
                           <span>
-                            {firstMovie?.data?.genre?.map((genre, index, array) => (
+                            {firstMovie?.genre?.map((genre, index, array) => (
                               <span>
                                 {genre}{index < array.length - 1 ? ', ' : ''}
                               </span>
@@ -111,7 +104,7 @@ const hasCast = firstMovie?.data?.cast?.length ?? 0 > 0;
                       <dt class="sr-only">Runtime</dt>
                       <dd class="flex items-center">
                         <div aria-hidden="true" class="mx-4 text-sm text-gray-400">·</div>
-                        {firstMovie.data.length}
+                        {firstMovie.runtime}m
                       </dd>
                     </div>
                     <div class="flex-none w-full mt-2 font-normal">
@@ -119,7 +112,7 @@ const hasCast = firstMovie?.data?.cast?.length ?? 0 > 0;
                       <dd class="text-slate-500">
                         {hasCast && (
                           <span>
-                            {firstMovie?.data?.cast?.map((cast, index, array) => (
+                            {firstMovie?.cast?.map((cast, index, array) => (
                               <span>
                                 {cast}{index < array.length - 1 ? ', ' : ''}
                               </span>
@@ -128,17 +121,23 @@ const hasCast = firstMovie?.data?.cast?.length ?? 0 > 0;
                         )}
                       </dd>
                     </div>
-                    <div aria-hidden="true" class="w-full h-px bg-gray-200 my-4"></div>
                     <div class="flex-none w-full mt-2 font-normal">
-                      <dt class="sr-only">Dates</dt>
+                      <dt class="sr-only">Show Times</dt>
                       <dd class="flex flex-wrap sm:flex-nowrap gap-x-6 text-slate-500">
-                        {firstMovie.data.showtimes && firstMovie.data.showtimes.length > 0 && (
-                          firstMovie.data.showtimes?.map((showtime) => (
-                            <span class="flex items-center">
-                              <CalendarDaysIcon class="h-5 w-5 flex-none text-slate-400 pr-1" aria-hidden="true" />
-                              {showtime}
-                            </span>
-                          ))
+                        {firstMovie.showTimes && firstMovie.showTimes.length > 0 && (
+                          firstMovie.showTimes?.map((showtime) => {
+                            const date = new Date(showtime);
+                            const formattedDate = date.toLocaleDateString('en-US', {
+                              month: 'short',
+                              day: 'numeric',
+                            });
+                            return (
+                              <span class="flex items-center">
+                                <CalendarDaysIcon class="h-5 w-5 flex-none text-slate-400 pr-1" aria-hidden="true" />
+                                {formattedDate}
+                              </span>
+                            );
+                          })
                         )}
                       </dd>
                     </div>

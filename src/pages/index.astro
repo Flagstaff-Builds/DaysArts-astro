@@ -4,19 +4,16 @@ import Main from "@components/html-structure/Main.astro";
 import Hero from "@components/hero-primary.astro";
 import { Image } from "astro:assets";
 import { TicketIcon } from '@heroicons/vue/24/outline';
-
 import { getCollection } from "astro:content";
+import { appwriteClient, getMovies } from "@/utils/appwrite";
 
-// import ChristmasTickets from "@/components/christmas-tickets.astro";
+// Fetch movies from Appwrite
+const movies = await getMovies();
+const hasMovies = movies.length > 0;
 
-// Optimized collection queries
-const movies = (await getCollection("movie"))
-  .sort((a, b) => a.id.localeCompare(b.id));
-
+// Get events from content collection
 const events = (await getCollection("event"))
   .sort((a, b) => a.id.localeCompare(b.id));
-
-const hasMovies = movies.length > 0;
 
 import TheatreClosed from "@/components/theatre-closed.astro";
 ---
@@ -41,30 +38,30 @@ import TheatreClosed from "@/components/theatre-closed.astro";
 
         <ul class="mx-auto grid max-w-2xl grid-cols-1 gap-x-6 gap-y-20 sm:grid-cols-2 md:grid-cols-3 lg:mx-0 lg:max-w-none lg:gap-x-8 xl:col-span-2">
           {movies.map((movie) => (
-            <a href={`now-playing#${movie.data.title.replace(/\s+/g, '-')}`}>
+            <a href={`now-playing#${movie.title.replace(/\s+/g, '-')}`}>
               <li class="transform transition duration-500 hover:scale-105">
-                {movie.data.poster && (
-                  <Image
-                    src={movie.data.poster}
-                    alt={movie.data.title}
+                {movie.posterUrl && (
+                  <img
+                    src={movie.posterUrl}
+                    alt={movie.title}
                     class="aspect-[2/3] w-full rounded-xl object-cover z-0 bg-purple-100 shadow-purple-400/30 shadow-xl"
                   />
                 )}
 
-                {movie.data.reelAlternative && (
+                {movie.isReelAlternative && (
                   <div class="z-1 -mt-12 absolute ml-4">
                     <span class="rounded-md bg-purple-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm">Reel Alternative Film</span>
                   </div>
                 )}
 
-                <h3 class="mt-6 text-lg font-semibold leading-8 text-gray-900">{movie.data.title}</h3>
+                <h3 class="mt-6 text-lg font-semibold leading-8 text-gray-900">{movie.title}</h3>
 
-                {movie.data.rating && (
-                  <p class="inline text-sm px-1.5 ring-1 ring-slate-200 rounded font-medium leading-6 py-1">{movie.data.rating}</p>
+                {movie.rating && (
+                  <p class="inline text-sm px-1.5 ring-1 ring-slate-200 rounded font-medium leading-6 py-1">{movie.rating}</p>
                 )}
 
-                {movie.data.description && (
-                  <p class="mt-4 text-base leading-7 text-gray-600 line-clamp-3">{movie.data.description}</p>
+                {movie.description && (
+                  <p class="mt-4 text-base leading-7 text-gray-600 line-clamp-3">{movie.description}</p>
                 )}
               </li>
             </a>

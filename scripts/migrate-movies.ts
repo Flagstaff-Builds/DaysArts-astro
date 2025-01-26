@@ -33,10 +33,27 @@ async function migrateMovies() {
 
             // Convert showtimes strings to Date objects
             const showTimes = frontmatter.showtimes?.map(showtime => {
-                // Parse the showtime string to create a Date object
-                // This is a placeholder - you might need to adjust the parsing logic
-                // based on your actual showtime format
-                return new Date(showtime);
+                // Parse the showtime string (e.g., "Jan 24th - 2pm Matinee" or "Jan 24th")
+                const [datePart, timePart] = showtime.split('-').map(s => s.trim());
+                
+                // Remove ordinal suffixes (st, nd, rd, th)
+                const dateWithoutSuffix = datePart.replace(/(st|nd|rd|th)/, '');
+                const year = new Date().getFullYear();
+                
+                // Set default time to 7:30 PM unless it's a matinee
+                let hours = 19;
+                let minutes = 30;
+                
+                if (timePart && timePart.toLowerCase().includes('matinee')) {
+                    hours = 14;
+                    minutes = 0;
+                }
+                
+                // Create date object with the specified time
+                const date = new Date(`${dateWithoutSuffix}, ${year}`);
+                date.setHours(hours, minutes, 0, 0);
+                
+                return date.toISOString();
             }) || [];
 
             // Convert length string to runtime integer (e.g., "104m" -> 104)

@@ -1,7 +1,8 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { Image } from 'astro:assets';
-import { CalendarDaysIcon, PlayCircleIcon } from '@heroicons/vue/20/solid';
+import { CalendarDaysIcon, ClockIcon } from '@heroicons/vue/24/outline';
+import { PlayCircleIcon } from '@heroicons/vue/20/solid';
 
 interface MovieData {
   title: string;
@@ -12,7 +13,7 @@ interface MovieData {
   length?: string;
   genre?: string[];
   trailer?: string;
-  showtimes?: string[];
+  showtimes?: { date: string; time: string }[];
   reelAlternative?: boolean;
 }
 
@@ -134,26 +135,27 @@ const { movie } = Astro.props as Props;
       </div>
 
       <div class="mt-6">
-        <dt class="uppercase font-semibold text-xs text-slate-400">Showtimes</dt>
-        <dd class="flex flex-wrap sm:flex-nowrap items-center mt-2 text-sm">
-
-          {movie.data.showtimes && movie.data.showtimes.length > 0 && (
-            <ul class="flex flex-wrap sm:flex-nowrap gap-x-6 justify-between text-slate-500">
-              {movie.data.showtimes?.map((showtimes: string) => (
-                <li class="flex justify-between">
-                  <CalendarDaysIcon class="h-5 w-5 flex-none text-slate-400 pr-1" aria-hidden="true" />
-                  {showtimes}
-                </li>
-              ))}
-            </ul>
-          )}
-
-          {movie.data.reelAlternative && (
-            <div class="mt-10 md:absolute md:bottom-4 md:right-2">
-              <a href="/reel-alternative-film" class="rounded-md bg-purple-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600">Reel Alternative Film</a>
+        <p class="uppercase font-semibold text-xs text-slate-400">Showtimes</p>
+        <div class="flex flex-wrap gap-x-12 gap-y-4 w-full">
+          {movie.data.showtimes.map((showtime) => (
+            <div class="flex flex-col gap-2">
+              <div class="flex items-center gap-1">
+                <CalendarDaysIcon class="h-4 w-4 text-slate-400" />
+                <strong class="text-sm">{showtime.date}</strong>
+              </div>
+              <div class="flex items-center gap-1">
+                <ClockIcon class="h-4 w-4 text-slate-400" />
+                <span class="text-sm text-slate-500">{showtime.time}</span>
+              </div>
             </div>
-          )}
-        </dd>
+          ))}
+        </div>
+
+        {movie.data.reelAlternative && (
+          <div class="mt-10 md:absolute md:bottom-4 md:right-2">
+            <a href="/reel-alternative-film" class="rounded-md bg-purple-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600">Reel Alternative Film</a>
+          </div>
+        )}
       </div>
     </dl>
   </div>

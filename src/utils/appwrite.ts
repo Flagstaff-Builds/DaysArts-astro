@@ -35,13 +35,21 @@ export async function getMovies() {
             import.meta.env.VITE_APPWRITE_DATABASE_ID,
             MOVIES_COLLECTION,
             [
-                Query.orderDesc('releaseDate')
+                Query.equal('status', 'active')
             ]
         );
-        return { success: true, movies: response.documents };
+        
+        // Sort movies by their first showtime
+        const sortedMovies = response.documents.sort((a, b) => {
+            const aTime = a.showTimes[0] ? new Date(a.showTimes[0]) : new Date(0);
+            const bTime = b.showTimes[0] ? new Date(b.showTimes[0]) : new Date(0);
+            return aTime.getTime() - bTime.getTime();
+        });
+
+        return sortedMovies;
     } catch (error) {
         console.error('Error fetching movies:', error);
-        return { success: false, error };
+        return [];
     }
 };
 
