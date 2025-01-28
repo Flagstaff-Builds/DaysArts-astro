@@ -24,3 +24,7 @@ pnpm-debug.log*
 
 # VSCode workspace settings
 .vscode
+
+# windsurf instructions
+windsurf
+.windsurf
