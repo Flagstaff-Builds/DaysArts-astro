@@ -28,3 +28,11 @@ pnpm-debug.log*
 # windsurf instructions
 windsurf/
 .windsurf
+
+# qodo AI
+.qodo
+.qodo/
+
+# redesign assets
+.redesign
+.redesign/
