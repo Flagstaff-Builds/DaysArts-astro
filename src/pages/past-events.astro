@@ -18,20 +18,109 @@ type EventFile = {
 
 // Load all event files using import.meta.glob
 const eventFiles = await Promise.all(
-  Object.entries(await import.meta.glob<{ frontmatter: EventFrontmatter }>('../../content/event/_old/*.md'))
+  Object.entries(await import.meta.glob<{ frontmatter: EventFrontmatter }>('../content/event/_old/*.{md,mdx}'))
     .map(async ([file, importFunc]) => {
       const event = await importFunc();
       return {
         ...event,
         file,
-        url: file.replace('../../content/event/_old', '/event').replace('.md', '')
+        url: file.replace('../content/event/_old', '/event').replace(/\.(md|mdx)$/, '')
       } as EventFile;
     })
 );
 
+// Sort events by date (newest first)
 const sortedEvents = eventFiles.sort((a, b) => 
   (b.frontmatter.date || '').localeCompare(a.frontmatter.date || '')
 );
+
+// Group events by season (e.g., "2023 - 2024")
+function getSeasonFromDate(dateStr: string | undefined): string {
+  if (!dateStr) return "Unknown Season";
+  
+  const date = new Date(dateStr);
+  const year = date.getFullYear();
+  const month = date.getMonth(); // 0-11
+  
+  // If month is after July (index 6), it's part of the year-year+1 season
+  // Otherwise it's part of the year-1-year season
+  if (month > 6) {
+    return `${year} - ${year + 1}`;
+  } else {
+    return `${year - 1} - ${year}`;
+  }
+}
+
+// Get current date to determine the current season
+const currentDate = new Date();
+const currentYear = currentDate.getFullYear();
+const currentMonth = currentDate.getMonth();
+const currentSeason = currentMonth > 6 
+  ? `${currentYear} - ${currentYear + 1}` 
+  : `${currentYear - 1} - ${currentYear}`;
+
+// Group events by season
+const eventsBySeasons: Record<string, EventFile[]> = {};
+
+sortedEvents.forEach(event => {
+  const season = getSeasonFromDate(event.frontmatter.date);
+  if (!eventsBySeasons[season]) {
+    eventsBySeasons[season] = [];
+  }
+  eventsBySeasons[season].push(event);
+});
+
+// Get seasons in descending order (newest first)
+const seasons = Object.keys(eventsBySeasons).sort().reverse();
+
+// Manually defined past seasons (for historical data)
+const manuallyDefinedSeasons = {
+  "2022 - 2023": "Luke McMaster, Ken Lavigne, Shelly Jones & A Touch of Cole, Garrett Gregory & Karac Hendriks, Ann Vriend, Ryan McMahon",
+  "2022": "Amy Bishop, Prisoner of Tehran, Sarah Hagan, Martin Kerr, Diyet and the Love Soldiers",
+  "2019 - 2020": "Terry Barber, Across The Pond | The British Invasion, Tim Tamishiro, Lizzy Hoyt – New Lady on the Prairie, Accidental Humour Co. The Flying Detective, Diyet and The Love Soldiers (Cancelled)",
+  "2018 - 2019": "Johnny Summers Little Big Band, Ghostboy, Matthew Byrne, Gunning & Cormier, Samantha Martin and Delta Sugar, Miss Caledonia",
+  "2017 - 2018": "Port Cities, Best Little Newfoundland Christmas Pageant... Ever, Blake Reid and The Black Dirt Orchestra, Christopher Hall and The Comic Quartet, Krystal Dos Santos and The Black Mambas",
+  "2016 - 2017": "The Derina Harvey Band, Quartette, Scott Cook, Jim Byrnes, Lisa Brokop, Everything Fitz",
+  "2015 - 2016": "Christine Tassan, John Wort Hannam, Steve Pineo's Elvis Show, 6 Guitars with Chase Padgett, The Carolines, David Myles",
+  "2014 - 2015": "Connie Kaldor, Bridget Ryan's 'Here's to the Ladies Who Laugh', The Travelling Mabels, Jim Witter's 'Feelin Groovy', Tomas Kubinek – Certified Lunatic and Master of the Impossible, The Bills",
+  "2013 - 2014": "Gordie Mackeeman & His Rhythm Boys, Like Father, Like Son? Sorry, Hotel California, Pear, When That I Was, University of Alberta Symphony Orchestra",
+  "2012 - 2013": "Jake's Gift with The Darling Diva opening, Irish Rovers, Garth Prince, Lennie Gallant, Motus 'O' Dance – Circus Terrifico, Jesse Peters Trio",
+  "2011 - 2012": "Letter from Wingfield Farm, Al Simmons, Hippodrome, April Verch, Woody Holler and His Orchestra, Valdy",
+  "2010 - 2011": "Michelle Wright, Paul Rumbolt, The Shirleys, Jeff Straker, Pioneer Years, The Polyjesters",
+  "2009 - 2010": "Brett Kissell, Rhyme Rustler, Celtara, Cadence, Jack Semple, The Arrogant Worms",
+  "2008 - 2009": "Lorne Elliot, Babette's Feast (Augustana), Bottom Line Duo, John Wort Hannam, Ten Lost Years",
+  "2007 - 2008": "Dust Poets, Brad Johner, Patricia O'Callaghan, Connie Kaldor, Visions Country Gospel",
+  "2006 - 2007": "Glamour Puss, Rodeo Riders, Tillers Folley, Carlene Friesen, The Classics"
+};
+
+// Winter Matinee Concert Series by season
+const winterMatineeSeries = {
+  "2019 - 2020": "The Silver Screen Scoundrels, Jazz Affair – Wishes, Ken Stead (Cancelled)",
+  "2018 - 2019": "Gateway Chorus, Over The Moon, The Wardens",
+  "2014 - 2015": "MCT – Hansel + Gretel, Will Stroet and the Backyard Band",
+  "2013 - 2014": "Fred Penner, Wizard of Oz",
+  "2012 - 2013": "Splash\"N\"Boots, Missoula Children's Theatre – Jack and the Beanstalk",
+  "2011 - 2012": "Fables – Sun Ergos, Missoula Children's Theatre – The Pied Piper",
+  "2010 - 2011": "Figura, Missoula Children's Theatre – King Arthur's Quest",
+  "2009 - 2010": "Max-I-Mime, Missoula Children's Theatre – Snow White and The Seven Dwarfs",
+  "2008 - 2009": "Missoula Children's Theatre – Robin Hood, Cheremosh",
+  "2007 - 2008": "Val Hilliker, Youth singers of Calgary"
+};
+
+// Family Concerts by season (for seasons that don't have Winter Matinee)
+const familyConcerts = {
+  "2013 - 2014": "Fred Penner, Wizard of Oz",
+  "2012 - 2013": "Splash\"N\"Boots, Missoula Children's Theatre – Jack and the Beanstalk",
+  "2011 - 2012": "Fables – Sun Ergos, Missoula Children's Theatre – The Pied Piper",
+  "2010 - 2011": "Figura, Missoula Children's Theatre – King Arthur's Quest",
+  "2009 - 2010": "Max-I-Mime, Missoula Children's Theatre – Snow White and The Seven Dwarfs",
+  "2008 - 2009": "Missoula Children's Theatre – Robin Hood, Cheremosh",
+  "2007 - 2008": "Val Hilliker, Youth singers of Calgary"
+};
+
+// Combine automatically generated seasons with manually defined ones
+const allSeasons = new Set([...seasons, ...Object.keys(manuallyDefinedSeasons)]);
+const sortedSeasons = Array.from(allSeasons).sort().reverse();
 
 ---
 
@@ -49,213 +138,50 @@ const sortedEvents = eventFiles.sort((a, b) =>
   </HeroSecondary>
 
   <Main>
-
-
   <div class="lg:grid lg:grid-cols-12 lg:gap-8">
     <div class="lg:col-span-5">
       <h2 class="text-2xl font-bold leading-10 tracking-tight text-gray-900">Previous events</h2>
       <p class="mt-4 text-base leading-7 text-gray-600">Look through our <a href="https://www.facebook.com/profile.php?id=100063455833057&sk=photos_albums" target="_blank" class="font-semibold text-purple-600 hover:text-purple-500">Facebook albums</a> to see past shows.</p>
-
     </div>
 
     <div class="mt-10 lg:col-span-7 lg:mt-0">
       <dl class="space-y-10">
-
-        <div>
-          <dt class="text-lg font-bold leading-7 text-gray-900">2023 - 2024</dt>
-          <dd class="mt-2 text-base leading-7 text-gray-600">
-            {sortedEvents.map((event, index) => (
-              <span>
-                {event.frontmatter.title}{index < sortedEvents.length - 1 ? ', ' : ''}
-              </span>
-            ))}
-          </dd>
-        </div>
-
-        <div>
-          <dt class="text-lg font-bold leading-7 text-gray-900">2022 - 2023</dt>
-          <dd class="mt-2 text-base leading-7 text-gray-600">Luke McMaster, Ken Lavigne, Shelly Jones & A Touch of Cole, Garrett Gregory & Karac Hendriks, Ann Vriend, Ryan McMahon</dd>
-        </div>
-
-        <!-- no sub concert series -->
-        <div>
-          <dt class="text-lg font-bold leading-7 text-gray-900">2022</dt>
-          <dd class="mt-2 text-base leading-7 text-gray-600">Amy Bishop, Prisoner of Tehran, Sarah Hagan, Martin Kerr, Diyet and the Love Soldiers</dd>
-        </div>
-
-        <!-- with sub concert series -->
-        <div>
-          <dt class="text-lg font-bold leading-7 text-gray-900">2019 - 2020</dt>
-          <dd class="mt-2 text-base leading-7 text-gray-600">Terry Barber, Across The Pond | The British Invasion, Tim Tamishiro, Lizzy Hoyt – New Lady on the Prairie, Accidental Humour Co. The Flying Detective, Diyet and The Love Soldiers (Cancelled)
-            <div class="indent-8">
-              <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Winter Matinee Concert Series</p>
-              <p class="mt-2 text-base leading-7 text-gray-600">The Silver Screen Scoundrels, Jazz Affair – Wishes, Ken Stead (Cancelled)</p>
-            </div>
-          </dd>
-        </div>
-
-        <div class="mt-10">
-          <dt class="text-lg font-bold leading-7 text-gray-900">2018 - 2019</dt>
-          <dd class="mt-2 text-base leading-7 text-gray-600">Johnny Summers Little Big Band, Ghostboy, Matthew Byrne, Gunning & Cormier, Samantha Martin and Delta Sugar, Miss Caledonia
-            <div class="indent-8">
-              <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Winter Matinee Concert Series</p>
-              <p class="mt-2 text-base leading-7 text-gray-600">Gateway Chorus, Over The Moon, The Wardens</p>
-            </div>
-          </dd>
-        </div>
-
-<!-- 2017 – 2018 -->
-<div>
-  <dt class="text-lg font-bold leading-7 text-gray-900">2017 – 2018</dt>
-  <dd class="mt-2 text-base leading-7 text-gray-600">Port Cities, Best Little Newfoundland Christmas Pageant... Ever, Blake Reid and The Black Dirt Orchestra, Christopher Hall and The Comic Quartet, Krystal Dos Santos and The Black Mambas</dd>
-</div>
-
-<!-- 2016 – 2017 -->
-<div>
-  <dt class="text-lg font-bold leading-7 text-gray-900">2016 – 2017</dt>
-  <dd class="mt-2 text-base leading-7 text-gray-600">The Derina Harvey Band, Quartette, Scott Cook, Jim Byrnes, Lisa Brokop, Everything Fitz</dd>
-</div>
-
-<!-- 2015 – 2016 -->
-<div>
-  <dt class="text-lg font-bold leading-7 text-gray-900">2015 – 2016</dt>
-  <dd class="mt-2 text-base leading-7 text-gray-600">Christine Tassan, John Wort Hannam, Steve Pineo’s Elvis Show, 6 Guitars with Chase Padgett, The Carolines, David Myles</dd>
-</div>
-
-<!-- 2014 – 2015 -->
-<div>
-  <dt class="text-lg font-bold leading-7 text-gray-900">2014 – 2015</dt>
-  <dd class="mt-2 text-base leading-7 text-gray-600">Connie Kaldor, Bridget Ryan’s ‘Here’s to the Ladies Who Laugh’, The Travelling Mabels, Jim Witter’s ‘Feelin Groovy’, Tomas Kubinek – Certified Lunatic and Master of the Impossible, The Bills
-    <div class="indent-8">
-      <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family Concerts</p>
-      <p class="mt-2 text-base leading-7 text-gray-600">MCT – Hansel + Gretel, Will Stroet and the Backyard Band</p></dd>
-</div>
-
-
-<!-- 2013 – 2014 -->
-<div>
-  <dt class="text-lg font-bold leading-7 text-gray-900">2013 – 2014</dt>
-  <dd class="mt-2 text-base leading-7 text-gray-600">Gordie Mackeeman & His Rhythm Boys, Like Father, Like Son? Sorry, Hotel California, Pear, When That I Was, University of Alberta Symphony Orchestra
-    <div class="indent-8">
-      <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family Concerts</p>
-      <p class="mt-2 text-base leading-7 text-gray-600">Fred Penner, Wizard of Oz</p></dd>
-</div>
-
-<!-- 2012 – 2013 -->
-<div>
-  <dt class="text-lg font-bold leading-7 text-gray-900">2012 – 2013</dt>
-  <dd class="mt-2 text-base leading-7 text-gray-600">Jake’s Gift with The Darling Diva opening, Irish Rovers, Garth Prince, Lennie Gallant, Motus ‘O’ Dance – Circus Terrifico, Jesse Peters Trio
-
-    <div class="indent-8">
-  <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family Concerts</p>
-  <p class="mt-2 text-base leading-7 text-gray-600">Splash”N”Boots, Missoula Children’s Theatre – Jack and the Beanstalk</p></dd>
-</div>
-
-<!-- 2011 – 2012 -->
-<div>
-  <dt class="text-lg font-bold leading-7 text-gray-900">2011 – 2012</dt>
-  <dd class="mt-2 text-base leading-7 text-gray-600">Letter from Wingfield Farm, Al Simmons, Hippodrome, April Verch, Woody Holler and His Orchestra, Valdy
-
-    <div class="indent-8">
-  <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family concerts</p>
-  <p class="mt-2 text-base leading-7 text-gray-600">Fables – Sun Ergos, Missoula Children’s Theatre – The Pied Piper</p></dd>
-</div>
-
-<!-- 2010 – 2011 -->
-<div>
-  <dt class="text-lg font-bold leading-7 text-gray-900">2010 – 2011</dt>
-  <dd class="mt-2 text-base leading-7 text-gray-600">Michelle Wright, Paul Rumbolt, The Shirleys, Jeff Straker, Pioneer Years, The Polyjesters
-
-    <div class="indent-8">
-  <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family concerts</p>
-  <p class="mt-2 text-base leading-7 text-gray-600">Figura, Missoula Children’s Theatre – King Arthur’s Quest</p></dd>
-</div>
-
-<!-- 2009 – 2010 -->
-<div>
-  <dt class="text-lg font-bold leading-7 text-gray-900">2009 – 2010</dt>
-  <dd class="mt-2 text-base leading-7 text-gray-600">Brett Kissell, Rhyme Rustler, Celtara, Cadence, Jack Semple, The Arrogant Worms
-
-    <div class="indent-8">
-  <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family concerts</p>
-  <p class="mt-2 text-base leading-7 text-gray-600">Max-I-Mime, Missoula Children’s Theatre – Snow White and The Seven Dwarfs</p></dd>
-</div>
-
-<!-- 2008 – 2009 -->
-<div>
-  <dt class="text-lg font-bold leading-7 text-gray-900">2008 – 2009</dt>
-  <dd class="mt-2 text-base leading-7 text-gray-600">Lorne Elliot, Babette’s Feast (Augustana), Bottom Line Duo, John Wort Hannam, Ten Lost Years
-
-    <div class="indent-8">
-  <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family concerts</p>
-  <p class="mt-2 text-base leading-7 text-gray-600">Missoula Children’s Theatre – Robin Hood, Cheremosh</p></dd>
-</div>
-
-<!-- 2007 – 2008 -->
-<div>
-  <dt class="text-lg font-bold leading-7 text-gray-900">2007 – 2008</dt>
-  <dd class="mt-2 text-base leading-7 text-gray-600">Dust Poets, Brad Johner, Patricia O’Callaghan, Connie Kaldor, Visions Country Gospel
-
-    <div class="indent-8">
-  <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family concerts</p>
-  <p class="mt-2 text-base leading-7 text-gray-600">Val Hilliker, Youth singers of Calgary</p></dd>
-</div>
-
-<!-- 2006 – 2007 -->
-<div>
-  <dt class="text-lg font-bold leading-7 text-gray-900">2006 – 2007</dt>
-  <dd class="mt-2 text-base leading-7 text-gray-600">Glamour Puss, Rodeo Riders, Tillers Folley, Carlene Friesen, The Classics
-
-    <div class="indent-8">
-  <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family concerts</p>
-  <p class="mt-2 text-base leading-7 text-gray-600">Everything Fitz, Tomas Kubinek</p></dd>
-</div>
-
-<!-- 2005 – 2006 -->
-<div>
-  <dt class="text-lg font-bold leading-7 text-gray-900">2005 – 2006</dt>
-  <dd class="mt-2 text-base leading-7 text-gray-600">Todd Butler, Samantha Robichaud, Foothills Brass, Lewis & Royal, Tanglefoot
-
-    <div class="indent-8">
-  <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family concerts</p>
-  <p class="mt-2 text-base leading-7 text-gray-600">Red Thunder, Beauty & the Beast (Daysland School Drama Company)</p></dd>
-</div>
-
-<!-- 2004 – 2005 -->
-<div>
-  <dt class="text-lg font-bold leading-7 text-gray-900">2004 – 2005</dt>
-  <dd class="mt-2 text-base leading-7 text-gray-600">Bowser & Blue, Pavlo, Leslie Alexander, Crystal Plamondon, Murray McLauchan
-
-    <div class="indent-8">
-  <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family concerts</p>
-  <p class="mt-2 text-base leading-7 text-gray-600">Maritime Marionettes, Flyin’ Bob, Special Centennial Concert – Maria Dunn</p></dd>
-</div>
-
-<!-- 2003 – 2004 -->
-<div>
-  <dt class="text-lg font-bold leading-7 text-gray-900">2003 – 2004</dt>
-  <dd class="mt-2 text-base leading-7 text-gray-600">Tanglefoot, Fiddlestix, Felix Possack, The Swiss Men’s Choir, The Cruzero’s</dd>
-</div>
-
-<!-- 2002 – 2003 -->
-<div>
-  <dt class="text-lg font-bold leading-7 text-gray-900">2002 – 2003</dt>
-  <dd class="mt-2 text-base leading-7 text-gray-600">John Gracie, The Nomads, The Rawling Brothers, The Bill Hilly Band, Louis David Riel</dd>
-</div>
-
-<!-- 2001 – 2002 -->
-<div>
-  <dt class="text-lg font-bold leading-7 text-gray-900">2001 – 2002</dt>
-  <dd class="mt-2 text-base leading-7 text-gray-600">Michael Kaeshammer, Sheep River Rounders, Paul Hann, Peters Drury Trio, Lorne Elliot</dd>
-</div>
-
-
+        {sortedSeasons.map((season) => (
+          <div>
+            <dt class="text-lg font-bold leading-7 text-gray-900">{season}</dt>
+            <dd class="mt-2 text-base leading-7 text-gray-600">
+              {/* Show dynamically loaded events if available */}
+              {eventsBySeasons[season] && eventsBySeasons[season].length > 0 ? (
+                eventsBySeasons[season].map((event, index) => (
+                  <span>
+                    {event.frontmatter.title}{index < eventsBySeasons[season].length - 1 ? ', ' : ''}
+                  </span>
+                ))
+              ) : (
+                /* Fall back to manually defined events */
+                manuallyDefinedSeasons[season] && manuallyDefinedSeasons[season]
+              )}
+              
+              {/* Add Winter Matinee Concert Series if available for this season */}
+              {winterMatineeSeries[season] && (
+                <div class="indent-8">
+                  <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Winter Matinee Concert Series</p>
+                  <p class="mt-2 text-base leading-7 text-gray-600">{winterMatineeSeries[season]}</p>
+                </div>
+              )}
+              
+              {/* Add Family Concerts if available for this season */}
+              {!winterMatineeSeries[season] && familyConcerts[season] && (
+                <div class="indent-8">
+                  <p class="mt-8 text-base font-semibold leading-7 text-gray-900">Family Concerts</p>
+                  <p class="mt-2 text-base leading-7 text-gray-600">{familyConcerts[season]}</p>
+                </div>
+              )}
+            </dd>
+          </div>
+        ))}
       </dl>
     </div>
   </div>
-
-
-
   </Main>
-
 </Layout>
