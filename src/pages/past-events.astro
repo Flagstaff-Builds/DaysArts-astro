@@ -3,34 +3,103 @@ import Layout from "../layouts/Layout.astro";
 import Main from "@components/html-structure/Main.astro";
 import HeroSecondary from "@components/hero-secondary.astro";
 import { FireIcon } from "@heroicons/vue/24/outline";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import path from 'path';
 
 interface EventFrontmatter {
   title: string;
   date?: string;
   description?: string;
+  past?: boolean;
 }
 
 type EventFile = {
   frontmatter: EventFrontmatter;
-  file: string;
-  url: string;
+  id: string;
+  slug: string;
 };
 
-// Load all event files using import.meta.glob
-const eventFiles = await Promise.all(
-  Object.entries(await import.meta.glob<{ frontmatter: EventFrontmatter }>('../content/event/_old/*.{md,mdx}'))
-    .map(async ([file, importFunc]) => {
-      const event = await importFunc();
-      return {
-        ...event,
-        file,
-        url: file.replace('../content/event/_old', '/event').replace(/\.(md|mdx)$/, '')
-      } as EventFile;
-    })
+// Get current date to determine what's a past event
+const currentDate: Date = new Date();
+// Set time to beginning of day for accurate comparison
+currentDate.setHours(0, 0, 0, 0);
+// Extract current year and month for later use
+const currentYear: number = currentDate.getFullYear();
+const currentMonth: number = currentDate.getMonth();
+
+console.log("Current date for comparison:", currentDate);
+
+// Load all events from the event collection
+const allEvents: CollectionEntry<"event">[] = await getCollection("event");
+
+console.log("All events count:", allEvents.length);
+console.log("All events sample:", allEvents.slice(0, 3).map(e => ({ id: e.id, title: e.data.title, date: e.data.date })));
+
+// Load old events using import.meta.glob
+const oldEventFiles = import.meta.glob<{ frontmatter: EventFrontmatter }>('../content/event/_old/*.{md,mdx}');
+console.log("Old event files glob pattern:", Object.keys(oldEventFiles).length);
+
+// Process old events
+const oldEvents: EventFile[] = await Promise.all(
+  Object.entries(oldEventFiles).map(async ([filePath, importFunc]) => {
+    const content: { frontmatter: EventFrontmatter } = await importFunc();
+    const fileName = path.basename(filePath);
+    return {
+      frontmatter: content.frontmatter,
+      id: `_old/${fileName}`,
+      slug: fileName.replace(/\.(md|mdx)$/, '')
+    };
+  })
 );
 
+console.log("Old events count:", oldEvents.length);
+console.log("Old events sample:", oldEvents.slice(0, 3).map(e => ({ id: e.id, title: e.frontmatter.title, date: e.frontmatter.date })));
+
+// Convert Astro collection entries to our EventFile format
+const regularEventFiles: EventFile[] = allEvents.map(event => ({
+  frontmatter: {
+    title: event.data.title,
+    date: event.data.date,
+    description: event.data.description,
+    past: event.data.past
+  },
+  id: event.id,
+  slug: event.slug
+}));
+
+// Combine all events
+const combinedEvents: EventFile[] = [...regularEventFiles, ...oldEvents];
+
+console.log("Combined events count:", combinedEvents.length);
+console.log("Combined events sample:", combinedEvents.slice(0, 3).map(e => ({ id: e.id, title: e.frontmatter.title, date: e.frontmatter.date })));
+
+// Filter for past events - either they're in the _old directory, have past: true,
+// or their date is in the past
+const pastEvents: EventFile[] = combinedEvents.filter((event: EventFile) => {
+  // Check if event is in _old directory or explicitly marked as past
+  const isInOldDir: boolean = event.id.includes("_old/");
+  const isMarkedPast: boolean = event.frontmatter.past === true;
+  
+  // Check if event date is in the past
+  let isPastDate: boolean = false;
+  if (event.frontmatter.date) {
+    const eventDate: Date = new Date(event.frontmatter.date);
+    isPastDate = eventDate < currentDate;
+  }
+  
+  const shouldInclude: boolean = isInOldDir || isMarkedPast || isPastDate;
+  
+  console.log(`Event: ${event.frontmatter.title}, ID: ${event.id}, Date: ${event.frontmatter.date}, isInOldDir: ${isInOldDir}, isMarkedPast: ${isMarkedPast}, isPastDate: ${isPastDate}, Include: ${shouldInclude}`);
+  
+  return shouldInclude;
+});
+
+console.log("Past events count:", pastEvents.length);
+console.log("Past events sample:", pastEvents.slice(0, 3).map(e => ({ id: e.id, title: e.frontmatter.title, date: e.frontmatter.date })));
+
 // Sort events by date (newest first)
-const sortedEvents = eventFiles.sort((a, b) => 
+const sortedEvents: EventFile[] = pastEvents.sort((a, b) => 
   (b.frontmatter.date || '').localeCompare(a.frontmatter.date || '')
 );
 
@@ -38,9 +107,9 @@ const sortedEvents = eventFiles.sort((a, b) =>
 function getSeasonFromDate(dateStr: string | undefined): string {
   if (!dateStr) return "Unknown Season";
   
-  const date = new Date(dateStr);
-  const year = date.getFullYear();
-  const month = date.getMonth(); // 0-11
+  const date: Date = new Date(dateStr);
+  const year: number = date.getFullYear();
+  const month: number = date.getMonth(); // 0-11
   
   // If month is after July (index 6), it's part of the year-year+1 season
   // Otherwise it's part of the year-1-year season
@@ -51,30 +120,34 @@ function getSeasonFromDate(dateStr: string | undefined): string {
   }
 }
 
-// Get current date to determine the current season
-const currentDate = new Date();
-const currentYear = currentDate.getFullYear();
-const currentMonth = currentDate.getMonth();
-const currentSeason = currentMonth > 6 
-  ? `${currentYear} - ${currentYear + 1}` 
-  : `${currentYear - 1} - ${currentYear}`;
-
 // Group events by season
-const eventsBySeasons: Record<string, EventFile[]> = {};
+interface EventsBySeasons {
+  [key: string]: EventFile[];
+}
+
+const eventsBySeasons: EventsBySeasons = {};
 
 sortedEvents.forEach(event => {
-  const season = getSeasonFromDate(event.frontmatter.date);
+  const season: string = getSeasonFromDate(event.frontmatter.date);
   if (!eventsBySeasons[season]) {
     eventsBySeasons[season] = [];
   }
   eventsBySeasons[season].push(event);
+  
+  console.log(`Assigning event: ${event.frontmatter.title}, Date: ${event.frontmatter.date} to season: ${season}`);
 });
 
 // Get seasons in descending order (newest first)
-const seasons = Object.keys(eventsBySeasons).sort().reverse();
+const seasons: string[] = Object.keys(eventsBySeasons).sort().reverse();
+
+console.log("Seasons from events:", seasons);
 
 // Manually defined past seasons (for historical data)
-const manuallyDefinedSeasons = {
+interface SeasonRecord {
+  [key: string]: string;
+}
+
+const manuallyDefinedSeasons: SeasonRecord = {
   "2022 - 2023": "Luke McMaster, Ken Lavigne, Shelly Jones & A Touch of Cole, Garrett Gregory & Karac Hendriks, Ann Vriend, Ryan McMahon",
   "2022": "Amy Bishop, Prisoner of Tehran, Sarah Hagan, Martin Kerr, Diyet and the Love Soldiers",
   "2019 - 2020": "Terry Barber, Across The Pond | The British Invasion, Tim Tamishiro, Lizzy Hoyt – New Lady on the Prairie, Accidental Humour Co. The Flying Detective, Diyet and The Love Soldiers (Cancelled)",
@@ -94,7 +167,7 @@ const manuallyDefinedSeasons = {
 };
 
 // Winter Matinee Concert Series by season
-const winterMatineeSeries = {
+const winterMatineeSeries: SeasonRecord = {
   "2019 - 2020": "The Silver Screen Scoundrels, Jazz Affair – Wishes, Ken Stead (Cancelled)",
   "2018 - 2019": "Gateway Chorus, Over The Moon, The Wardens",
   "2014 - 2015": "MCT – Hansel + Gretel, Will Stroet and the Backyard Band",
@@ -108,7 +181,7 @@ const winterMatineeSeries = {
 };
 
 // Family Concerts by season (for seasons that don't have Winter Matinee)
-const familyConcerts = {
+const familyConcerts: SeasonRecord = {
   "2013 - 2014": "Fred Penner, Wizard of Oz",
   "2012 - 2013": "Splash\"N\"Boots, Missoula Children's Theatre – Jack and the Beanstalk",
   "2011 - 2012": "Fables – Sun Ergos, Missoula Children's Theatre – The Pied Piper",
@@ -119,8 +192,10 @@ const familyConcerts = {
 };
 
 // Combine automatically generated seasons with manually defined ones
-const allSeasons = new Set([...seasons, ...Object.keys(manuallyDefinedSeasons)]);
-const sortedSeasons = Array.from(allSeasons).sort().reverse();
+const allSeasons: Set<string> = new Set([...seasons, ...Object.keys(manuallyDefinedSeasons)]);
+const sortedSeasons: string[] = Array.from(allSeasons).sort().reverse();
+
+console.log("Final sorted seasons:", sortedSeasons);
 
 ---
 
@@ -146,13 +221,13 @@ const sortedSeasons = Array.from(allSeasons).sort().reverse();
 
     <div class="mt-10 lg:col-span-7 lg:mt-0">
       <dl class="space-y-10">
-        {sortedSeasons.map((season) => (
+        {sortedSeasons.map((season: string) => (
           <div>
             <dt class="text-lg font-bold leading-7 text-gray-900">{season}</dt>
             <dd class="mt-2 text-base leading-7 text-gray-600">
               {/* Show dynamically loaded events if available */}
               {eventsBySeasons[season] && eventsBySeasons[season].length > 0 ? (
-                eventsBySeasons[season].map((event, index) => (
+                eventsBySeasons[season].map((event: EventFile, index: number) => (
                   <span>
                     {event.frontmatter.title}{index < eventsBySeasons[season].length - 1 ? ', ' : ''}
                   </span>
