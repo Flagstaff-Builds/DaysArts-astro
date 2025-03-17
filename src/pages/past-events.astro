@@ -36,22 +36,20 @@ const allEvents: CollectionEntry<"event">[] = await getCollection("event");
 console.log("All events count:", allEvents.length);
 console.log("All events sample:", allEvents.slice(0, 3).map(e => ({ id: e.id, title: e.data.title, date: e.data.date })));
 
-// Load old events using import.meta.glob
-const oldEventFiles = import.meta.glob<{ frontmatter: EventFrontmatter }>('../content/event/_old/*.{md,mdx}');
+// Load old events using import.meta.glob with the correct relative path
+// Use a path that will work correctly in both dev and build
+const oldEventFiles = import.meta.glob<{ frontmatter: EventFrontmatter }>('/src/content/event/_old/*.{md,mdx}', { eager: true });
 console.log("Old event files glob pattern:", Object.keys(oldEventFiles).length);
 
 // Process old events
-const oldEvents: EventFile[] = await Promise.all(
-  Object.entries(oldEventFiles).map(async ([filePath, importFunc]) => {
-    const content: { frontmatter: EventFrontmatter } = await importFunc();
-    const fileName = path.basename(filePath);
-    return {
-      frontmatter: content.frontmatter,
-      id: `_old/${fileName}`,
-      slug: fileName.replace(/\.(md|mdx)$/, '')
-    };
-  })
-);
+const oldEvents: EventFile[] = Object.entries(oldEventFiles).map(([filePath, content]) => {
+  const fileName = path.basename(filePath);
+  return {
+    frontmatter: content.frontmatter,
+    id: `_old/${fileName}`,
+    slug: fileName.replace(/\.(md|mdx)$/, '')
+  };
+});
 
 console.log("Old events count:", oldEvents.length);
 console.log("Old events sample:", oldEvents.slice(0, 3).map(e => ({ id: e.id, title: e.frontmatter.title, date: e.frontmatter.date })));
