@@ -30,6 +30,7 @@
     "vue": "3.3.9"
   },
   "devDependencies": {
+    "@babel/helpers": "^7.26.10",
     "@tailwindcss/typography": "^0.5.10"
   }
 }
