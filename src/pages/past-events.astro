@@ -5,7 +5,6 @@ import HeroSecondary from "@components/hero-secondary.astro";
 import { FireIcon } from "@heroicons/vue/24/outline";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
-import path from 'path';
 
 interface EventFrontmatter {
   title: string;
@@ -24,9 +23,6 @@ type EventFile = {
 const currentDate: Date = new Date();
 // Set time to beginning of day for accurate comparison
 currentDate.setHours(0, 0, 0, 0);
-// Extract current year and month for later use
-const currentYear: number = currentDate.getFullYear();
-const currentMonth: number = currentDate.getMonth();
 
 console.log("Current date for comparison:", currentDate);
 
@@ -36,35 +32,88 @@ const allEvents: CollectionEntry<"event">[] = await getCollection("event");
 console.log("All events count:", allEvents.length);
 console.log("All events sample:", allEvents.slice(0, 3).map(e => ({ id: e.id, title: e.data.title, date: e.data.date })));
 
-// Load old events using import.meta.glob with the correct relative path
-// Use a path that will work correctly in both dev and build
-const oldEventFiles = import.meta.glob<{ frontmatter: EventFrontmatter }>('/src/content/event/_old/*.{md,mdx}', { eager: true });
-console.log("Old event files glob pattern:", Object.keys(oldEventFiles).length);
+// Manually define the old events since we can't access them through the collection
+const oldEventsData = [
+  {
+    title: "Scarlett Butler",
+    date: "2023-11-01",
+    id: "_old/2023-11-01-Scarlett-Butler.md"
+  },
+  {
+    title: "Jake Vaadeland",
+    date: "2024-01-24",
+    id: "_old/2024-01-24-Jake-Vaadeland.md"
+  },
+  {
+    title: "Cristan De La Luna",
+    date: "2024-02-15",
+    id: "_old/2024-02-15-Cristan-De-La-Luna.md"
+  },
+  {
+    title: "Chris Funk",
+    date: "2024-03-13",
+    id: "_old/2024-03-13-Chris-Funk.md"
+  },
+  {
+    title: "Jeffrey Straker",
+    date: "2024-04-04",
+    id: "_old/2024-04-04-Jeffrey-Straker.md"
+  },
+  {
+    title: "Blue Moon Marquee",
+    date: "2024-10-29",
+    id: "_old/2024-10-29-Blue-Moon-Marquee.md"
+  },
+  {
+    title: "The McDades",
+    date: "2024-11-22",
+    id: "_old/2024-11-22-The-McDades.md"
+  },
+  {
+    title: "Jack Stemple Plays Lightfoot",
+    date: "2024-11-28",
+    id: "_old/2024-11-28-Jack-Stemple-Plays-Lightfoot.md"
+  },
+  {
+    title: "Mollys Comedy Cabaret",
+    date: "2025-01-09",
+    id: "_old/2025-01-09-Mollys-comedy-cabaret.md"
+  },
+  {
+    title: "Piano Heist",
+    date: "2025-02-11",
+    id: "_old/2025-02-11-Piano-Heist.mdx"
+  }
+];
 
-// Process old events
-const oldEvents: EventFile[] = Object.entries(oldEventFiles).map(([filePath, content]) => {
-  const fileName = path.basename(filePath);
-  return {
-    frontmatter: content.frontmatter,
-    id: `_old/${fileName}`,
-    slug: fileName.replace(/\.(md|mdx)$/, '')
-  };
-});
+// Convert to EventFile format
+const oldEvents: EventFile[] = oldEventsData.map(event => ({
+  frontmatter: {
+    title: event.title,
+    date: event.date,
+    past: true // Always mark these as past events
+  },
+  id: event.id,
+  slug: event.id.replace(/\.(md|mdx)$/, '')
+}));
 
 console.log("Old events count:", oldEvents.length);
 console.log("Old events sample:", oldEvents.slice(0, 3).map(e => ({ id: e.id, title: e.frontmatter.title, date: e.frontmatter.date })));
 
-// Convert Astro collection entries to our EventFile format
-const regularEventFiles: EventFile[] = allEvents.map(event => ({
-  frontmatter: {
-    title: event.data.title,
-    date: event.data.date,
-    description: event.data.description,
-    past: event.data.past
-  },
-  id: event.id,
-  slug: event.slug
-}));
+// Convert regular Astro collection entries to our EventFile format
+// (excluding those in _old directory since we already processed them)
+const regularEventFiles: EventFile[] = allEvents
+  .filter(event => !event.id.startsWith("_old/"))
+  .map(event => ({
+    frontmatter: {
+      title: event.data.title,
+      date: event.data.date,
+      description: event.data.description,
+      past: event.data.past
+    },
+    id: event.id,
+    slug: event.slug
+  }));
 
 // Combine all events
 const combinedEvents: EventFile[] = [...regularEventFiles, ...oldEvents];
@@ -76,7 +125,7 @@ console.log("Combined events sample:", combinedEvents.slice(0, 3).map(e => ({ id
 // or their date is in the past
 const pastEvents: EventFile[] = combinedEvents.filter((event: EventFile) => {
   // Check if event is in _old directory or explicitly marked as past
-  const isInOldDir: boolean = event.id.includes("_old/");
+  const isInOldDir: boolean = event.id.startsWith("_old/");
   const isMarkedPast: boolean = event.frontmatter.past === true;
   
   // Check if event date is in the past
