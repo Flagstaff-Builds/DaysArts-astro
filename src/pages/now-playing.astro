@@ -10,6 +10,7 @@ import { VideoCameraIcon } from '@heroicons/vue/24/outline';
 
 import type { CollectionEntry } from 'astro:content';
 
+// Get all movies
 let movieEntries = await getCollection("movie") as CollectionEntry<'movie'>[];
 
 // Function to parse date from showtime string (format: "Jan 24th" or "Jan 24th - 2pm Matinee")
@@ -18,8 +19,8 @@ function parseShowtime(showtime: string): Date {
   const datePart = showtime.split('-')[0].trim();
   const currentYear = new Date().getFullYear();
   
-  // Remove the ordinal suffix (1st, 2nd, 3rd, 4th, etc.)
-  const dateWithoutSuffix = datePart.replace(/(st|nd|rd|th)/, '');
+  // Remove the ordinal suffix (1st, 2nd, 3rd, 4th, etc.) - use global regex to catch all instances
+  const dateWithoutSuffix = datePart.replace(/(st|nd|rd|th)/g, '');
   const dateString = `${dateWithoutSuffix}, ${currentYear}`;
   const date = new Date(dateString);
   
@@ -36,36 +37,22 @@ function normalizeDate(date: Date): Date {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 }
 
-// Function to get the next valid showtime for a movie
-function getNextShowtime(movie: CollectionEntry<'movie'>): number {
-  if (!movie.data.showtimes || movie.data.showtimes.length === 0) {
-    return Number.MAX_SAFE_INTEGER;
-  }
-
-  const today = normalizeDate(new Date());
-  
-  // Get all showtimes as normalized dates (no time component)
-  const showtimes = movie.data.showtimes
-    .map(showtime => normalizeDate(parseShowtime(showtime)))
-    .filter(date => date >= today)
-    .map(date => date.getTime());
-
-  return showtimes.length > 0 ? Math.min(...showtimes) : Number.MAX_SAFE_INTEGER;
-}
-
-// Sort movies by next showing date
+// Filter movies and sort by ID (filename)
 movieEntries = movieEntries
   .filter(entry => !entry.id.startsWith('_old/')) // Filter out old movies
   .filter(movie => {
     // Keep movie if it has any showings today or in the future
     const today = normalizeDate(new Date());
-    return movie.data.showtimes?.some(showtime => 
-      normalizeDate(parseShowtime(showtime)) >= today
-    ) ?? false;
+    return movie.data.showtimes?.some(showtime => {
+      const showtimeDate = normalizeDate(parseShowtime(showtime));
+      return showtimeDate >= today;
+    }) ?? false;
   })
-  .sort((a, b) => getNextShowtime(a) - getNextShowtime(b));
+  // Sort by ID (filename) which contains the date in format MM-DD-YYYY
+  .sort((a, b) => a.id.localeCompare(b.id));
 
 let hasMovies = movieEntries && movieEntries.length > 0;
+
 ---
 
 <Layout title="Now playing at Daysland Theatre" description="Explore the latest movies, and events happening in Daysland, Alberta. Check showtimes and plan your visit.">
