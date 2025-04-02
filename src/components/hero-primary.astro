@@ -142,6 +142,30 @@ const hasCast = firstMovie?.data?.cast?.length ?? 0 > 0;
                         )}
                       </dd>
                     </div>
+                    
+                    {firstMovie.data.eventNote && (
+                      <div class="flex-none w-full mt-4 font-normal">
+                        <p class="text-purple-600 font-bold">
+                          {firstMovie.data.eventNote}
+                        </p>
+                      </div>
+                    )}
+                    
+                    {firstMovie.data.contact && firstMovie.data.contact.length > 0 && (
+                      <div class="flex-none w-full mt-4 font-normal">
+                        <h3 class="text-sm font-semibold text-slate-900">Contact Information</h3>
+                        <ul class="list-disc pl-4 text-slate-600">
+                          {firstMovie.data.contact.map(contact => (
+                            <li>
+                              <span class="font-medium">{contact.name}</span>: 
+                              <a href={`tel:${contact.phone}`} class="text-purple-600 hover:underline">
+                                {contact.phone}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </dl>
                 </div>
               </article>

@@ -6,6 +6,11 @@ const movieCollection = defineCollection({
     sortOrder: z.number().optional(),
     title: z.string(),
     description: z.string().optional(),
+    eventNote: z.string().optional(),
+    contact: z.array(z.object({
+      name: z.string(),
+      phone: z.string(),
+    })).optional(),
     rating: z.string().optional(),
     genre: z.array(z.string()).optional(),
     length: z.string().optional(),

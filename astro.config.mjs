@@ -48,7 +48,7 @@ export default defineConfig({
     },
     optimizeDeps: {
       include: ['vue', '@heroicons/vue/24/outline'],
-      exclude: ['@resvg/resvg-js'],
+      exclude: ['@resvg/resvg-js', '@heroicons/vue/20/solid', '@spotlightjs/astro', '@sentry/astro'],
       // Disable dependency optimization for certain paths
       entries: [
         '!src/content/**/*.mdx',

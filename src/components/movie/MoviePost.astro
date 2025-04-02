@@ -13,6 +13,11 @@ interface MovieData {
   trailer?: string;
   showtimes?: string[];
   reelAlternative?: boolean;
+  eventNote?: string;
+  contact?: Array<{
+    name: string;
+    phone: string;
+  }>;
 }
 
 interface Movie {
@@ -46,7 +51,6 @@ const { movie } = Astro.props as Props;
   </div>
 
   <div class="p-6 md:w-2/3">
-    <!-- <h2 class="mt-6 text-lg leading-8 sm:max-w-md font-bold lg:max-w-none">Current Showcase</h2> -->
     {movie.data.title && (
       <h2 class="flex-auto text-2xl font-semibold text-slate-900 relative target-element" id={movie.data.title.replace(/\s+/g, '-')}>
         {movie.data.title}
@@ -61,15 +65,33 @@ const { movie } = Astro.props as Props;
       </h2>
     )}
 
-    {movie.data.description && (
-    <div class="flex-none w-full mt-2 text-lg leading-tight">
-      <dt class="sr-only">Description</dt>
-      <dd class="text-slate-500 line-clamp-3">
-        {movie.data.description}
-      </dd>
-    </div>
+    {movie.data.eventNote && (
+      <p class="mt-2 text-purple-600 font-bold">
+        {movie.data.eventNote}
+      </p>
     )}
 
+    {movie.data.description && (
+      <p class="mt-2 text-slate-600">
+        {movie.data.description}
+      </p>
+    )}
+
+    {movie.data.contact && movie.data.contact.length > 0 && (
+      <div class="mt-4 space-y-2">
+        <h3 class="text-sm font-semibold text-slate-900">Contact Information</h3>
+        <ul class="list-disc pl-4 text-slate-600">
+          {movie.data.contact.map(contact => (
+            <li>
+              <span class="font-medium">{contact.name}</span>: 
+              <a href={`tel:${contact.phone}`} class="text-purple-600 hover:underline">
+                {contact.phone}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
 
     <div class="mt-6">
       {movie.data.cast && movie.data.cast.length > 0 && (

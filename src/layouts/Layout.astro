@@ -8,10 +8,15 @@ interface Props {
   title?: string;
   description?: string;
   socialImage?: string;
+  eventNote?: string;
+  contact?: {
+    name: string;
+    phone: string;
+  }[];
   ogType?: string;
 }
 
-const { title, description, socialImage="/social-image.jpg", ogType="website" } = Astro.props;
+const { title, description, socialImage="/social-image.jpg", eventNote, contact, ogType="website" } = Astro.props;
 ---
 
 <!doctype html>
