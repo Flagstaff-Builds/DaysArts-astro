@@ -34,7 +34,7 @@ import TheatreClosed from "@/components/theatre-closed.astro";
 
         <div class="mx-auto max-w-2xl lg:mx-0 mb-6">
           <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            <a href="now-playing" class="underline hover:no-underline">Upcomding movies</a>
+            <a href="now-playing" class="underline hover:no-underline">Upcoming movies</a>
           </h2>
           <p class="mt-6 text-lg leading-8 text-gray-600">Experience the magic of cinema like never before at our movie theatre. Immerse yourself in stunning visuals and captivating soundscapes that transport you right into the heart of the story. Join us for an unforgettable movie-going adventure where every showing is an event in itself!</p>
         </div>
@@ -63,8 +63,28 @@ import TheatreClosed from "@/components/theatre-closed.astro";
                   <p class="inline text-sm px-1.5 ring-1 ring-slate-200 rounded font-medium leading-6 py-1">{movie.data.rating}</p>
                 )}
 
+                {movie.data.eventNote && (
+                  <p class="mt-2 text-purple-600 font-bold">{movie.data.eventNote}</p>
+                )}
+
                 {movie.data.description && (
                   <p class="mt-4 text-base leading-7 text-gray-600 line-clamp-3">{movie.data.description}</p>
+                )}
+
+                {movie.data.contact && movie.data.contact.length > 0 && (
+                  <div class="mt-2 space-y-1">
+                    <h3 class="text-xs font-semibold text-slate-900">Contact Information</h3>
+                    <ul class="list-disc pl-4 text-sm text-slate-600">
+                      {movie.data.contact.map(contact => (
+                        <li>
+                          <span class="font-medium">{contact.name}</span>: 
+                          <span class="text-purple-600 hover:underline">
+                            {contact.phone}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
               </li>
             </a>
@@ -83,7 +103,7 @@ import TheatreClosed from "@/components/theatre-closed.astro";
 
     <!-- upcoming events -->
     <div class="py-24 sm:py-32">
-      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto">
 
 
         <h2 class="text-base font-semibold leading-7 text-purple-600 flex gap-2 items-center">
