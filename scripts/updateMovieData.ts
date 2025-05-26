@@ -165,8 +165,9 @@ async function downloadImage(imageUrl: string, localPath: string, movieTitle: st
       fs.writeFileSync(localPath, Buffer.from(buffer));
       console.log(`Downloaded image to ${localPath}`);
       return true;
-    } catch (fetchError) {
+    } catch (error) {
       clearTimeout(timeoutId);
+      const fetchError = error as { name?: string };
       if (fetchError.name === 'AbortError') {
         console.error(`Timeout downloading image for ${movieTitle}`);
       } else {
