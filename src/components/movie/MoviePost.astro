@@ -38,9 +38,9 @@ const { movie } = Astro.props as Props;
 
   <div class="aspect-[2/3] md:w-1/3">
     {movie.data.poster ? (
-      movie.data.poster.toString().startsWith('http') ? (
+      typeof movie.data.poster === 'string' ? (
         <img
-          src={movie.data.poster.toString()}
+          src={movie.data.poster}
           width={1024}
           height={1024 / 1.5}
           alt={`${movie.data.title} poster`}
@@ -49,14 +49,13 @@ const { movie } = Astro.props as Props;
         />
       ) : (
         <div class="relative h-full w-full">
-          {/* Use img instead of Image component for local files */}
-          <img
-            src={movie.data.poster.toString()}
-            width="1024"
-            height="1536"
+          {/* Use Image component for content collection images */}
+          <Image
+            src={movie.data.poster}
+            width={1024}
+            height={1536}
             alt={`${movie.data.title} poster`}
             class="rounded-t-2xl sm:rounded-t-none md:rounded-l-2xl object-cover h-full w-full bg-purple-100"
-            onerror="this.onerror=null; this.src='/movie-placeholder.svg'; console.error('Error loading image:', this.alt);"
           />
         </div>
       )
