@@ -72,15 +72,49 @@ const hasCast = firstMovie?.data?.cast?.length ?? 0 > 0;
             <div class="lg:-mr-20 mx-auto sm:mx-0 sm:max-w-none"></div>
             <div>
               <div class="aspect-[2/3] bg-purple-100 rounded-2xl rounded-b-none">
-                {firstMovie.data.poster && (
-                  <Image
-                    src={firstMovie.data.poster}
-                    width="2432"
-                    height="1442"
-                    alt="Now Playing"
-                    loading="eager"
-                    class="-mb-2 rounded-t-2xl object-cover h-full w-full"
-                  />
+                {firstMovie.data.poster ? (
+                  firstMovie.data.poster.toString().startsWith('http') ? (
+                    <img
+                      src={firstMovie.data.poster}
+                      width="2432"
+                      height="1442"
+                      alt="Now Playing"
+                      loading="eager"
+                      class="-mb-2 rounded-t-2xl object-cover h-full w-full"
+                      onerror="this.onerror=null; this.src='/movie-placeholder.svg'; console.error('Error loading hero image');"
+                    />
+                  ) : (
+                    <div class="relative h-full w-full">
+                      {/* Use try/catch pattern with fallback */}
+                      {(() => {
+                        try {
+                          return <Image
+                            src={firstMovie.data.poster}
+                            width="2432"
+                            height="1442"
+                            alt="Now Playing"
+                            loading="eager"
+                            class="-mb-2 rounded-t-2xl object-cover h-full w-full"
+                          />;
+                        } catch (error) {
+                          console.error(`Error loading hero image for ${firstMovie.data.title}:`, error);
+                          return <div class="-mb-2 rounded-t-2xl bg-purple-100 h-full w-full flex items-center justify-center">
+                            <div class="text-center p-4">
+                              <p class="text-lg font-bold text-slate-900">{firstMovie.data.title}</p>
+                              <p class="text-sm text-slate-600">Image unavailable</p>
+                            </div>
+                          </div>;
+                        }
+                      })()}
+                    </div>
+                  )
+                ) : (
+                  <div class="-mb-2 rounded-t-2xl bg-purple-100 h-full w-full flex items-center justify-center">
+                    <div class="text-center p-4">
+                      <p class="text-lg font-bold text-slate-900">{firstMovie.data.title}</p>
+                      <p class="text-sm text-slate-600">No poster available</p>
+                    </div>
+                  </div>
                 )}
               </div>
 
