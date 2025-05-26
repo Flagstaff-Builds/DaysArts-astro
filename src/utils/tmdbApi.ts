@@ -8,34 +8,32 @@ import path from 'path';
 import fs from 'fs';
 
 // Load environment variables from .env file for Node.js scripts
-function loadEnv() {
-  try {
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = path.dirname(__filename);
-    const envPath = path.resolve(__dirname, '../../.env');
-    
-    if (fs.existsSync(envPath)) {
-      const envContent = fs.readFileSync(envPath, 'utf-8');
-      const envVars = envContent.split('\n').reduce((acc, line) => {
-        const match = line.match(/^\s*(PUBLIC_[^=]+)=(.*)$/i);
-        if (match) {
-          acc[match[1]] = match[2].trim();
-        }
-        return acc;
-      }, {});
-      return envVars;
-    }
-  } catch (error) {
-    console.error('Error loading .env file:', error);
-  }
-  return {};
+interface EnvVars {
+  [key: string]: string;
 }
 
-const envVars = loadEnv();
+const envVars: EnvVars = {};
+try {
+  const envFile = fs.readFileSync('.env', 'utf-8');
+  const lines = envFile.split('\n');
+  
+  lines.forEach(line => {
+    // Skip comments and empty lines
+    if (line.startsWith('#') || !line.trim()) return;
+    
+    // Match key=value pattern
+    const match = line.match(/^([^=]+)=(.*)$/);
+    if (match && match[1]) {
+      envVars[match[1]] = match[2].trim();
+    }
+  });
+} catch (error) {
+  console.warn('Could not read .env file, using process.env');
+}
 
-// The API key and access token are loaded from environment variables
-const TMDB_API_KEY = envVars.PUBLIC_TMDB_API_KEY || process.env.PUBLIC_TMDB_API_KEY;
-const TMDB_ACCESS_TOKEN = envVars.PUBLIC_TMDB_API_ACCESS_TOKEN || process.env.PUBLIC_TMDB_API_ACCESS_TOKEN;
+// TMDB API configuration
+const TMDB_API_KEY = envVars.PUBLIC_TMDB_API_KEY || process.env.PUBLIC_TMDB_API_KEY || '';
+const TMDB_ACCESS_TOKEN = envVars.PUBLIC_TMDB_API_ACCESS_TOKEN || process.env.PUBLIC_TMDB_API_ACCESS_TOKEN || '';
 
 // Base URL for TMDB API
 const BASE_URL = 'https://api.themoviedb.org/3';
