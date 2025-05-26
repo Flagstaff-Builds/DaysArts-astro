@@ -8,7 +8,10 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "clean": "rm -rf dist .astro node_modules/.vite"
+    "clean": "rm -rf dist .astro node_modules/.vite",
+    "movie:list": "tsx scripts/updateMovieData.ts list",
+    "movie:search": "tsx scripts/updateMovieData.ts search",
+    "movie:update": "tsx scripts/updateMovieData.ts update"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -31,6 +34,10 @@
   },
   "devDependencies": {
     "@babel/helpers": "^7.27.0",
-    "@tailwindcss/typography": "^0.5.16"
+    "@tailwindcss/typography": "^0.5.16",
+    "glob": "^11.0.2",
+    "gray-matter": "^4.0.3",
+    "tsx": "^4.19.4",
+    "yaml": "^2.8.0"
   }
 }

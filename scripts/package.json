@@ -1,0 +1,7 @@
+{
+  "name": "daysarts-scripts",
+  "version": "1.0.0",
+  "description": "Utility scripts for DaysArts website",
+  "type": "module",
+  "private": true
+}

@@ -36,3 +36,6 @@ windsurf/
 # redesign assets
 .redesign
 .redesign/
+
+# documentation files
+docs/

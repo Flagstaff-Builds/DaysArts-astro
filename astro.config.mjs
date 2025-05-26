@@ -18,6 +18,10 @@ export default defineConfig({
   build: {
     inlineStylesheets: 'auto',
   },
+  image: {
+    domains: ['image.tmdb.org'], // Allow images from TMDB
+    remotePatterns: [{ protocol: 'https' }]
+  },
   vite: {
     build: {
       cssMinify: true,
@@ -43,7 +47,7 @@ export default defineConfig({
       },
       watch: {
         usePolling: false, // Disable polling in dev mode
-        ignored: ['**/node_modules/**', '**/.git/**', '**/dist/**'] // Ignore watching unnecessary files
+        ignored: ['**/node_modules/**', '**/.git/**', '**/dist/**', '**/docs/**'] // Ignore watching unnecessary files
       }
     },
     optimizeDeps: {
