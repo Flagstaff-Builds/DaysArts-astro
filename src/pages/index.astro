@@ -4,6 +4,7 @@ import Main from "@components/html-structure/Main.astro";
 import Hero from "@components/hero-primary.astro";
 import { Image } from "astro:assets";
 import { TicketIcon } from '@heroicons/vue/24/outline';
+import { CalendarDaysIcon } from '@heroicons/vue/20/solid';
 
 import { getCollection } from "astro:content";
 
@@ -69,6 +70,21 @@ import TheatreClosed from "@/components/theatre-closed.astro";
 
                 {movie.data.description && (
                   <p class="mt-4 text-base leading-7 text-gray-600 line-clamp-3">{movie.data.description}</p>
+                )}
+
+                {movie.data.showtimes && movie.data.showtimes.length > 0 && (
+                  <div class="mt-4">
+                    <div aria-hidden="true" class="w-full h-px bg-gray-200 mb-4"></div>
+                    <dt class="sr-only">Dates</dt>
+                    <dd class="flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-500">
+                      {movie.data.showtimes.map((showtime) => (
+                        <span class="flex items-center">
+                          <CalendarDaysIcon class="h-5 w-5 flex-none text-slate-400 pr-1" aria-hidden="true" />
+                          {showtime}
+                        </span>
+                      ))}
+                    </dd>
+                  </div>
                 )}
 
                 {movie.data.contact && movie.data.contact.length > 0 && (
