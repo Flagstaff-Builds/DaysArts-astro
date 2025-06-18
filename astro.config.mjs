@@ -119,7 +119,19 @@ export default defineConfig({
         };
       }
     }),
-    sentry(),
+    sentry({
+      dsn: "https://882fe11474b2fa0cdad664e6276797c3@o4509516796985345.ingest.us.sentry.io/4509516836896768",
+      tracesSampleRate: 0,
+      replaysSessionSampleRate: 0,
+      replaysOnErrorSampleRate: 0,
+      // Setting this option to true will send default PII data to Sentry.
+      // For example, automatic IP address collection on events
+      sendDefaultPii: true,
+      sourceMapsUploadOptions: {
+        project: "javascript-astro",
+        authToken: process.env.SENTRY_AUTH_TOKEN,
+      },
+    }),
     spotlightjs()
   ],
   markdown: {
