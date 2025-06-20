@@ -8,8 +8,8 @@ const movieCollection = defineCollection({
     description: z.string().optional(),
     eventNote: z.string().optional(),
     contact: z.array(z.object({
-      name: z.string(),
-      phone: z.string(),
+      name: z.string().optional(),
+      phone: z.string().optional(),
     })).optional(),
     rating: z.string().optional(),
     genre: z.array(z.string()).optional(),
