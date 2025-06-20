@@ -98,14 +98,18 @@ const { movie } = Astro.props as Props;
 
     {movie.data.contact && movie.data.contact.length > 0 && (
       <div class="mt-4 space-y-2">
-        <h3 class="text-sm font-semibold text-slate-900">Contact Information</h3>
+        <h3 class="text-sm font-semibold text-slate-900">Sponsored by:</h3>
         <ul class="list-disc pl-4 text-slate-600">
           {movie.data.contact.map(contact => (
             <li>
-              <span class="font-medium">{contact.name}</span>: 
-              <a href={`tel:${contact.phone}`} class="text-purple-600 hover:underline">
-                {contact.phone}
-              </a>
+              <span class="font-medium">{contact.name}</span>
+              {contact.phone && (
+                <>
+                  : <a href={`tel:${contact.phone}`} class="text-purple-600 hover:underline">
+                    {contact.phone}
+                  </a>
+                </>
+              )}
             </li>
           ))}
         </ul>
