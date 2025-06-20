@@ -5,6 +5,9 @@ import sitemap from '@astrojs/sitemap';
 import vue from "@astrojs/vue";
 import sentry from "@sentry/astro";
 import spotlightjs from "@spotlightjs/astro";
+import react from '@astrojs/react';
+import markdoc from '@astrojs/markdoc';
+import keystatic from '@keystatic/astro';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
@@ -51,7 +54,7 @@ export default defineConfig({
       }
     },
     optimizeDeps: {
-      include: ['vue', '@heroicons/vue/24/outline'],
+      include: ['vue', '@heroicons/vue/24/outline', 'react', 'react-dom'],
       exclude: ['@resvg/resvg-js', '@heroicons/vue/20/solid', '@spotlightjs/astro', '@sentry/astro'],
       // Disable dependency optimization for certain paths
       entries: [
@@ -132,7 +135,10 @@ export default defineConfig({
         authToken: process.env.SENTRY_AUTH_TOKEN,
       },
     }),
-    spotlightjs()
+    spotlightjs(),
+    react(),
+    markdoc(),
+    keystatic()
   ],
   markdown: {
     remarkPlugins: [],
