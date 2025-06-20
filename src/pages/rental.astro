@@ -1,7 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import HeroSecondary from "@/components/hero-secondary.astro";
-import { TrophyIcon, VideoCameraIcon, SparklesIcon, CakeIcon } from '@heroicons/vue/24/outline';
+import { TrophyIcon, VideoCameraIcon, SparklesIcon } from '@heroicons/vue/24/outline';
 import { Image } from "astro:assets";
 import equipmentImg from "@/assets/equipment-list.jpg";
 import stageImg from "@/assets/stage-dimensions.jpg";
@@ -21,7 +21,9 @@ import Wedding3 from '@assets/wedding-03.jpg';
     tagline="Rent Your Stage at Daysland Palace Theatre"
     title="Your dream event at a Nostalgic Theatre"
     content="Creating unforgettable memories at a historic venue">
-    <CakeIcon slot="icon" class="h-10" />
+    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-10">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.871c1.355 0 2.697.056 4.024.166C17.155 8.51 18 9.473 18 10.608v2.513M15 8.25v-1.5m-6 1.5v-1.5m12 9.75-1.5-1.5M3 21l1.5-1.5m15-9.75c0-.621-.504-1.125-1.125-1.125a9.375 9.375 0 0 0-18.75 0c0 .621.504 1.125 1.125 1.125m18.75 0v2.625c0 1.035-.84 1.875-1.875 1.875H5.625A1.875 1.875 0 0 1 3.75 12.75V10.125c0-.621.504-1.125 1.125-1.125m0 0h15.75M9 12.75h6m-9 3.75h9" />
+    </svg>
   </HeroSecondary>
 
 
@@ -63,7 +65,9 @@ import Wedding3 from '@assets/wedding-03.jpg';
           <ul role="list" class="mt-8 max-w-xl space-y-8 text-gray-600">
 
             <li class="flex gap-x-3">
-              <CakeIcon class="mt-1 h-5 w-5 flex-none text-purple-600" aria-hidden="true" />
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mt-1 h-5 w-5 flex-none text-purple-600" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.871c1.355 0 2.697.056 4.024.166C17.155 8.51 18 9.473 18 10.608v2.513M15 8.25v-1.5m-6 1.5v-1.5m12 9.75-1.5-1.5M3 21l1.5-1.5m15-9.75c0-.621-.504-1.125-1.125-1.125a9.375 9.375 0 0 0-18.75 0c0 .621.504 1.125 1.125 1.125m18.75 0v2.625c0 1.035-.84 1.875-1.875 1.875H5.625A1.875 1.875 0 0 1 3.75 12.75V10.125c0-.621.504-1.125 1.125-1.125m0 0h15.75M9 12.75h6m-9 3.75h9" />
+              </svg>
               <span><strong class="font-semibold text-gray-900">Movie Magic Birthday Parties:</strong> We have special Birthday Party Packages available whether you join us at a regularly scheduled movie or have a private screening for you and your guests. Immerse yourselves in cinematic wonder, with popcorn and refreshments to complete the experience.</span>
             </li>
             <li class="flex gap-x-3">
