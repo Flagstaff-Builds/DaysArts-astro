@@ -3,8 +3,6 @@ import Layout from "@/layouts/Layout.astro";
 import Main from "@components/html-structure/Main.astro";
 import Hero from "@components/hero-primary.astro";
 import { Image } from "astro:assets";
-import { TicketIcon } from '@heroicons/vue/24/outline';
-import { CalendarDaysIcon } from '@heroicons/vue/20/solid';
 
 import { getCollection } from "astro:content";
 
@@ -79,7 +77,9 @@ import TheatreClosed from "@/components/theatre-closed.astro";
                     <dd class="flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-500">
                       {movie.data.showtimes.map((showtime) => (
                         <span class="flex items-center">
-                          <CalendarDaysIcon class="h-5 w-5 flex-none text-slate-400 pr-1" aria-hidden="true" />
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 flex-none text-slate-400 pr-1" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+                          </svg>
                           {showtime}
                         </span>
                       ))}
@@ -123,7 +123,9 @@ import TheatreClosed from "@/components/theatre-closed.astro";
 
 
         <h2 class="text-base font-semibold leading-7 text-purple-600 flex gap-2 items-center">
-          <TicketIcon class="h-5 w-5" aria-hidden="true" />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h5.25M3 5.25c0-.69.56-1.25 1.25-1.25h15.5c.69 0 1.25.56 1.25 1.25v13.5c0 .69-.56 1.25-1.25 1.25H4.25c-.69 0-1.25-.56-1.25-1.25V5.25Z" />
+          </svg>
           Upcoming events
         </h2>
         <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
