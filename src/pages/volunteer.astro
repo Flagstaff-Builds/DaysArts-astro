@@ -1,7 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import HeroSecondary from "@/components/hero-secondary.astro";
-import { HeartIcon, TicketIcon } from '@heroicons/vue/24/outline';
 import { Image } from "astro:assets";
 import Concession from "@/assets/concession.jpg";
 import Helpers from "@/assets/helpers.jpg";
@@ -18,7 +17,9 @@ import TheatreOld from "@/assets/theatre-exterior-old.jpg";
   tagline="Empower Your Community, Enrich Your Life"
   title="Become family as a valued volunteer"
   content="Be part of a vibrant community that celebrates the arts & culture.">
-  <TicketIcon slot="icon" class="h-10" />
+  <svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-10">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h5.25M3 5.25c0-.69.56-1.25 1.25-1.25h15.5c.69 0 1.25.56 1.25 1.25v13.5c0 .69-.56 1.25-1.25 1.25H4.25c-.69 0-1.25-.56-1.25-1.25V5.25Z" />
+  </svg>
 </HeroSecondary>
 
 
@@ -51,7 +52,9 @@ import TheatreOld from "@/assets/theatre-exterior-old.jpg";
             <p>Membership with us is not just about enjoying the arts; it's about actively participating in a community that cherishes and nurtures them. As a member, you'll gain a sense of belonging in a group that shares your passion for cinema, music, and the performing arts.</p>
             <ul role="list" class="mt-8 max-w-xl space-y-8 text-gray-600">
               <li class="flex gap-x-3">
-                <HeartIcon class="mt-1 h-5 w-5 flex-none text-purple-600" aria-hidden="true" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mt-1 h-5 w-5 flex-none text-purple-600" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+              </svg>
                 <span><strong class="font-semibold text-gray-900">Experience the Joy of Volunteering:</strong> Volunteering at Daysland Palace Theatre is a uniquely rewarding experience. It's a chance to get involved behind the scenes, meet like-minded individuals, and contribute to the success of our events.</span>
               </li>
               <!-- <li class="flex gap-x-3">
