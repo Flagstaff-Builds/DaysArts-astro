@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import MoviePost from './MoviePost.astro';
+import TicketIcon from '../icons/TicketIcon.astro';
 
 interface MovieData {
   title: string;
@@ -45,9 +46,7 @@ const activeMovies = movieEntries.filter(entry => !entry.id.startsWith('_old/'))
           <tr>
             <th class="border-b font-semibold p-4 text-slate-400 text-left">Ticket Pricing</th>
             <th class="border-b font-semibold p-4 text-slate-400">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="not-sr-only h-5 w-5" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h5.25M3 5.25c0-.69.56-1.25 1.25-1.25h15.5c.69 0 1.25.56 1.25 1.25v13.5c0 .69-.56 1.25-1.25 1.25H4.25c-.69 0-1.25-.56-1.25-1.25V5.25Z" />
-              </svg>
+              <TicketIcon class="not-sr-only h-5 w-5" />
             </th>
           </tr>
         </thead>

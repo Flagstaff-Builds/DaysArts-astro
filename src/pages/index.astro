@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import Main from "@components/html-structure/Main.astro";
 import Hero from "@components/hero-primary.astro";
+import TicketIcon from "@components/icons/TicketIcon.astro";
 import { Image } from "astro:assets";
 
 import { getCollection } from "astro:content";
@@ -123,9 +124,7 @@ import TheatreClosed from "@/components/theatre-closed.astro";
 
 
         <h2 class="text-base font-semibold leading-7 text-purple-600 flex gap-2 items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h5.25M3 5.25c0-.69.56-1.25 1.25-1.25h15.5c.69 0 1.25.56 1.25 1.25v13.5c0 .69-.56 1.25-1.25 1.25H4.25c-.69 0-1.25-.56-1.25-1.25V5.25Z" />
-          </svg>
+          <TicketIcon />
           Upcoming events
         </h2>
         <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
