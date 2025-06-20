@@ -1,6 +1,6 @@
 ---
 import HeroWithImageTiles from "../tailwindUI/Marketing/Page-Sections/Hero-Sections/with-image-tiles.vue";
-import { DevicePhoneMobileIcon, AtSymbolIcon } from "@heroicons/vue/20/solid";
+import HeaderIcons from "../HeaderIcons.vue";
 ---
 <div class="sticky top-0 z-20 shadow-charade-800 shadow-[0_1px_13px_rgba(15,23,42,0.2)] text-white bg-charade-800">
   <div class="block w-full sticky top-0 z-10">
@@ -15,20 +15,7 @@ import { DevicePhoneMobileIcon, AtSymbolIcon } from "@heroicons/vue/20/solid";
     <!-- horizontal line
     <div class="w-full h-px bg-gray-200 my-2 sm:my-6 block sm:hidden" style="opacity: 1; transform-origin: 50% 50% 0px;"></div> -->
 
-      <div class="flex flex-wrap gap-x-2 text-sm leading-7 text-slate-300 py-2 sm:py-0">
-        <p class="flex font-semibold">
-          showtimes <span class="inline md:hidden">:</span>
-        </p>
-        <div class="flex">
-          <DevicePhoneMobileIcon class="mt-1 h-5 w-5 flex-none" aria-hidden="true" />
-          <a href="tel:+17806731325" class="whitespace-nowrap text-sm leading-7 text-slate-300" aria-label="Call us at 780-673-1325">780-673-1325</a>
-        </div>
-
-        <div class="flex">
-          <AtSymbolIcon class="mt-1 h-5 w-5 flex-none" aria-hidden="true" />
-          <a href="mailto:info@daysarts.ca" class="whitespace-nowrap text-sm leading-7 text-slate-300" aria-label="Email us at info@daysarts.ca">info@daysarts.ca</a>
-        </div>
-      </div>
+      <HeaderIcons client:load />
     </div>
   </div>
 

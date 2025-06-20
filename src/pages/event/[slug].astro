@@ -3,7 +3,6 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import Main from "@/components/html-structure/Main.astro";
 import Layout from "@/layouts/Layout.astro";
 import { Image } from "astro:assets";
-import { HomeIcon, DevicePhoneMobileIcon, AtSymbolIcon, TicketIcon } from "@heroicons/vue/24/outline";
 
 export const getStaticPaths = async () => {
   const eventEntries = await getCollection("event");
