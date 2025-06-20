@@ -4,6 +4,22 @@ export default config({
   storage: {
     kind: 'local',
   },
+  ui: {
+    brand: {
+      name: 'DaysArts',
+      // mark: ({ colorScheme }) => {
+      //   let path = colorScheme === 'dark'
+      //     ? '/logo-dark.png'
+      //     : '/logo-light.png';
+        
+      //   return <img src={path} height={24} />
+      // },
+    },
+    navigation: {
+      // 'Content': ['movies', 'events'],
+      // 'Settings': ['site', 'seo'],
+    },
+  },
   collections: {
     movies: collection({
       label: 'Movies',
