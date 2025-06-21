@@ -18,6 +18,24 @@ const events = (await getCollection("event"))
 
 const hasMovies = movies.length > 0;
 
+// Helper function to get poster value from conditional field
+function getPosterValue(poster: any): string | any {
+  if (!poster) return null;
+  
+  // Handle conditional field structure
+  if (poster.discriminant && poster.value) {
+    return poster.value;
+  }
+  
+  // Handle direct value (legacy format)
+  return poster;
+}
+
+// Check if the poster is a valid image import
+function isValidImageImport(value: any): boolean {
+  return value && typeof value === 'object' && 'src' in value;
+}
+
 import TheatreClosed from "@/components/theatre-closed.astro";
 ---
 
@@ -44,11 +62,31 @@ import TheatreClosed from "@/components/theatre-closed.astro";
             <a href={`now-playing#${movie.data.title.replace(/\s+/g, '-')}`}>
               <li class="transform transition duration-500 hover:scale-105">
                 {movie.data.poster && (
-                  <Image
-                    src={movie.data.poster}
-                    alt={movie.data.title}
-                    class="aspect-[2/3] w-full rounded-xl object-cover z-0 bg-purple-100 shadow-purple-400/30 shadow-xl"
-                  />
+                  (() => {
+                    const posterValue = getPosterValue(movie.data.poster);
+                    return posterValue ? (
+                      typeof posterValue === 'string' ? (
+                        <img
+                          src={posterValue}
+                          alt={movie.data.title}
+                          class="aspect-[2/3] w-full rounded-xl object-cover z-0 bg-purple-100 shadow-purple-400/30 shadow-xl"
+                        />
+                      ) : isValidImageImport(posterValue) ? (
+                        <Image
+                          src={posterValue}
+                          alt={movie.data.title}
+                          class="aspect-[2/3] w-full rounded-xl object-cover z-0 bg-purple-100 shadow-purple-400/30 shadow-xl"
+                        />
+                      ) : (
+                        <div class="aspect-[2/3] w-full rounded-xl bg-purple-100 shadow-purple-400/30 shadow-xl flex items-center justify-center">
+                          <div class="text-center p-4">
+                            <p class="text-sm font-bold">{movie.data.title}</p>
+                            <p class="text-xs text-gray-600">No poster available</p>
+                          </div>
+                        </div>
+                      )
+                    ) : null;
+                  })()
                 )}
 
                 {movie.data.reelAlternative && (

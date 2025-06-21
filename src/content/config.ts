@@ -11,7 +11,16 @@ const movieCollection = defineCollection({
     length: z.string().optional(),
     cast: z.array(z.string()).optional(),
     showtimes: z.array(z.date()).optional(),
-    poster: image().optional(),
+    poster: z.union([
+      // Legacy format: direct image or string
+      image(),
+      z.string(),
+      // New conditional field format from Keystatic
+      z.object({
+        discriminant: z.enum(['upload', 'url']),
+        value: z.union([image(), z.string()])
+      })
+    ]).optional(),
     trailer: z.string().url().optional(),
     reelAlternative: z.boolean().optional(),
   })

@@ -33,7 +33,7 @@ export default config({
       slugField: 'title',
       path: 'src/content/movie/*',
       format: { contentField: 'description' },
-      entryLayout: 'content',
+      // entryLayout: 'content',
       schema: {
         // Basic Info
         title: fields.slug({ name: { label: 'Title' } }),
@@ -46,6 +46,34 @@ export default config({
               publicPath: './images/'
             }
           }
+        }),
+        
+        // Media
+        poster: fields.conditional(
+          fields.select({
+            label: 'Poster Source',
+            options: [
+              { label: 'Upload Image', value: 'upload' },
+              { label: 'Use URL', value: 'url' }
+            ],
+            defaultValue: 'upload'
+          }),
+          {
+            upload: fields.image({ 
+              label: 'Upload Movie Poster',
+              directory: 'src/content/movie/images',
+              publicPath: './images/',
+              description: 'Upload poster image from your computer'
+            }),
+            url: fields.url({ 
+              label: 'Poster URL',
+              description: '1) Search movie https://rb.gy/els8zz 2) Click on poster image 3) Right-click → "Copy Image Address" 4) Paste URL here (e.g., https://image.tmdb.org/t/p/original/...)'
+            })
+          }
+        ),
+        trailer: fields.url({ 
+          label: 'Trailer URL',
+          description: 'YouTube or other video platform URL'
         }),
         
         // Movie Details
@@ -97,7 +125,7 @@ export default config({
           label: 'Runtime',
           description: 'e.g. "1h 53m"'
         }),
-        
+
         // Cast & Crew
         cast: fields.array(
           fields.text({ label: 'Actor Name' }),
@@ -131,18 +159,6 @@ export default config({
         reelAlternative: fields.checkbox({ 
           label: 'Reel Alternative Film',
           description: 'Check if this is a Reel Alternative screening'
-        }),
-        
-        // Media
-        poster: fields.image({ 
-          label: 'Movie Poster',
-          directory: 'src/content/movie/images',
-          publicPath: './images/',
-          description: 'Main poster image'
-        }),
-        trailer: fields.url({ 
-          label: 'Trailer URL',
-          description: 'YouTube or other video platform URL'
         })
       },
     }),
