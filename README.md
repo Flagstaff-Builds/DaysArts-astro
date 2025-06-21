@@ -18,7 +18,51 @@ npm run dev
 - event
 
 ### To update collections
-- To create new movie or event, login to admin panel at https://daysarts.ca/admin
+- To create new movie or event, login to admin panel at https://daysarts.ca/keystatic
+
+## Movie Cleanup System
+
+This project includes an automated cleanup system to remove past movies and keep the repository clean.
+
+### Manual Cleanup Commands
+
+```bash
+# Test what would be deleted (safe to run)
+npm run movie:cleanup:dry
+
+# Actually delete past movies and their images
+npm run movie:cleanup
+```
+
+### Automated GitHub Action
+
+The repository includes a GitHub Action that automatically cleans up past movies daily:
+
+**File:** `.github/workflows/cleanup-movies.yml`
+
+**Schedule:** Runs daily at 6 AM UTC (midnight Mountain Time)
+
+#### Setup Instructions:
+
+1. **The workflow is already included** - no additional setup needed
+2. **Manual trigger:** Go to Actions tab in GitHub → "Cleanup Past Movies" → "Run workflow"
+3. **Monitoring:** Check the Actions tab to see cleanup logs and results
+
+#### What gets cleaned up:
+- ✅ Movie `.mdoc` files where ALL showtimes are in the past
+- ✅ Associated image directories (`src/content/movie/images/movie-name/`)
+- ✅ Automatic git commit with cleanup details
+
+#### Safety features:
+- 🔍 Runs a dry-run first to log what would be deleted
+- 📝 Detailed logging of all operations
+- ⚡ Only deletes movies with ALL past showtimes (keeps movies with future shows)
+- 🛡️ Error handling for missing files/directories
+
+#### Customization:
+- To change the schedule, edit the `cron` value in `.github/workflows/cleanup-movies.yml`
+- Current: `'0 6 * * *'` (daily at 6 AM UTC)
+- Example: `'0 6 * * 1'` (weekly on Mondays at 6 AM UTC)
 
 
 ## DNS

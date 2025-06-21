@@ -33,19 +33,12 @@ export default config({
       slugField: 'title',
       path: 'src/content/movie/*',
       format: { contentField: 'description' },
-      // entryLayout: 'content',
       schema: {
         // Basic Info
         title: fields.slug({ name: { label: 'Title' } }),
         description: fields.markdoc({ 
           label: 'Description',
-          description: 'Main movie description and details',
-          options: {
-            image: {
-              directory: 'src/content/movie/images',
-              publicPath: './images/'
-            }
-          }
+          description: 'Movie description (keep it concise - under 200 characters recommended)'
         }),
         
         // Media

@@ -9,8 +9,28 @@ import { getCollection } from "astro:content";
 
 // import ChristmasTickets from "@/components/christmas-tickets.astro";
 
-// Optimized collection queries
+// Function to handle showtime - now expects Date objects instead of strings
+function parseShowtime(showtime: Date): Date {
+  // Showtimes are now Date objects, so we can return them directly
+  return showtime instanceof Date ? showtime : new Date(showtime);
+}
+
+// Function to normalize dates to start of day for comparison
+function normalizeDate(date: Date): Date {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+// Optimized collection queries - filter out past movies
 const movies = (await getCollection("movie"))
+  .filter(entry => !entry.id.startsWith('_old/')) // Filter out old movies
+  .filter(movie => {
+    // Keep movie if it has any showings today or in the future
+    const today = normalizeDate(new Date());
+    return movie.data.showtimes?.some(showtime => {
+      const showtimeDate = normalizeDate(parseShowtime(showtime));
+      return showtimeDate >= today;
+    }) ?? false;
+  })
   .sort((a, b) => a.id.localeCompare(b.id));
 
 const events = (await getCollection("event"))

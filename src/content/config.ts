@@ -4,7 +4,6 @@ const movieCollection = defineCollection({
   type: 'content',
   schema: ({ image }) => z.object({
     title: z.string(),
-    description: z.string().optional(),
     eventNote: z.string().optional(),
     rating: z.string().optional(),
     genre: z.array(z.string()).optional(),

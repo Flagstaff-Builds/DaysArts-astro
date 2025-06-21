@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { render } from 'astro:content';
 
 interface MovieData {
   title: string;
@@ -25,6 +26,8 @@ interface MovieData {
 interface Movie {
   data: MovieData;
   slug: string;
+  body?: string;
+  render?: () => Promise<any>;
 }
 
 type Props = {
@@ -134,9 +137,9 @@ function isValidUrl(url: string): boolean {
       </p>
     )}
 
-    {movie.data.description && (
+    {movie.body && (
       <p class="mt-2 text-slate-600">
-        {movie.data.description}
+        {movie.body}
       </p>
     )}
 
@@ -237,7 +240,8 @@ function isValidUrl(url: string): boolean {
                     month: 'short', 
                     day: 'numeric',
                     hour: 'numeric',
-                    minute: '2-digit'
+                    minute: '2-digit',
+                    timeZone: 'America/Edmonton' // Alberta timezone
                   })}
                 </li>
               ))}

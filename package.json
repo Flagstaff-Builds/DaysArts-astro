@@ -11,7 +11,9 @@
     "clean": "rm -rf dist .astro node_modules/.vite",
     "movie:list": "tsx scripts/updateMovieData.ts list",
     "movie:search": "tsx scripts/updateMovieData.ts search",
-    "movie:update": "tsx scripts/updateMovieData.ts update"
+    "movie:update": "tsx scripts/updateMovieData.ts update",
+    "movie:cleanup": "node scripts/cleanup-past-movies.js",
+    "movie:cleanup:dry": "DRY_RUN=true node scripts/cleanup-past-movies.js"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
