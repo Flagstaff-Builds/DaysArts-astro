@@ -1,6 +1,6 @@
 ---
-import HeroWithImageTiles from "../tailwindUI/Marketing/Page-Sections/Hero-Sections/with-image-tiles.vue";
-import HeaderIcons from "../HeaderIcons.vue";
+import HeroWithImageTiles from "../WithImageTiles.astro";
+import HeaderIcons from "../HeaderIcons.astro";
 ---
 <div class="sticky top-0 z-20 shadow-charade-800 shadow-[0_1px_13px_rgba(15,23,42,0.2)] text-white bg-charade-800">
   <div class="block w-full sticky top-0 z-10">
@@ -15,14 +15,14 @@ import HeaderIcons from "../HeaderIcons.vue";
     <!-- horizontal line
     <div class="w-full h-px bg-gray-200 my-2 sm:my-6 block sm:hidden" style="opacity: 1; transform-origin: 50% 50% 0px;"></div> -->
 
-      <HeaderIcons client:load />
+      <HeaderIcons />
     </div>
   </div>
 
   <!-- horizontal line -->
   <div class="w-full h-px bg-gray-200 my-2 sm:my-6 block sm:hidden" style="opacity: 1; transform-origin: 50% 50% 0px;"></div>
 
-  <div class="py-4">
-    <HeroWithImageTiles client:load></HeroWithImageTile>
+  <div class="py-4"> 
+    <HeroWithImageTiles />
   </div>
 </div>

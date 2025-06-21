@@ -6,7 +6,11 @@ import EventList from "@/components/event/EventList.astro";
 import HeroSecondary from "@/components/hero-secondary.astro";
 import CalendarDaysIcon from "@/components/icons/CalendarDaysIcon.astro";
 
-const eventEntries = await getCollection("event");
+export const prerender = true;
+
+const eventEntries = await getCollection("event", ({ id }) => {
+  return !id.startsWith('_') && id.endsWith('.mdoc');
+});
 ---
 
 <Layout title="Upcoming shows & events" description="Find information about upcoming events at Daysland Palace Theatre, including schedules, details, and ticket options.">

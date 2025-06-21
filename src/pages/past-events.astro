@@ -6,6 +6,8 @@ import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import FireIcon from "@/components/icons/FireIcon.astro";
 
+export const prerender = true;
+
 interface EventFrontmatter {
   title: string;
   date?: string;
@@ -26,8 +28,10 @@ currentDate.setHours(0, 0, 0, 0);
 
 console.log("Current date for comparison:", currentDate);
 
-// Load all events from the event collection
-const allEvents: CollectionEntry<"event">[] = await getCollection("event");
+// Load all events from the event collection (only .mdoc files)
+const allEvents: CollectionEntry<"event">[] = await getCollection("event", ({ id }) => {
+  return !id.startsWith('_') && id.endsWith('.mdoc');
+});
 
 console.log("All events count:", allEvents.length);
 console.log("All events sample:", allEvents.slice(0, 3).map(e => ({ id: e.id, title: e.data.title, date: e.data.date })));

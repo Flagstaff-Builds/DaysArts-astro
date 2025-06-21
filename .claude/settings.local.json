@@ -13,7 +13,13 @@
       "Bash(grep:*)",
       "Bash(rm:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(mv:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(timeout 10s npm run dev)",
+      "Bash(npx astro check:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)"
     ],
     "deny": []
   }

@@ -16,7 +16,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // https://astro.build/config
 export default defineConfig({
   site: 'https://daysarts.ca',
-  output: 'static',
+  output: 'server',
   compressHTML: true,
   build: {
     inlineStylesheets: 'auto',
@@ -40,6 +40,9 @@ export default defineConfig({
     },
     resolve: {
       alias: {
+        '@': path.resolve(__dirname, 'src/'),
+        '@components': path.resolve(__dirname, 'src/components/'),
+        '@assets': path.resolve(__dirname, 'src/assets/'),
         './images/': path.resolve(__dirname, 'src/content/movie/images/')
       }
     },

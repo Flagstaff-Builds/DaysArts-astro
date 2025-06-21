@@ -9,14 +9,42 @@ interface Props {
 
 const { event, index }: Props = Astro.props;
 
-// Format the date as UTC
-const eventDate = new Date(event.data.date + 'T00:00:00Z');
-const formattedDate = eventDate.toLocaleDateString('en-US', {
-  timeZone: 'UTC',
-  weekday: 'long',
-  month: 'short',
-  day: '2-digit'
-});
+// Helper function to get the correct slug for an event
+function getEventSlug(event: CollectionEntry<'event'>): string {
+  // For .mdoc files, use the id without extension
+  if (event.id.endsWith('.mdoc')) {
+    return event.id.replace('.mdoc', '');
+  }
+  // For .mdx files, use the id without extension if slug is not available
+  if (event.id.endsWith('.mdx') && !event.slug) {
+    return event.id.replace('.mdx', '');
+  }
+  // Otherwise use the slug or fallback to the id
+  return event.slug || event.id;
+}
+
+// Format the date as UTC with better error handling
+let formattedDate = '';
+try {
+  // Handle different date formats safely
+  let dateString = typeof event.data.date === 'string' ? event.data.date : String(event.data.date);
+  
+  // If the date doesn't have a time component, add one to ensure proper parsing
+  if (!dateString.includes('T') && !dateString.includes(' at ')) {
+    dateString += 'T00:00:00Z';
+  }
+  
+  const eventDate = new Date(dateString);
+  formattedDate = eventDate.toLocaleDateString('en-US', {
+    timeZone: 'UTC',
+    weekday: 'long',
+    month: 'short',
+    day: '2-digit'
+  });
+} catch (error) {
+  console.error('Error formatting date in EventPost:', error);
+  formattedDate = String(event.data.date || 'Date unavailable');
+}
 
 // Determine loading strategy based on index and screen size
 const shouldEagerLoad = index === 0 || (index === 1 && 'only screen and (min-width: 640px)');
@@ -25,7 +53,7 @@ const shouldEagerLoad = index === 0 || (index === 1 && 'only screen and (min-wid
 
 {!event.data.past && (
 <li>
-  <a href={`/event/${event.slug}`} class="block text-zinc-900">
+  <a href={`/event/${getEventSlug(event)}`} class="block text-zinc-900">
     {event.data.poster && (
       <Image
         src={event.data.poster}

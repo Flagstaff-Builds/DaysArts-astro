@@ -4,31 +4,115 @@ import Main from "@/components/html-structure/Main.astro";
 import Layout from "@/layouts/Layout.astro";
 import { Image } from "astro:assets";
 
+export const prerender = true;
+
 export const getStaticPaths = async () => {
-  const eventEntries = await getCollection("event");
-  const paths = eventEntries.map((eventEntry) => ({
-    params: { slug: eventEntry.slug },
-    props: { event: eventEntry },
-  }));
-  return paths;
+  try {
+    // Get only .mdoc events (filter out .mdx files and underscore-prefixed files)
+    const eventEntries = await getCollection("event", ({ id }) => {
+      return !id.startsWith('_') && id.endsWith('.mdoc');
+    });
+    
+    // Log all available events for debugging
+    console.log('Available .mdoc events:', eventEntries.map(e => ({ id: e.id, slug: e.slug })));
+    
+    // Create paths for each valid event
+    const paths = [];
+    
+    for (const eventEntry of eventEntries) {
+      // For .mdoc files, create multiple possible slugs
+      const slugs = new Set<string>();
+      
+      // Add the default slug if it exists
+      if (eventEntry.slug) {
+        slugs.add(eventEntry.slug);
+      }
+      
+      // Add the id without .mdoc extension
+      slugs.add(eventEntry.id.replace('.mdoc', ''));
+      
+      // Create a path for each possible slug
+      for (const slug of slugs) {
+        paths.push({
+          params: { slug },
+          props: { event: eventEntry },
+        });
+      }
+    }
+    
+    console.log('Generated paths for .mdoc files:', paths.map(p => p.params.slug));
+    return paths;
+  } catch (error) {
+    console.error('Error generating event paths:', error);
+    return [];
+  }
 };
 
 type Props = {
   event: CollectionEntry<"event">;
 };
 
-const { event } = Astro.props;
+// Get the event from props with type safety
+const { event } = Astro.props as Props;
 
-const { Content } = await event.render();
+// Initialize variables outside try-catch for scope
+let Content: any;
+let formattedDate = '';
 
-// Format the date as UTC
-const eventDate = new Date(event.data.date + 'T00:00:00Z');
-const formattedDate = eventDate.toLocaleDateString('en-US', {
-  timeZone: 'UTC',
-  weekday: 'long',
-  month: 'short',
-  day: '2-digit'
+// Debug the event data
+console.log('Event data:', {
+  id: event?.id,
+  slug: event?.slug,
+  collection: event?.collection,
+  data: event?.data ? Object.keys(event.data) : 'No data'
 });
+
+// Only proceed with rendering if we have an event
+if (event) {
+  try {
+    // Render the event content
+    const rendered = await event.render();
+    Content = rendered.Content;
+    
+    // Format the date as UTC with better error handling
+    if (event.data && event.data.date) {
+      try {
+        // Handle different date formats safely
+        let dateString = '';
+        
+        if (typeof event.data.date === 'string') {
+          dateString = event.data.date;
+        } else {
+          // Handle any other type safely
+          dateString = String(event.data.date);
+        }
+        
+        // If the date doesn't have a time component, add one to ensure proper parsing
+        if (!dateString.includes('T') && !dateString.includes(' at ')) {
+          dateString += 'T00:00:00Z';
+        }
+        
+        const eventDate = new Date(dateString);
+        formattedDate = eventDate.toLocaleDateString('en-US', {
+          timeZone: 'UTC',
+          weekday: 'long',
+          month: 'short',
+          day: '2-digit'
+        });
+      } catch (dateError) {
+        console.error('Error formatting date:', dateError);
+        formattedDate = String(event.data.date || 'Date unavailable'); // Fallback
+      }
+    }
+  } catch (error) {
+    console.error('Error rendering event content:', error);
+    // Instead of redirecting, we'll show a fallback UI
+    Content = () => {};
+  }
+} else {
+  console.error('Event not found in props');
+  return Astro.redirect('/event');
+}
 
 
 // const formattedDate = event.data.date ? format(new Date(event.data.date), "MMMM do, yyyy") : "";
@@ -151,22 +235,34 @@ function isValidUrl(urlString: string) {
         { event.data.poster && (
           <div class="mt-4 lg:col-span-7 lg:col-start-1 lg:row-span-3 lg:row-start-1 lg:mt-0">
             <div class="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-3 lg:gap-8 aspect-[3/4]">
-
-              <Image
-                src={event.data.poster}
-                format="webp"
-                quality="high"
-                widths={[640, 768, 1024, 1280, 1536]}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 800px"
-                alt={`${event.data.title} poster`}
-                class="lg:col-span-2 lg:row-span-2 rounded-2xl object-cover bg-purple-100 h-full w-full shadow-purple-400/30 shadow-2xl"
-                loading="eager"
-                decoding="async"
-              />
+              {/* Wrap image in try-catch to prevent errors */}
+              {(() => {
+                try {
+                  return (
+                    <Image
+                      src={event.data.poster}
+                      format="webp"
+                      quality="high"
+                      widths={[640, 768, 1024, 1280, 1536]}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 800px"
+                      alt={`${event.data.title} poster`}
+                      class="lg:col-span-2 lg:row-span-2 rounded-2xl object-cover bg-purple-100 h-full w-full shadow-purple-400/30 shadow-2xl"
+                      loading="eager"
+                      decoding="async"
+                    />
+                  );
+                } catch (error) {
+                  console.error('Error rendering poster image:', error);
+                  return (
+                    <div class="lg:col-span-2 lg:row-span-2 rounded-2xl bg-purple-100 h-full w-full shadow-purple-400/30 shadow-2xl flex items-center justify-center">
+                      <p class="text-purple-800">Image not available</p>
+                    </div>
+                  );
+                }
+              })()}
             </div>
           </div>
-          )
-        }
+        )}
 
         <div class="mt-4 lg:col-span-5">
           <div class="mt-10">
@@ -182,7 +278,7 @@ function isValidUrl(urlString: string) {
               <div class="flex">
                 <div class="flex flex-col">
                 <p class="text-xs font-bold text-gray-900 uppercase">Event</p>
-                { event.data.concertSponsor?.map((sponsor) => (
+                { event.data.concertSponsor?.map((sponsor: string) => (
                     <span class="text-sm font-medium text-gray-700">
                       {sponsor}
                     </span>
@@ -194,7 +290,7 @@ function isValidUrl(urlString: string) {
               <div class="flex">
                 <div class="flex flex-col">
                   <p class="text-xs font-bold text-gray-900 uppercase">Reception</p>
-                  { event.data.receptionSponsor?.map((sponsor) => (
+                  { event.data.receptionSponsor?.map((sponsor: string) => (
                       <span class="text-sm font-medium text-gray-700">
                         {sponsor}
                       </span>
