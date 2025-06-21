@@ -21,7 +21,7 @@ const movieCollection = defineCollection({
         value: z.union([image(), z.string()])
       })
     ]).optional(),
-    trailer: z.string().url().optional(),
+    trailer: z.string().optional(),
     reelAlternative: z.boolean().optional(),
   })
 });

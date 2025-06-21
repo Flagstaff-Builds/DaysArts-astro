@@ -52,6 +52,17 @@ const posterValue = getPosterValue(movie.data.poster);
 function isValidImageImport(value: any): boolean {
   return value && typeof value === 'object' && 'src' in value;
 }
+
+// Check if URL is valid for display
+function isValidUrl(url: string): boolean {
+  if (!url || url.trim() === '') return false;
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
+  }
+}
 ---
 
 
@@ -106,7 +117,7 @@ function isValidImageImport(value: any): boolean {
         {movie.data.title}
         <!-- <a href={`/movie/${movie.slug}`} class="text-inherit underline hover:underline-offset-4"></a> -->
 
-        {movie.data.genre && (
+        {movie.data.genre && movie.data.trailer && isValidUrl(movie.data.trailer) && (
           <a href={movie.data.trailer} class="absolute top-0 right-0 z-1 h-7 w-7 text-slate-400 hover:scale-125" target="_blank">
             <span class="sr-only">Play trailer</span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

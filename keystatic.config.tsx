@@ -73,7 +73,10 @@ export default config({
         ),
         trailer: fields.url({ 
           label: 'Trailer URL',
-          description: 'YouTube or other video platform URL'
+          description: 'Video URL (e.g., https://www.youtube.com/watch?v=-sAOWhvheK8)',
+          validation: {
+            isRequired: false
+          }
         }),
         
         // Movie Details
