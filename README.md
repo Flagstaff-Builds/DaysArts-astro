@@ -1,6 +1,6 @@
 # DaysArts
 
-This is the repo for the DaysArts theater website with all build files. Built on Astro, Vue, Tailwind.
+This is the repo for the DaysArts theater website with all build files. Built with Astro, Tailwind, and Keystatic. Deployed on Netlify.
 
 
 To build a project in your local machine:
@@ -18,19 +18,7 @@ npm run dev
 - event
 
 ### To update collections
-- To create new movie or event, copy the _YYYY-MM-DD-event.md template
-- To remove a past movie or event, delete the .mdx file or move into their "_old" folder
-
-
-## Helpful bash shortcuts
-
-### my alias for astro
-alias astro='npm run dev'
-alias ad='npm run dev'
-alias astrob='npm run build'
-alias ab='npm run dev'
-
-
+- To create new movie or event, login to admin panel at https://daysarts.ca/admin
 
 
 ## DNS

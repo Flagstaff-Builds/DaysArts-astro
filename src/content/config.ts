@@ -3,22 +3,16 @@ import { defineCollection, z } from "astro:content";
 const movieCollection = defineCollection({
   type: 'content',
   schema: ({ image }) => z.object({
-    sortOrder: z.number().optional(),
     title: z.string(),
     description: z.string().optional(),
     eventNote: z.string().optional(),
-    contact: z.array(z.object({
-      name: z.string().optional(),
-      phone: z.string().optional(),
-    })).optional(),
     rating: z.string().optional(),
     genre: z.array(z.string()).optional(),
     length: z.string().optional(),
     cast: z.array(z.string()).optional(),
-    showtimes: z.array(z.string()).optional(),
+    showtimes: z.array(z.date()).optional(),
     poster: image().optional(),
     trailer: z.string().url().optional(),
-    socialImage: image().optional(),
     reelAlternative: z.boolean().optional(),
   })
 });

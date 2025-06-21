@@ -32,59 +32,117 @@ export default config({
       label: 'Movies',
       slugField: 'title',
       path: 'src/content/movie/*',
-      format: { contentField: 'content' },
+      format: { contentField: 'description' },
+      entryLayout: 'content',
       schema: {
+        // Basic Info
         title: fields.slug({ name: { label: 'Title' } }),
-        sortOrder: fields.integer({ 
-          label: 'Sort Order',
-          description: 'Used for ordering movies in listings'
-        }),
-        description: fields.text({ 
+        description: fields.markdoc({ 
           label: 'Description',
-          multiline: true
-        }),
-        eventNote: fields.text({ 
-          label: 'Event Note',
-          description: 'Special note about the movie event'
-        }),
-        rating: fields.text({ label: 'Rating' }),
-        genre: fields.array(
-          fields.text({ label: 'Genre' }),
-          { label: 'Genres', itemLabel: (props: any) => props.value }
-        ),
-        length: fields.text({ label: 'Length' }),
-        cast: fields.array(
-          fields.text({ label: 'Actor' }),
-          { label: 'Cast', itemLabel: (props: any) => props.value }
-        ),
-        showtimes: fields.array(
-          fields.text({ label: 'Showtime' }),
-          { label: 'Showtimes', itemLabel: (props: any) => props.value }
-        ),
-        poster: fields.image({ 
-          label: 'Poster',
-          directory: 'src/content/movie/images',
-          publicPath: './images/'
-        }),
-        trailer: fields.url({ label: 'Trailer URL' }),
-        socialImage: fields.image({ 
-          label: 'Social Image',
-          directory: 'src/content/movie/images',
-          publicPath: './images/',
-          description: 'Image for social media sharing'
-        }),
-        reelAlternative: fields.checkbox({ 
-          label: 'Reel Alternative',
-          description: 'Is this a Reel Alternative film?'
-        }),
-        content: fields.markdoc({ 
-          label: 'Content',
+          description: 'Main movie description and details',
           options: {
             image: {
               directory: 'src/content/movie/images',
               publicPath: './images/'
             }
           }
+        }),
+        
+        // Movie Details
+        rating: fields.select({
+          label: 'Rating',
+          options: [
+            { label: 'G', value: 'G' },
+            { label: 'PG', value: 'PG' },
+            { label: 'PG-13', value: 'PG-13' },
+            { label: '14A', value: '14A' },
+            { label: 'R', value: 'R' },
+            { label: 'NC-17', value: 'NC-17' },
+            { label: 'NR', value: 'NR' }
+          ],
+          defaultValue: 'PG'
+        }),
+        genre: fields.array(
+          fields.select({
+            label: 'Genre',
+            options: [
+              { label: 'Action', value: 'Action' },
+              { label: 'Adventure', value: 'Adventure' },
+              { label: 'Animation', value: 'Animation' },
+              { label: 'Biography', value: 'Biography' },
+              { label: 'Comedy', value: 'Comedy' },
+              { label: 'Crime', value: 'Crime' },
+              { label: 'Documentary', value: 'Documentary' },
+              { label: 'Drama', value: 'Drama' },
+              { label: 'Family', value: 'Family' },
+              { label: 'Fantasy', value: 'Fantasy' },
+              { label: 'History', value: 'History' },
+              { label: 'Horror', value: 'Horror' },
+              { label: 'Music', value: 'Music' },
+              { label: 'Mystery', value: 'Mystery' },
+              { label: 'Romance', value: 'Romance' },
+              { label: 'Science Fiction', value: 'Science Fiction' },
+              { label: 'Thriller', value: 'Thriller' },
+              { label: 'War', value: 'War' },
+              { label: 'Western', value: 'Western' }
+            ],
+            defaultValue: 'Drama'
+          }),
+          { 
+            label: 'Genres', 
+            itemLabel: (props: any) => props.value || 'Select Genre'
+          }
+        ),
+        length: fields.text({ 
+          label: 'Runtime',
+          description: 'e.g. "1h 53m"'
+        }),
+        
+        // Cast & Crew
+        cast: fields.array(
+          fields.text({ label: 'Actor Name' }),
+          { 
+            label: 'Cast', 
+            itemLabel: (props: any) => props.value || 'New Cast Member'
+          }
+        ),
+        
+        // Screening Info
+        showtimes: fields.array(
+          fields.datetime({ 
+            label: 'Showtime',
+            description: 'Date and time of screening'
+          }),
+          { 
+            label: 'Showtimes',
+            itemLabel: (props: any) => {
+              if (props.value) {
+                const date = new Date(props.value);
+                return date.toLocaleString();
+              }
+              return 'New Showtime';
+            }
+          }
+        ),
+        eventNote: fields.text({ 
+          label: 'Special Event Note',
+          description: 'Any special information about this screening'
+        }),
+        reelAlternative: fields.checkbox({ 
+          label: 'Reel Alternative Film',
+          description: 'Check if this is a Reel Alternative screening'
+        }),
+        
+        // Media
+        poster: fields.image({ 
+          label: 'Movie Poster',
+          directory: 'src/content/movie/images',
+          publicPath: './images/',
+          description: 'Main poster image'
+        }),
+        trailer: fields.url({ 
+          label: 'Trailer URL',
+          description: 'YouTube or other video platform URL'
         })
       },
     }),

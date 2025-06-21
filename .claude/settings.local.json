@@ -20,7 +20,9 @@
       "Bash(npx astro check:*)",
       "Bash(find:*)",
       "Bash(ls:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(true)",
+      "Bash(npm run clean:*)"
     ],
     "deny": []
   }

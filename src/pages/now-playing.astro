@@ -12,23 +12,10 @@ import type { CollectionEntry } from 'astro:content';
 // Get all movies
 let movieEntries = await getCollection("movie") as CollectionEntry<'movie'>[];
 
-// Function to parse date from showtime string (format: "Jan 24th" or "Jan 24th - 2pm Matinee")
-function parseShowtime(showtime: string): Date {
-  // Extract just the date part (e.g., "Jan 24th" from "Jan 24th - 2pm Matinee")
-  const datePart = showtime.split('-')[0].trim();
-  const currentYear = new Date().getFullYear();
-  
-  // Remove the ordinal suffix (1st, 2nd, 3rd, 4th, etc.) - use global regex to catch all instances
-  const dateWithoutSuffix = datePart.replace(/(st|nd|rd|th)/g, '');
-  const dateString = `${dateWithoutSuffix}, ${currentYear}`;
-  const date = new Date(dateString);
-  
-  // If the date is in the past and it's early in the year, assume it's next year
-  if (!isNaN(date.getTime()) && date < new Date() && new Date().getMonth() < 6) {
-    date.setFullYear(currentYear + 1);
-  }
-  
-  return isNaN(date.getTime()) ? new Date(9999, 11, 31) : date;
+// Function to handle showtime - now expects Date objects instead of strings
+function parseShowtime(showtime: Date): Date {
+  // Showtimes are now Date objects, so we can return them directly
+  return showtime instanceof Date ? showtime : new Date(showtime);
 }
 
 // Function to normalize dates to start of day for comparison
