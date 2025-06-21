@@ -32,8 +32,13 @@ function normalizeDate(date) {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 }
 
-// Function to parse showtime
+// Function to parse showtime - handles both old and new format
 function parseShowtime(showtime) {
+  // Handle new format {date: Date, isMatinee: boolean}
+  if (showtime && typeof showtime === 'object' && 'date' in showtime) {
+    return showtime.date instanceof Date ? showtime.date : new Date(showtime.date);
+  }
+  // Fallback for old format (direct Date)
   return showtime instanceof Date ? showtime : new Date(showtime);
 }
 

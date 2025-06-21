@@ -133,16 +133,29 @@ export default config({
         
         // Screening Info
         showtimes: fields.array(
-          fields.datetime({ 
-            label: 'Showtime',
-            description: 'Date and time of screening'
+          fields.object({
+            date: fields.date({ 
+              label: 'Show Date',
+              description: 'Date of the screening'
+            }),
+            isMatinee: fields.checkbox({
+              label: 'Matinee Showing',
+              description: 'Check if this is a matinee (afternoon) showing',
+              defaultValue: false
+            })
           }),
           { 
             label: 'Showtimes',
             itemLabel: (props: any) => {
-              if (props.value) {
-                const date = new Date(props.value);
-                return date.toLocaleString();
+              if (props.fields.date.value) {
+                const date = new Date(props.fields.date.value);
+                const dateStr = date.toLocaleDateString('en-CA', {
+                  weekday: 'short',
+                  month: 'short',
+                  day: 'numeric',
+                  year: 'numeric'
+                });
+                return props.fields.isMatinee.value ? `${dateStr} (Matinee)` : dateStr;
               }
               return 'New Showtime';
             }

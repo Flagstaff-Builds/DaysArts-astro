@@ -9,7 +9,10 @@ const movieCollection = defineCollection({
     genre: z.array(z.string()).optional(),
     length: z.string().optional(),
     cast: z.array(z.string()).optional(),
-    showtimes: z.array(z.date()).optional(),
+    showtimes: z.array(z.object({
+      date: z.date(),
+      isMatinee: z.boolean().default(false)
+    })).optional(),
     poster: z.union([
       // Legacy format: direct image or string
       image(),

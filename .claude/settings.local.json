@@ -22,7 +22,8 @@
       "Bash(ls:*)",
       "Bash(mkdir:*)",
       "Bash(true)",
-      "Bash(npm run clean:*)"
+      "Bash(npm run clean:*)",
+      "Bash(node:*)"
     ],
     "deny": []
   }

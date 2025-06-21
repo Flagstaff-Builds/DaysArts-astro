@@ -12,9 +12,13 @@ import type { CollectionEntry } from 'astro:content';
 // Get all movies
 let movieEntries = await getCollection("movie") as CollectionEntry<'movie'>[];
 
-// Function to handle showtime - now expects Date objects instead of strings
-function parseShowtime(showtime: Date): Date {
-  // Showtimes are now Date objects, so we can return them directly
+// Function to handle showtime - now expects showtime objects with date and isMatinee
+function parseShowtime(showtime: any): Date {
+  // Handle new format {date: Date, isMatinee: boolean}
+  if (showtime && typeof showtime === 'object' && 'date' in showtime) {
+    return showtime.date instanceof Date ? showtime.date : new Date(showtime.date);
+  }
+  // Fallback for old format (direct Date)
   return showtime instanceof Date ? showtime : new Date(showtime);
 }
 

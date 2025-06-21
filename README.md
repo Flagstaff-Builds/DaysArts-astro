@@ -20,6 +20,16 @@ npm run dev
 ### To update collections
 - To create new movie or event, login to admin panel at https://daysarts.ca/keystatic
 
+### Movie Showtimes
+
+Movies use a simplified date-based system for showtimes:
+- Each showtime consists of a date and an optional "matinee" checkbox
+- When adding showtimes, select the date of the screening
+- Check the "Matinee Showing" box if it's an afternoon showing
+- The frontend will display:
+  - Regular showings: "Wed, Jun 25 (7:30pm)"
+  - Matinee showings: "Wed, Jun 25 (2:00pm)"
+
 ## Movie Cleanup System
 
 This project includes an automated cleanup system to remove past movies and keep the repository clean.
