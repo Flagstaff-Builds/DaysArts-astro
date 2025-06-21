@@ -8,6 +8,7 @@ import spotlightjs from "@spotlightjs/astro";
 import react from '@astrojs/react';
 import markdoc from '@astrojs/markdoc';
 import keystatic from '@keystatic/astro';
+import netlify from '@astrojs/netlify';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
@@ -17,6 +18,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   site: 'https://daysarts.ca',
   output: 'server',
+  adapter: netlify(),
   compressHTML: true,
   build: {
     inlineStylesheets: 'auto',
@@ -141,7 +143,9 @@ export default defineConfig({
     spotlightjs(),
     react(),
     markdoc(),
-    keystatic()
+    keystatic({
+      config: process.env.NODE_ENV === 'production' ? false : undefined
+    })
   ],
   markdown: {
     remarkPlugins: [],

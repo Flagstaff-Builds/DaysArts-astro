@@ -19,7 +19,8 @@
       "Bash(timeout 10s npm run dev)",
       "Bash(npx astro check:*)",
       "Bash(find:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(mkdir:*)"
     ],
     "deny": []
   }

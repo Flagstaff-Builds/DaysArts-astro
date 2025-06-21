@@ -1,0 +1,19 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "18"
+  NPM_FLAGS = "--legacy-peer-deps"
+
+# Redirect /keystatic to the admin UI (only works in development/preview)
+[[redirects]]
+  from = "/keystatic"
+  to = "/keystatic/"
+  status = 200
+
+# Handle Keystatic API routes
+[[redirects]]
+  from = "/api/keystatic/*"
+  to = "/.netlify/functions/entry"
+  status = 200

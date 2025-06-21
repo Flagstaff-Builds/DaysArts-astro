@@ -1,8 +1,15 @@
 import { config, fields, collection } from '@keystatic/core';
 
 export default config({
-  storage: {
-    kind: 'local',
+  storage: import.meta.env.PROD
+    ? {
+        kind: 'cloud',
+      }
+    : {
+        kind: 'local',
+      },
+  cloud: {
+    project: 'flagstaff-websites/daysarts-astro',
   },
   ui: {
     brand: {
