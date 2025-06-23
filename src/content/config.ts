@@ -5,10 +5,18 @@ const movieCollection = defineCollection({
   schema: ({ image }) => z.object({
     title: z.string(),
     eventNote: z.string().optional(),
+    sponsors: z.array(z.string()).optional(),
+    description: z.string().optional(),
     rating: z.string().optional(),
     genre: z.array(z.string()).optional(),
     length: z.string().optional(),
     cast: z.array(z.string()).optional(),
+    contact: z.array(
+      z.object({
+        name: z.string(),
+        phone: z.string().optional()
+      })
+    ).optional(),
     showtimes: z.array(z.object({
       date: z.date(),
       isMatinee: z.boolean().default(false)

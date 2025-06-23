@@ -3,24 +3,6 @@ import type { CollectionEntry } from 'astro:content';
 import MoviePost from './MoviePost.astro';
 import TicketIcon from '../icons/TicketIcon.astro';
 
-interface MovieData {
-  title: string;
-  poster?: string;
-  description?: string;
-  cast?: string[];
-  rating?: string;
-  length?: string;
-  genre?: string[];
-  trailer?: string;
-  showtimes?: Date[];
-  reelAlternative?: boolean;
-}
-
-interface Movie {
-  data: MovieData;
-  slug: string;
-}
-
 interface Props {
   movieEntries: CollectionEntry<'movie'>[];
 }
@@ -82,7 +64,7 @@ const activeMovies = movieEntries.filter(entry => !entry.id.startsWith('_old/'))
     <ul role="list" class="space-y-12 lg:space-y-12">
       {activeMovies.map((movie) => (
         <li>
-          <MoviePost movie={movie as Movie} />
+          <MoviePost movie={movie} />
         </li>
       ))}
     </ul>

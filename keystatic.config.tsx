@@ -165,6 +165,14 @@ export default config({
           label: 'Special Event Note',
           description: 'Any special information about this screening'
         }),
+        sponsors: fields.array(
+          fields.text({ label: 'Sponsor Name' }),
+          { 
+            label: 'Sponsors',
+            itemLabel: (props: any) => props.value || 'New Sponsor',
+            description: 'Organizations or individuals sponsoring this movie'
+          }
+        ),
         reelAlternative: fields.checkbox({ 
           label: 'Reel Alternative Film',
           description: 'Check if this is a Reel Alternative screening'

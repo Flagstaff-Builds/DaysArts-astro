@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import BackgroundImg from '@assets/palace-theatre-daysland-alberta.jpg';
+import MovieCard from '@components/movie/MovieCard.astro';
 
 // Define the type for movie entries
 type MovieEntry = CollectionEntry<'movie'>;
@@ -21,28 +22,6 @@ try {
 }
 
 const firstMovie: MovieEntry | null = movieEntries.length > 0 ? movieEntries[0] : null;
-
-// Helper function to get poster value from conditional field
-function getPosterValue(poster: any): string | any {
-  if (!poster) return null;
-  
-  // Handle conditional field structure
-  if (poster.discriminant && poster.value) {
-    return poster.value;
-  }
-  
-  // Handle direct value (legacy format)
-  return poster;
-}
-
-const firstMoviePoster = getPosterValue(firstMovie?.data?.poster);
-
-// Check if the poster is a valid image import
-function isValidImageImport(value: any): boolean {
-  return value && typeof value === 'object' && 'src' in value;
-}
-const hasGenres = firstMovie?.data?.genre?.length ?? 0 > 0;
-const hasCast = firstMovie?.data?.cast?.length ?? 0 > 0;
 ---
 
 <div class="relative isolate overflow-x-clip">
@@ -85,152 +64,15 @@ const hasCast = firstMovie?.data?.cast?.length ?? 0 > 0;
         )}
 
         {firstMovie && (
-          <div class="px-0 relative shadow-purple-400/30 shadow-2xl rounded-xl">
-            <div class="absolute top-2 left-2 rounded-md text-sm px-3.5 py-2.5 font-semibold leading-6 text-slate-900 bg-slate-100">Now playing</div>
-            <div class="lg:-mr-20 mx-auto sm:mx-0 sm:max-w-none"></div>
-            <div>
-              <div class="aspect-[2/3] bg-purple-100 rounded-2xl rounded-b-none">
-                {firstMoviePoster ? (
-                  typeof firstMoviePoster === 'string' ? (
-                    <img
-                      src={firstMoviePoster}
-                      width="2432"
-                      height="1442"
-                      alt="Now Playing"
-                      loading="eager"
-                      class="-mb-2 rounded-t-2xl object-cover h-full w-full"
-                      onerror="this.onerror=null; this.src='/movie-placeholder.svg'; console.error('Error loading hero image');"
-                    />
-                  ) : (
-                    <div class="relative h-full w-full">
-                      {/* Use Image component for content collection images */}
-                      {isValidImageImport(firstMoviePoster) ? (
-                        <Image
-                          src={firstMoviePoster}
-                          width={2432}
-                          height={1442}
-                          alt="Now Playing"
-                          loading="eager"
-                          class="-mb-2 rounded-t-2xl object-cover h-full w-full"
-                        />
-                      ) : (
-                        <div class="-mb-2 rounded-t-2xl bg-purple-100 h-full w-full flex items-center justify-center">
-                          <div class="text-center p-4">
-                            <p class="text-lg font-bold text-slate-900">{firstMovie.data.title}</p>
-                            <p class="text-sm text-slate-600">No poster available</p>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )
-                ) : (
-                  <div class="-mb-2 rounded-t-2xl bg-purple-100 h-full w-full flex items-center justify-center">
-                    <div class="text-center p-4">
-                      <p class="text-lg font-bold text-slate-900">{firstMovie.data.title}</p>
-                      <p class="text-sm text-slate-600">No poster available</p>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <article class="p-4 sm:p-6 lg:p-4 xl:p-6 space-x-4 items-start sm:space-x-6 lg:space-x-4 xl:space-x-6 flex rounded-b-2xl bg-white text-slate-900">
-                <div class="min-w-0 relative flex-auto">
-                  <h2 class="font-semibold truncate sm:pr-20">{firstMovie.data.title}</h2>
-                  <dl class="mt-2 flex flex-wrap text-sm leading-6 font-medium">
-                    <div>
-                      <dt class="sr-only">Rating</dt>
-                      <dd class="px-1.5 ring-1 ring-slate-200 rounded">{firstMovie.data.rating}</dd>
-                    </div>
-                    <div>
-                      <dt class="sr-only">Genre</dt>
-                      <dd class="flex items-center">
-                        <div aria-hidden="true" class="mx-4 text-sm text-gray-400">·</div>
-                        {hasGenres && (
-                          <span>
-                            {firstMovie?.data?.genre?.map((genre, index, array) => (
-                              <span>
-                                {genre}{index < array.length - 1 ? ', ' : ''}
-                              </span>
-                            ))}
-                          </span>
-                        )}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt class="sr-only">Runtime</dt>
-                      <dd class="flex items-center">
-                        <div aria-hidden="true" class="mx-4 text-sm text-gray-400">·</div>
-                        {firstMovie.data.length}
-                      </dd>
-                    </div>
-                    <div class="flex-none w-full mt-2 font-normal">
-                      <dt class="sr-only">Cast</dt>
-                      <dd class="text-slate-500">
-                        {hasCast && (
-                          <span>
-                            {firstMovie?.data?.cast?.map((cast, index, array) => (
-                              <span>
-                                {cast}{index < array.length - 1 ? ', ' : ''}
-                              </span>
-                            ))}
-                          </span>
-                        )}
-                      </dd>
-                    </div>
-                    <div aria-hidden="true" class="w-full h-px bg-gray-200 my-4"></div>
-                    <div class="flex-none w-full mt-2 font-normal">
-                      <dt class="sr-only">Dates</dt>
-                      <dd class="flex flex-wrap sm:flex-nowrap gap-x-6 text-slate-500">
-                        {firstMovie.data.showtimes && firstMovie.data.showtimes.length > 0 && (
-                          firstMovie.data.showtimes?.map((showtime: any) => (
-                            <span class="flex items-center">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 flex-none text-slate-400 pr-1" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
-                              </svg>
-                              {(() => {
-                                const date = new Date(showtime.date);
-                                const dateStr = date.toLocaleDateString('en-US', { 
-                                  weekday: 'short', 
-                                  month: 'short', 
-                                  day: 'numeric'
-                                });
-                                const timeStr = showtime.isMatinee ? ' (2:00pm)' : ' (7:30pm)';
-                                return `${dateStr}${timeStr}`;
-                              })()}
-                            </span>
-                          ))
-                        )}
-                      </dd>
-                    </div>
-                    
-                    {firstMovie.data.eventNote && (
-                      <div class="flex-none w-full mt-4 font-normal">
-                        <p class="text-purple-600 font-bold">
-                          {firstMovie.data.eventNote}
-                        </p>
-                      </div>
-                    )}
-                    
-                    {firstMovie.data.contact && firstMovie.data.contact.length > 0 && (
-                      <div class="flex-none w-full mt-4 font-normal">
-                        <h3 class="text-sm font-semibold text-slate-900">Sponsored by:</h3>
-                        <ul class="list-disc pl-4 text-slate-600">
-                          {firstMovie.data.contact.map(contact => (
-                            <li>
-                              <span class="font-medium">{contact.name}</span>: 
-                              <a href={`tel:${contact.phone}`} class="text-purple-600 hover:underline">
-                                {contact.phone}
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </dl>
-                </div>
-              </article>
-            </div>
-          </div>
+          <MovieCard 
+            movie={firstMovie} 
+            variant="hero" 
+            showCast={true} 
+            showDescription={false}
+            showShowtimes={true}
+            showEventNote={true}
+            showSponsor={true}
+          />
         )}
       </div>
     </div>
