@@ -49,18 +49,21 @@ export default config({
               { label: 'Upload Image', value: 'upload' },
               { label: 'Use URL', value: 'url' }
             ],
-            defaultValue: 'upload'
+            defaultValue: 'upload',
+            validation: { isRequired: false }
           }),
           {
             upload: fields.image({ 
               label: 'Upload Movie Poster',
               directory: 'src/content/movie/images',
               publicPath: './images/',
-              description: 'Upload poster image from your computer'
+              description: 'Upload poster image from your computer',
+              validation: { isRequired: false }
             }),
             url: fields.url({ 
               label: 'Poster URL',
-              description: '1) Search movie https://rb.gy/els8zz 2) Click on poster image 3) Right-click → "Copy Image Address" 4) Paste URL here (e.g., https://image.tmdb.org/t/p/original/...)'
+              description: '1) Search movie https://rb.gy/els8zz 2) Click on poster image 3) Right-click → "Copy Image Address" 4) Paste URL here (e.g., https://image.tmdb.org/t/p/original/...)',
+              validation: { isRequired: false }
             })
           }
         ),
@@ -202,7 +205,8 @@ export default config({
           label: 'Event Poster',
           directory: 'src/content/event/images',
           publicPath: './images/',
-          description: 'Upload poster image for the event'
+          description: 'Upload poster image for the event',
+          validation: { isRequired: false }
         }),
         links: fields.object({
           website: fields.text({ 
