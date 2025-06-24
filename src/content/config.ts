@@ -41,19 +41,36 @@ const eventCollection = defineCollection({
   schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string().optional(),
+    price: z.string().optional(),
+    dateTime: z.union([z.string(), z.date()]).optional(),
+    poster: z.union([
+      image(),
+      z.string(),
+      z.object({
+        discriminant: z.enum(['upload', 'url']),
+        value: z.union([image(), z.string()]).optional()
+      })
+    ]).optional(),
+    links: z.object({
+      website: z.string().optional(),
+      facebook: z.string().optional(),
+      twitter: z.string().optional(),
+      instagram: z.string().optional(),
+      youtube: z.string().optional(),
+    }).optional(),
+    eventSponsor: z.array(z.string()).optional(),
+    receptionSponsor: z.array(z.string()).optional(),
+    // Keep legacy fields for backward compatibility
     entertainment: z.array(z.string()).optional(),
     date: z.string().optional(),
     time: z.string().optional(),
-    price: z.string().optional(),
-    poster: image().optional(),
     socialImage: image().optional(),
-    website: z.string().url().optional(),
-    facebook: z.string().url().optional(),
-    twitter: z.string().url().optional(),
-    instagram: z.string().url().optional(),
-    youtube: z.string().url().optional(),
+    website: z.string().optional(),
+    facebook: z.string().optional(),
+    twitter: z.string().optional(),
+    instagram: z.string().optional(),
+    youtube: z.string().optional(),
     concertSponsor: z.array(z.string()).optional(),
-    receptionSponsor: z.array(z.string()).optional(),
     past: z.boolean().optional(),
   })
 });

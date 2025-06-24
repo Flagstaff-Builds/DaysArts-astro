@@ -183,57 +183,66 @@ export default config({
       label: 'Events',
       slugField: 'title',
       path: 'src/content/event/*',
-      format: { contentField: 'content' },
+      format: { contentField: 'description' },
       schema: {
         title: fields.slug({ name: { label: 'Title' } }),
-        description: fields.text({ 
+        description: fields.markdoc({ 
           label: 'Description',
-          multiline: true
+          description: 'Event description'
         }),
-        entertainment: fields.array(
-          fields.text({ label: 'Type' }),
-          { label: 'Entertainment Types', itemLabel: (props: any) => props.value }
-        ),
-        date: fields.text({ label: 'Date' }),
-        time: fields.text({ label: 'Time' }),
-        price: fields.text({ label: 'Price' }),
+        price: fields.text({ 
+          label: 'Price',
+          description: 'Event ticket price (eg: $35)'
+        }),
+        dateTime: fields.datetime({ 
+          label: 'Date & Time',
+          description: 'Event date and time'
+        }),
         poster: fields.image({ 
-          label: 'Poster',
-          directory: 'src/content/event/images',
-          publicPath: './images/'
-        }),
-        socialImage: fields.image({ 
-          label: 'Social Image',
+          label: 'Event Poster',
           directory: 'src/content/event/images',
           publicPath: './images/',
-          description: 'Image for social media sharing'
+          description: 'Upload poster image for the event'
         }),
-        website: fields.url({ label: 'Website' }),
-        facebook: fields.url({ label: 'Facebook' }),
-        twitter: fields.url({ label: 'Twitter' }),
-        instagram: fields.url({ label: 'Instagram' }),
-        youtube: fields.url({ label: 'YouTube' }),
-        concertSponsor: fields.array(
-          fields.text({ label: 'Sponsor' }),
-          { label: 'Concert Sponsors', itemLabel: (props: any) => props.value }
+        links: fields.object({
+          website: fields.text({ 
+            label: 'Website',
+            description: 'Website URL (optional)'
+          }),
+          facebook: fields.text({ 
+            label: 'Facebook',
+            description: 'Facebook URL (optional)'
+          }),
+          twitter: fields.text({ 
+            label: 'Twitter',
+            description: 'Twitter URL (optional)'
+          }),
+          instagram: fields.text({ 
+            label: 'Instagram',
+            description: 'Instagram URL (optional)'
+          }),
+          youtube: fields.text({ 
+            label: 'YouTube',
+            description: 'YouTube URL (optional)'
+          })
+        }, {
+          label: 'Links & Social Media',
+          layout: [12, 3, 3, 3, 3],
+        }),
+        eventSponsor: fields.array(
+          fields.text({ label: 'Sponsor Name' }),
+          { 
+            label: 'Event Sponsors',
+            itemLabel: (props: any) => props.value || 'New Sponsor'
+          }
         ),
         receptionSponsor: fields.array(
-          fields.text({ label: 'Sponsor' }),
-          { label: 'Reception Sponsors', itemLabel: (props: any) => props.value }
-        ),
-        past: fields.checkbox({ 
-          label: 'Past Event',
-          description: 'Is this a past event?'
-        }),
-        content: fields.markdoc({ 
-          label: 'Content',
-          options: {
-            image: {
-              directory: 'src/content/event/images',
-              publicPath: './images/'
-            }
+          fields.text({ label: 'Sponsor Name' }),
+          { 
+            label: 'Reception Sponsors',
+            itemLabel: (props: any) => props.value || 'New Sponsor'
           }
-        })
+        )
       },
     }),
   },

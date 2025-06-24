@@ -116,7 +116,7 @@ const regularEventFiles: EventFile[] = allEvents
   .map(event => ({
     frontmatter: {
       title: event.data.title,
-      date: event.data.date,
+      date: event.data.dateTime || event.data.date, // Use dateTime first, fallback to date
       description: event.data.description,
       past: event.data.past
     },
@@ -130,18 +130,25 @@ const combinedEvents: EventFile[] = [...regularEventFiles, ...oldEvents];
 console.log("Combined events count:", combinedEvents.length);
 console.log("Combined events sample:", combinedEvents.slice(0, 3).map(e => ({ id: e.id, title: e.frontmatter.title, date: e.frontmatter.date })));
 
+// Helper function to normalize dates for comparison (like movie filtering)
+function normalizeDate(date: Date): Date {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
 // Filter for past events - either they're in the _old directory, have past: true,
-// or their date is in the past
+// or their date is in the past (using normalized dates like movies)
 const pastEvents: EventFile[] = combinedEvents.filter((event: EventFile) => {
   // Check if event is in _old directory or explicitly marked as past
   const isInOldDir: boolean = event.id.startsWith("_old/");
   const isMarkedPast: boolean = event.frontmatter.past === true;
   
-  // Check if event date is in the past
+  // Check if event date is in the past using normalized dates
   let isPastDate: boolean = false;
   if (event.frontmatter.date) {
     const eventDate: Date = new Date(event.frontmatter.date);
-    isPastDate = eventDate < currentDate;
+    const normalizedEventDate = normalizeDate(eventDate);
+    const normalizedCurrentDate = normalizeDate(currentDate);
+    isPastDate = normalizedEventDate < normalizedCurrentDate;
   }
   
   const shouldInclude: boolean = isInOldDir || isMarkedPast || isPastDate;
@@ -155,9 +162,11 @@ console.log("Past events count:", pastEvents.length);
 console.log("Past events sample:", pastEvents.slice(0, 3).map(e => ({ id: e.id, title: e.frontmatter.title, date: e.frontmatter.date })));
 
 // Sort events by date (newest first)
-const sortedEvents: EventFile[] = pastEvents.sort((a, b) => 
-  (b.frontmatter.date || '').localeCompare(a.frontmatter.date || '')
-);
+const sortedEvents: EventFile[] = pastEvents.sort((a, b) => {
+  const dateA = a.frontmatter.date ? String(a.frontmatter.date) : '';
+  const dateB = b.frontmatter.date ? String(b.frontmatter.date) : '';
+  return dateB.localeCompare(dateA);
+});
 
 // Group events by season (e.g., "2023 - 2024")
 function getSeasonFromDate(dateStr: string | undefined): string {

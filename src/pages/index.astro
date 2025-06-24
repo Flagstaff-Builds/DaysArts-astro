@@ -38,10 +38,42 @@ const movies = (await getCollection("movie"))
   })
   .sort((a, b) => a.id.localeCompare(b.id));
 
+// Helper function to normalize dates for comparison (same as movie filtering)
+function normalizeDate(date: Date): Date {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+// Filter out past events (same logic as EventPost component)
+function isEventPast(event: any): boolean {
+  // If explicitly marked as past, respect that
+  if (event.data.past === true) {
+    return true;
+  }
+  
+  // Otherwise check the date dynamically
+  const today = normalizeDate(new Date());
+  let eventDate: Date | null = null;
+  
+  if (event.data.dateTime) {
+    eventDate = new Date(event.data.dateTime);
+  } else if (event.data.date) {
+    eventDate = new Date(event.data.date);
+  }
+  
+  if (eventDate) {
+    const normalizedEventDate = normalizeDate(eventDate);
+    return normalizedEventDate < today;
+  }
+  
+  return false;
+}
+
 const events = (await getCollection("event"))
+  .filter(event => !isEventPast(event)) // Filter out past events
   .sort((a, b) => a.id.localeCompare(b.id));
 
 const hasMovies = movies.length > 0;
+const hasEvents = events.length > 0;
 
 import TheatreClosed from "@/components/theatre-closed.astro";
 ---
@@ -92,7 +124,8 @@ import TheatreClosed from "@/components/theatre-closed.astro";
 
 
     <!-- upcoming events -->
-    <div class="py-24 sm:py-32">
+    {hasEvents && (
+      <div class="py-24 sm:py-32">
       <div class="mx-auto">
 
 
@@ -117,20 +150,37 @@ import TheatreClosed from "@/components/theatre-closed.astro";
                 <article class={`bg-white rounded-lg shadow-purple-400/30 shadow-xl overflow-hidden transform transition duration-500 hover:scale-105 ${colSpan} ${rowSpan}`}>
                   <a href={`/event/${event.slug}`} class="flex h-full w-full">
                     <div class={`flex md:${flexClass}`}>
-                      {event.data.poster && (
-                        <div class="flex-none w-32 md:w-auto">
-                          <Image
-                            src={event.data.poster}
-                            width="850"
-                            height="504"
-                            alt="Event Poster"
-                            class="object-cover h-full w-full max-h-52 md:max-h-none bg-purple-100"
-                          />
-                        </div>
-                      )}
+                      {(() => {
+                        // Extract poster value from Keystatic conditional field, Astro image object, or use direct value
+                        let posterSrc = null;
+                        if (event.data.poster) {
+                          if (typeof event.data.poster === 'string') {
+                            posterSrc = event.data.poster;
+                          } else if (typeof event.data.poster === 'object' && 'discriminant' in event.data.poster && event.data.poster.value) {
+                            posterSrc = event.data.poster.value;
+                          } else if (typeof event.data.poster === 'object' && 'src' in event.data.poster) {
+                            posterSrc = event.data.poster.src;
+                          }
+                        }
+                        
+                        if (posterSrc && typeof posterSrc === 'string') {
+                          return (
+                            <div class="flex-none w-32 md:w-auto">
+                              <img
+                                src={posterSrc}
+                                alt="Event Poster"
+                                class="object-cover h-full w-full max-h-52 md:max-h-none bg-purple-100"
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            </div>
+                          );
+                        }
+                        return null;
+                      })()}
                       <div class="p-4 flex-auto md:flex-none">
                         <h3 class="text-xl font-semibold text-gray-900">{event.data.title}</h3>
-                        <p class="mt-2 text-gray-500 line-clamp-3">{event.data.description}</p>
+                        <p class="mt-2 text-gray-500 line-clamp-3">{event.body}</p>
                       </div>
                     </div>
                   </a>
@@ -143,6 +193,7 @@ import TheatreClosed from "@/components/theatre-closed.astro";
         </div>
       </div>
     </div>
+    )}
 
 
 
