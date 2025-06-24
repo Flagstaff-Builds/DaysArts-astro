@@ -10,7 +10,7 @@ export const prerender = true;
 
 interface EventFrontmatter {
   title: string;
-  date?: string;
+  date?: string | Date;
   description?: string;
   past?: boolean;
 }
@@ -169,10 +169,10 @@ const sortedEvents: EventFile[] = pastEvents.sort((a, b) => {
 });
 
 // Group events by season (e.g., "2023 - 2024")
-function getSeasonFromDate(dateStr: string | undefined): string {
-  if (!dateStr) return "Unknown Season";
+function getSeasonFromDate(dateInput: string | Date | undefined): string {
+  if (!dateInput) return "Unknown Season";
   
-  const date: Date = new Date(dateStr);
+  const date: Date = dateInput instanceof Date ? dateInput : new Date(dateInput);
   const year: number = date.getFullYear();
   const month: number = date.getMonth(); // 0-11
   

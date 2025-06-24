@@ -38,10 +38,6 @@ const movies = (await getCollection("movie"))
   })
   .sort((a, b) => a.id.localeCompare(b.id));
 
-// Helper function to normalize dates for comparison (same as movie filtering)
-function normalizeDate(date: Date): Date {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-}
 
 // Filter out past events (same logic as EventPost component)
 function isEventPast(event: any): boolean {

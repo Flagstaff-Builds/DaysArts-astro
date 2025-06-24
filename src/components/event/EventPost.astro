@@ -144,8 +144,8 @@ function isEventPast(): boolean {
 
     {(() => {
       // Check if any sponsor arrays have actual content
-      const hasEventSponsors = (event.data.eventSponsor?.length > 0) || (event.data.concertSponsor?.length > 0);
-      const hasReceptionSponsors = event.data.receptionSponsor?.length > 0;
+      const hasEventSponsors = (event.data.eventSponsor?.length ?? 0) > 0 || (event.data.concertSponsor?.length ?? 0) > 0;
+      const hasReceptionSponsors = (event.data.receptionSponsor?.length ?? 0) > 0;
       
       if (!hasEventSponsors && !hasReceptionSponsors) {
         return null;
