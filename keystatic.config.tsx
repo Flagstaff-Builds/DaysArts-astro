@@ -38,8 +38,7 @@ export default config({
         title: fields.slug({ name: { label: 'Title' } }),
         description: fields.markdoc({ 
           label: 'Description',
-          description: 'Movie description (keep it concise - under 200 characters recommended)',
-          validation: { isRequired: false }
+          description: 'Movie description (keep it concise - under 200 characters recommended)'
         }),
         
         // Media
@@ -50,21 +49,18 @@ export default config({
               { label: 'Upload Image', value: 'upload' },
               { label: 'Use URL', value: 'url' }
             ],
-            defaultValue: 'upload',
-            validation: { isRequired: false }
+            defaultValue: 'upload'
           }),
           {
             upload: fields.image({ 
               label: 'Upload Movie Poster',
               directory: 'src/content/movie/images',
               publicPath: './images/',
-              description: 'Upload poster image from your computer',
-              validation: { isRequired: false }
+              description: 'Upload poster image from your computer'
             }),
             url: fields.url({ 
               label: 'Poster URL',
-              description: '1) Search movie https://rb.gy/els8zz 2) Click on poster image 3) Right-click → "Copy Image Address" 4) Paste URL here (e.g., https://image.tmdb.org/t/p/original/...)',
-              validation: { isRequired: false }
+              description: '1) Search movie https://rb.gy/els8zz 2) Click on poster image 3) Right-click → "Copy Image Address" 4) Paste URL here (e.g., https://image.tmdb.org/t/p/original/...)'
             })
           }
         ),
@@ -88,8 +84,7 @@ export default config({
             { label: 'NC-17', value: 'NC-17' },
             { label: 'NR', value: 'NR' }
           ],
-          defaultValue: 'PG',
-          validation: { isRequired: false }
+          defaultValue: 'PG'
         }),
         genre: fields.array(
           fields.select({
@@ -124,8 +119,7 @@ export default config({
         ),
         length: fields.text({ 
           label: 'Runtime',
-          description: 'e.g. "1h 53m"',
-          validation: { isRequired: false }
+          description: 'e.g. "1h 53m"'
         }),
 
         // Cast & Crew
@@ -169,8 +163,7 @@ export default config({
         ),
         eventNote: fields.text({ 
           label: 'Special Event Note',
-          description: 'Any special information about this screening',
-          validation: { isRequired: false }
+          description: 'Any special information about this screening'
         }),
         sponsors: fields.array(
           fields.text({ label: 'Sponsor Name' }),
@@ -195,25 +188,21 @@ export default config({
         title: fields.slug({ name: { label: 'Title' } }),
         description: fields.markdoc({ 
           label: 'Description',
-          description: 'Event description',
-          validation: { isRequired: false }
+          description: 'Event description'
         }),
         price: fields.text({ 
           label: 'Price',
-          description: 'Event ticket price (eg: $35)',
-          validation: { isRequired: false }
+          description: 'Event ticket price (eg: $35)'
         }),
         dateTime: fields.datetime({ 
           label: 'Date & Time',
-          description: 'Event date and time',
-          validation: { isRequired: false }
+          description: 'Event date and time'
         }),
         poster: fields.image({ 
           label: 'Event Poster',
           directory: 'src/content/event/images',
           publicPath: './images/',
-          description: 'Upload poster image for the event',
-          validation: { isRequired: false }
+          description: 'Upload poster image for the event'
         }),
         links: fields.object({
           website: fields.text({ 
