@@ -38,7 +38,8 @@ export default config({
         title: fields.slug({ name: { label: 'Title' } }),
         description: fields.markdoc({ 
           label: 'Description',
-          description: 'Movie description (keep it concise - under 200 characters recommended)'
+          description: 'Movie description (keep it concise - under 200 characters recommended)',
+          validation: { isRequired: false }
         }),
         
         // Media
@@ -87,7 +88,8 @@ export default config({
             { label: 'NC-17', value: 'NC-17' },
             { label: 'NR', value: 'NR' }
           ],
-          defaultValue: 'PG'
+          defaultValue: 'PG',
+          validation: { isRequired: false }
         }),
         genre: fields.array(
           fields.select({
@@ -122,7 +124,8 @@ export default config({
         ),
         length: fields.text({ 
           label: 'Runtime',
-          description: 'e.g. "1h 53m"'
+          description: 'e.g. "1h 53m"',
+          validation: { isRequired: false }
         }),
 
         // Cast & Crew
@@ -166,7 +169,8 @@ export default config({
         ),
         eventNote: fields.text({ 
           label: 'Special Event Note',
-          description: 'Any special information about this screening'
+          description: 'Any special information about this screening',
+          validation: { isRequired: false }
         }),
         sponsors: fields.array(
           fields.text({ label: 'Sponsor Name' }),
@@ -191,15 +195,18 @@ export default config({
         title: fields.slug({ name: { label: 'Title' } }),
         description: fields.markdoc({ 
           label: 'Description',
-          description: 'Event description'
+          description: 'Event description',
+          validation: { isRequired: false }
         }),
         price: fields.text({ 
           label: 'Price',
-          description: 'Event ticket price (eg: $35)'
+          description: 'Event ticket price (eg: $35)',
+          validation: { isRequired: false }
         }),
         dateTime: fields.datetime({ 
           label: 'Date & Time',
-          description: 'Event date and time'
+          description: 'Event date and time',
+          validation: { isRequired: false }
         }),
         poster: fields.image({ 
           label: 'Event Poster',
