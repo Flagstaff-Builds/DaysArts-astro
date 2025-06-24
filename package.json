@@ -3,9 +3,10 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "NODE_OPTIONS='--max-old-space-size=8192 --expose-gc' ASTRO_TELEMETRY_DISABLED=1 astro dev",
-    "start": "NODE_OPTIONS='--max-old-space-size=8192 --expose-gc' ASTRO_TELEMETRY_DISABLED=1 astro dev",
-    "build": "astro check && astro build",
+    "dev": "npm run images:cleanup && NODE_OPTIONS='--max-old-space-size=8192 --expose-gc' ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "dev:watch": "concurrently \"npm run dev\" \"node scripts/dev-watcher.js\"",
+    "start": "npm run images:cleanup && NODE_OPTIONS='--max-old-space-size=8192 --expose-gc' ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "build": "npm run images:cleanup && astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "clean": "rm -rf dist .astro node_modules/.vite",
@@ -13,7 +14,8 @@
     "movie:search": "tsx scripts/updateMovieData.ts search",
     "movie:update": "tsx scripts/updateMovieData.ts update",
     "movie:cleanup": "node scripts/cleanup-past-movies.js",
-    "movie:cleanup:dry": "DRY_RUN=true node scripts/cleanup-past-movies.js"
+    "movie:cleanup:dry": "DRY_RUN=true node scripts/cleanup-past-movies.js",
+    "images:cleanup": "node scripts/cleanup-orphaned-images.js"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -46,6 +48,7 @@
   "devDependencies": {
     "@babel/helpers": "^7.27.0",
     "@tailwindcss/typography": "^0.5.16",
+    "concurrently": "^9.2.0",
     "glob": "^11.0.2",
     "gray-matter": "^4.0.3",
     "tsx": "^4.19.4",

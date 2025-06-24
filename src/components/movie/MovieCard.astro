@@ -27,7 +27,23 @@ const {
   class: className = ''
 } = Astro.props;
 
-// Helper function to get poster value from conditional field
+// Helper function to safely get poster value with fallback handling
+function getSafePosterValue(poster: any): string | any {
+  if (!poster) return null;
+  
+  let value;
+  // Handle conditional field structure
+  if (poster.discriminant && poster.value) {
+    value = poster.value;
+  } else {
+    // Handle direct value (legacy format)
+    value = poster;
+  }
+  
+  return value;
+}
+
+// Safe synchronous version that returns the raw value
 function getPosterValue(poster: any): string | any {
   if (!poster) return null;
   

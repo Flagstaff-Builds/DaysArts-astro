@@ -64,12 +64,42 @@ function isEventPast(event: any): boolean {
   return false;
 }
 
-const events = (await getCollection("event"))
+const allEvents = await getCollection("event");
+console.log('All events:', allEvents.map(e => ({ id: e.id, title: e.data.title, dateTime: e.data.dateTime })));
+
+const events = allEvents
   .filter(event => !isEventPast(event)) // Filter out past events
   .sort((a, b) => a.id.localeCompare(b.id));
+  
+console.log('Filtered events:', events.map(e => ({ id: e.id, title: e.data.title })));
 
 const hasMovies = movies.length > 0;
 const hasEvents = events.length > 0;
+
+// Helper function to extract plain text from markdown
+function getPlainTextExcerpt(markdown: string, maxLength: number = 150): string {
+  if (!markdown) return '';
+  
+  // Remove markdown formatting
+  let text = markdown
+    .replace(/#{1,6}\s+/g, '') // Remove headers
+    .replace(/\*\*([^*]+)\*\*/g, '$1') // Remove bold
+    .replace(/\*([^*]+)\*/g, '$1') // Remove italic
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Remove links
+    .replace(/`([^`]+)`/g, '$1') // Remove inline code
+    .replace(/^\s*[-*+]\s+/gm, '') // Remove list markers
+    .replace(/^\s*\d+\.\s+/gm, '') // Remove numbered lists
+    .replace(/\n\n+/g, ' ') // Replace multiple newlines with space
+    .replace(/\n/g, ' ') // Replace single newlines with space
+    .trim();
+  
+  // Truncate to maxLength
+  if (text.length > maxLength) {
+    text = text.substring(0, maxLength).trim() + '...';
+  }
+  
+  return text;
+}
 
 import TheatreClosed from "@/components/theatre-closed.astro";
 ---
@@ -176,7 +206,7 @@ import TheatreClosed from "@/components/theatre-closed.astro";
                       })()}
                       <div class="p-4 flex-auto md:flex-none">
                         <h3 class="text-xl font-semibold text-gray-900">{event.data.title}</h3>
-                        <p class="mt-2 text-gray-500 line-clamp-3">{event.body}</p>
+                        <p class="mt-2 text-gray-500 line-clamp-3">{getPlainTextExcerpt(event.body)}</p>
                       </div>
                     </div>
                   </a>
