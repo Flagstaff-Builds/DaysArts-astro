@@ -9,7 +9,7 @@ export default config({
         kind: 'local',
       },
   cloud: {
-    project: 'flagstaff-websites/daysarts-astro',
+    project: 'daysarts/daysarts',
   },
   ui: {
     brand: {
