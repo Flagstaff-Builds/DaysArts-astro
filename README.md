@@ -1,34 +1,70 @@
-# DaysArts
+# DaysArts Theatre Website
 
-This is the repo for the DaysArts theater website with all build files. Built with Astro, Tailwind, and Keystatic. Deployed on Netlify.
+**Critical Developer Handover Documentation**
 
+This repository contains the complete DaysArts Palace Theatre website built with **Astro**, **Tailwind CSS**, and **Keystatic CMS**. This README serves as essential documentation for developers taking over maintenance of this project.
 
-To build a project in your local machine:
-1. clone repo
-2. `npm install` to install dependancies
-3.
-```sh
+## 🚨 Emergency Developer Handover
+
+If you're inheriting this project, here's what you need to know immediately:
+
+### Tech Stack
+- **Frontend**: Astro + Tailwind CSS
+- **CMS**: Keystatic (file-based CMS)
+- **Hosting**: Netlify
+- **Domain**: Registered with webnames.ca, DNS via Cloudflare
+- **Repository**: Git-based content management
+
+### Quick Start
+```bash
+git clone [repository-url]
+npm install
 npm run dev
+# Open http://localhost:4321
 ```
-4. open browser to localhost:4321
 
+### Content Management Access
+- **Production CMS**: https://daysarts.ca/keystatic
+- **Local CMS**: http://localhost:4321/keystatic (when running dev server)
+- **Authentication**: Keystatic Cloud (project: daysarts/daysarts)
 
-## Featured collections
-- movie
-- event
+## 📋 Content Management (Keystatic CMS)
 
-### To update collections
-- To create new movie or event, login to admin panel at https://daysarts.ca/keystatic
+**Important**: This project uses Keystatic CMS for all content management. The old MDX-based approach has been completely removed.
 
-### Movie Showtimes
+### Content Types
 
-Movies use a simplified date-based system for showtimes:
-- Each showtime consists of a date and an optional "matinee" checkbox
-- When adding showtimes, select the date of the screening
-- Check the "Matinee Showing" box if it's an afternoon showing
-- The frontend will display:
-  - Regular showings: "Wed, Jun 25 (7:30pm)"
-  - Matinee showings: "Wed, Jun 25 (2:00pm)"
+#### 1. Movies (`/keystatic/movies`)
+Complete movie management with:
+- **Basic Info**: Title, description, poster (upload or URL)
+- **Media**: Trailer URL, poster images
+- **Details**: Rating, genres, runtime, cast
+- **Showtimes**: Date-based system with matinee support
+- **Sponsors**: Event sponsors and Reel Alternative designation
+
+#### 2. Events (`/keystatic/events`)
+Event management including:
+- **Basic Info**: Title, description, pricing, date/time
+- **Media**: Event poster upload
+- **Social Links**: Website, Facebook, X, Instagram, YouTube
+- **Sponsors**: Event and reception sponsors
+
+#### 3. Theatre Status (`/keystatic/theatre-status`)
+Theatre closure management:
+- **Closure Settings**: Toggle theatre closed status
+- **Messaging**: Custom closure title, message, dates
+- **Visual**: Optional closure background image
+- **Communication**: Extended descriptions and personal messages
+
+#### 4. Contact Info (`/keystatic/contact-info`)
+Centralized contact information:
+- Email, phone, Facebook page URL
+
+### Showtime System
+Movies use a simplified date-based showtime system:
+- Each showtime = date + optional matinee checkbox
+- **Regular showings**: Display as "Wed, Jun 25 (7:30pm)"
+- **Matinee showings**: Display as "Wed, Jun 25 (2:00pm)"
 
 ## Movie Cleanup System
 
@@ -75,18 +111,89 @@ The repository includes a GitHub Action that automatically cleans up past movies
 - Example: `'0 6 * * 1'` (weekly on Mondays at 6 AM UTC)
 
 
-## DNS
-### daysarts.ca
-- Registered with webnames.ca
-- DNS managed by Cloudflare
-- Hosted on Netlify
+## 🌐 Infrastructure & Deployment
 
-### palacetheatre-daysarts.ca
-- Registered with webnames.ca
-- DNS managed by Cloudflare (after transfer from WordPress)
-- Redirects to daysarts.ca, which is hosted on Netlify
+### Domain & DNS Configuration
+```
+daysarts.ca
+├── Registrar: webnames.ca
+├── DNS: Cloudflare
+└── Hosting: Netlify (auto-deploy from main branch)
 
-palacetheatre-daysarts.ca --DNS managed by--> Cloudflare --redirects to--> daysarts.ca
-                                                                       |
-                                                                       v
-                                                          Netlify <--- hosts --- webnames.ca
+palacetheatre-daysarts.ca (EXPIRED - No longer purchased)
+└── Previously redirected to daysarts.ca
+```
+
+### Netlify Deployment
+- **Site**: Connected to this GitHub repository
+- **Branch**: `main` (auto-deploy on push)
+- **Build Command**: `npm run build`
+- **Publish Directory**: `dist/`
+- **Environment**: Production uses Keystatic Cloud storage
+
+### Critical Access Information
+**Domain Management**:
+- **Registrar**: webnames.ca account needed for domain renewal
+- **DNS**: Cloudflare account for DNS management
+- **Hosting**: Netlify account for deployment settings
+
+**CMS Access**:
+- **Keystatic Cloud**: Project `daysarts/daysarts`
+- **GitHub**: Repository access required for file-based CMS
+
+### Automated Systems
+- **Movie Cleanup**: GitHub Action runs daily at 6 AM UTC
+- **Image Cleanup**: Runs before every build to prevent orphaned images
+- **Deployment**: Automatic on push to main branch
+
+## 🛠️ Development Commands
+
+```bash
+# Development
+npm run dev              # Start dev server
+npm run dev:watch        # Dev server with automatic image cleanup
+
+# Building
+npm run build           # Build for production (includes automatic cleanup)
+npm run preview         # Preview production build
+
+# Content Management
+npm run images:cleanup  # Remove orphaned movie images
+npm run movie:cleanup   # Remove past movies (DESTRUCTIVE)
+npm run movie:cleanup:dry # Test movie cleanup (safe)
+
+# CMS Access
+# Local: http://localhost:4321/keystatic
+# Production: https://daysarts.ca/keystatic
+```
+
+## 🚨 Troubleshooting
+
+### Common Issues
+
+**Build Failures**: Usually caused by orphaned images
+```bash
+npm run images:cleanup
+npm run build
+```
+
+**CMS Access Issues**: Check Keystatic Cloud project permissions
+
+**Movie Images Missing**: Run image cleanup and restart dev server
+
+### Emergency Procedures
+
+1. **Site Down**: Check Netlify deploy logs
+2. **CMS Broken**: Verify Keystatic Cloud project status
+3. **Content Missing**: Check GitHub repository for file-based content
+4. **Domain Issues**: Verify Cloudflare DNS settings
+
+## 📚 Additional Resources
+
+- **Keystatic Docs**: https://keystatic.com/docs
+- **Astro Docs**: https://docs.astro.build
+- **Netlify Docs**: https://docs.netlify.com
+
+---
+
+**Last Updated**: June 2025
