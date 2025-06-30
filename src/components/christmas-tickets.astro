@@ -1,3 +1,10 @@
+---
+import { contactInfo, formatPhoneForTel, formatPhoneDisplay } from '@/utils/contactInfo';
+
+const phoneForTel = contactInfo.phone ? formatPhoneForTel(contactInfo.phone) : '';
+const phoneDisplay = contactInfo.phone ? formatPhoneDisplay(contactInfo.phone) : '';
+---
+
 <div class="relative z-10 bg-slate-50">
   <div class="mx-auto max-w-7xl px-6 pb-16 pt-8 lg:px-8">
     <h2 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
@@ -20,10 +27,10 @@
       <p>
         A complete package of 4 concerts after Christmas is $140 for each or
         individual concerts can be purchased for $40 each. Contact me either at <a
-          href="mailto:info@daysarts.ca"
+          href={`mailto:${contactInfo.email}`}
           class="underline hover:no-underline text-purple-600"
-          aria-label="Email us at info@daysarts.ca"
-          >info@daysarts.ca</a
+          aria-label={`Email us at ${contactInfo.email}`}
+          >{contactInfo.email}</a
         > or by calling <a href="tel:+17803742403" class="underline hover:no-underline text-purple-600" aria-label="Call us at 780-374-2403">780-374-2403</a> and we can take care of you. Our next concert
         is a Jack Semple tribute to Gordon Lightfoot on November 28, tickets are still
         available. Thanks for supporting the Daysland palace Theatre.

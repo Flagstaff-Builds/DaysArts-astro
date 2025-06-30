@@ -2,12 +2,15 @@
 import type { CollectionEntry } from 'astro:content';
 import MoviePost from './MoviePost.astro';
 import TicketIcon from '../icons/TicketIcon.astro';
+import { contactInfo, formatPhoneForTel, formatPhoneDisplay } from '@/utils/contactInfo';
 
 interface Props {
   movieEntries: CollectionEntry<'movie'>[];
 }
 
 const { movieEntries } = Astro.props as Props;
+const phoneForTel = contactInfo.phone ? formatPhoneForTel(contactInfo.phone) : '';
+const phoneDisplay = contactInfo.phone ? formatPhoneDisplay(contactInfo.phone) : '';
 
 // Filter out entries from _old directory
 const activeMovies = movieEntries.filter(entry => !entry.id.startsWith('_old/'));
@@ -57,7 +60,9 @@ const activeMovies = movieEntries.filter(entry => !entry.id.startsWith('_old/'))
       </table>
     </div>
 
-    <p class="text-gray-400">For showtimes call <a href="tel:1780-673-1325" itemprop="telephone" class="whitespace-nowrap text-sm text-purple-600 hover:underline">780-673-1325</a></p>
+    {contactInfo.phone && (
+      <p class="text-gray-400">For showtimes call <a href={`tel:${phoneForTel}`} itemprop="telephone" class="whitespace-nowrap text-sm text-purple-600 hover:underline">{phoneDisplay}</a></p>
+    )}
   </div>
 
   <div class="col-span-2">

@@ -26,6 +26,10 @@ export default config({
         </svg>
       )
     },
+    navigation: {
+      'Content': ['movies', 'events'],
+      'Theatre Settings': ['theatreStatus', 'contactInfo']
+    }
   },
   collections: {
     movies: collection({
@@ -214,8 +218,8 @@ export default config({
             description: 'Facebook URL (optional)'
           }),
           twitter: fields.text({ 
-            label: 'Twitter',
-            description: 'Twitter URL (optional)'
+            label: 'X (formerly Twitter)',
+            description: 'X URL (optional)'
           }),
           instagram: fields.text({ 
             label: 'Instagram',
@@ -248,7 +252,7 @@ export default config({
   },
   singletons: {
     theatreStatus: singleton({
-      label: 'Theatre Status',
+      label: 'Status',
       path: 'src/content/theatreStatus',
       format: { data: 'json' },
       schema: {
@@ -316,8 +320,37 @@ export default config({
           }
         }),
         contactEmail: fields.text({
-          label: 'Contact Email',
-          description: 'Email address to display (defaults to info@daysarts.ca)',
+          label: 'Contact Email Override',
+          description: 'Optional: Override contact email for this closure notice (leave empty to use default from Contact Info)',
+          validation: {
+            isRequired: false
+          }
+        })
+      }
+    }),
+    contactInfo: singleton({
+      label: 'Contact Info',
+      path: 'src/content/contactInfo',
+      format: { data: 'json' },
+      schema: {
+        email: fields.text({
+          label: 'Email Address',
+          description: 'Main contact email address',
+          defaultValue: 'info@daysarts.ca',
+          validation: {
+            isRequired: true
+          }
+        }),
+        phone: fields.text({
+          label: 'Phone Number',
+          description: 'Main contact phone number (e.g., (780) 673-1325)',
+          validation: {
+            isRequired: false
+          }
+        }),
+        facebookPage: fields.url({
+          label: 'Facebook Page',
+          description: 'URL to Facebook page',
           validation: {
             isRequired: false
           }

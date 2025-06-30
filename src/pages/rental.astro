@@ -12,6 +12,10 @@ import CakeIcon from "@/components/icons/CakeIcon.astro";
 import TrophyIcon from "@/components/icons/TrophyIcon.astro";
 import VideoCameraIcon from "@/components/icons/VideoCameraIcon.astro";
 import SparklesIcon from "@/components/icons/SparklesIcon.astro";
+import { contactInfo, formatPhoneForTel, formatPhoneDisplay } from '@/utils/contactInfo';
+
+const phoneForTel = contactInfo.phone ? formatPhoneForTel(contactInfo.phone) : '';
+const phoneDisplay = contactInfo.phone ? formatPhoneDisplay(contactInfo.phone) : '';
 ---
 
 <Layout title="Rent the Daysland Palace theatre" description="Explore rental opportunities at Daysland Palace Theatre. Host your next event, meeting, or gathering in our versatile venue located in Daysland, Alberta.">
@@ -47,7 +51,7 @@ import SparklesIcon from "@/components/icons/SparklesIcon.astro";
             <figcaption class="mt-8 flex gap-x-4">
               <div class="text-sm leading-6">
                 <div class="font-semibold text-gray-900">Sharon and the DaysArts Team</div>
-                <div class="text-gray-600"><a href="mailto:info@daysarts.ca" class="underline hover:no-underline" aria-label="Email us at info@daysarts.ca">info@daysarts.ca</a></div>
+                <div class="text-gray-600"><a href={`mailto:${contactInfo.email}`} class="underline hover:no-underline" aria-label={`Email us at ${contactInfo.email}`}>{contactInfo.email}</a></div>
               </div>
             </figcaption>
           </figure>
@@ -98,7 +102,7 @@ import SparklesIcon from "@/components/icons/SparklesIcon.astro";
 
           <p class="mt-6">Imagine your wedding day set against the backdrop of our illustrious theatre. Exchange vows under the spotlight, creating a scene straight out of a romantic film, with your guests comfortably seated in plush theatre seats. Opt for a 1940s Old Hollywood theme or personalize your day to reflect your favorite cinematic moments. With a <span class="font-bold tracking-tight text-gray-900">low venue fee</span>, transform the Palace Theatre into your stage, making your wedding a splendid showcase of your love story.</p>
           <p class="mt-6">Ready to transform The Daysland Palace Theatre into your personal event space? For more information and to start planning your unforgettable event, contact Sharon at <a href="tel:+17803742403" class="whitespace-nowrap text-base font-semibold leading-7 text-purple-600 hover:underline" aria-label="Call us at 780-374-2403">780-374-2403</a> or
-          <a href="mailto:info@daysarts.ca" class="whitespace-nowrap text-base font-semibold leading-7 text-purple-600 hover:underline" aria-label="Email us at info@daysarts.ca">info@daysarts.ca</a>.</p>
+          <a href={`mailto:${contactInfo.email}`} class="whitespace-nowrap text-base font-semibold leading-7 text-purple-600 hover:underline" aria-label={`Email us at ${contactInfo.email}`}>{contactInfo.email}</a>.</p>
 
           <div class="my-4 flex lg:justify-center gap-5 py-4 sm:gap-8 overflow-auto md:overflow-visible ps-4 md:ps-0">
             <div class="relative aspect-[2/3] w-44 flex-none overflow-auto md:overflow-hidden rounded-xl bg-purple-100 sm:w-72 sm:rounded-xl rotate-2">

@@ -12,6 +12,10 @@ import GroupIcon from "@/components/icons/GroupIcon.astro";
 import MusicNoteIcon from "@/components/icons/MusicNoteIcon.astro";
 import BanknoteIcon from "@/components/icons/BanknoteIcon.astro";
 import HeartIcon from "@/components/icons/HeartIcon.astro";
+import { contactInfo, formatPhoneForTel, formatPhoneDisplay } from '@/utils/contactInfo';
+
+const phoneForTel = contactInfo.phone ? formatPhoneForTel(contactInfo.phone) : '';
+const phoneDisplay = contactInfo.phone ? formatPhoneDisplay(contactInfo.phone) : '';
 ---
 
 <Layout title="Reel Alternative Film" description="Discover unique, thought-provoking films that inspire and entertain. Check out our lineup and plan your next movie night.">
@@ -56,7 +60,7 @@ import HeartIcon from "@/components/icons/HeartIcon.astro";
                   Membership $100/Year
                 </div>
                 <div class="text-gray-600 mt-8 text-sm">
-                  Call Sharon at <a href="tel:17803742403" class="underline hover:no-underline">780-374-2403</a> or email <a href="mailto:info@daysarts.ca" class="underline hover:no-underline" aria-label="Email us at info@daysarts.ca">info@daysarts.ca</a></div>
+                  Call Sharon at <a href="tel:17803742403" class="underline hover:no-underline">780-374-2403</a> or email <a href={`mailto:${contactInfo.email}`} class="underline hover:no-underline" aria-label={`Email us at ${contactInfo.email}`}>{contactInfo.email}</a></div>
               </div>
             </figcaption>
           </figure>
@@ -151,7 +155,7 @@ import HeartIcon from "@/components/icons/HeartIcon.astro";
 
           <p class="mt-6">We're deeply grateful for your continued support and enthusiasm. Your involvement has been instrumental in keeping the spirit of cinema alive at the Palace Theatre. As we navigate these changing times, including some adjustments to our concession prices we remain committed to bringing exceptional movie experiences to our community.</p>
           <p class="mt-6">To join, you can purchase passes at the theatre, or reach out to us at <a href="tel:+17803742403" class="whitespace-nowrap text-base font-semibold leading-7 text-purple-600 hover:underline" aria-label="Call us at 780-374-2403">780-374-2403</a> or
-            <a href="mailto:info@daysarts.ca" class="whitespace-nowrap text-base font-semibold leading-7 text-purple-600 hover:underline" aria-label="Email us at info@daysarts.ca">info@daysarts.ca</a>.</p>
+            <a href={`mailto:${contactInfo.email}`} class="whitespace-nowrap text-base font-semibold leading-7 text-purple-600 hover:underline" aria-label={`Email us at ${contactInfo.email}`}>{contactInfo.email}</a>.</p>
         </div>
       </div>
     </div>

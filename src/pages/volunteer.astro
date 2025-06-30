@@ -7,6 +7,10 @@ import Concession from "@/assets/concession.jpg";
 import Helpers from "@/assets/helpers.jpg";
 import TheatreOld from "@/assets/theatre-exterior-old.jpg";
 import TicketIcon from "@/components/icons/TicketIcon.astro";
+import { contactInfo, formatPhoneForTel, formatPhoneDisplay } from '@/utils/contactInfo';
+
+const phoneForTel = contactInfo.phone ? formatPhoneForTel(contactInfo.phone) : '';
+const phoneDisplay = contactInfo.phone ? formatPhoneDisplay(contactInfo.phone) : '';
 ---
 
 <Layout title="DaysArts volunteer benefits" description="Get involved with Daysland Theatre by volunteering. Support local arts and culture while making a difference in the community.">
@@ -43,7 +47,7 @@ import TicketIcon from "@/components/icons/TicketIcon.astro";
               <figcaption class="mt-8 flex gap-x-4">
                 <div class="text-sm leading-6">
                   <div class="font-semibold text-gray-900">Sharon and the DaysArts Team</div>
-                  <div class="text-gray-600"><a href="mailto:info@daysarts.ca" class="underline hover:no-underline" aria-label="Email us at info@daysarts.ca">info@daysarts.ca</a></div>
+                  <div class="text-gray-600"><a href={`mailto:${contactInfo.email}`} class="underline hover:no-underline" aria-label={`Email us at ${contactInfo.email}`}>{contactInfo.email}</a></div>
                 </div>
               </figcaption>
             </figure>
@@ -102,7 +106,7 @@ import TicketIcon from "@/components/icons/TicketIcon.astro";
 
             <p class="mt-6">Join us and embrace the opportunity to deepen your connection with the arts and be part of our mission to keep the magic of theatre alive.</p>
             <p>For more information, contact Sharon at <a href="tel:+17803742403" class="whitespace-nowrap text-base font-semibold leading-7 text-purple-600" aria-label="Call us at 780-374-2403">780-374-2403</a> or
-            <a href="mailto:info@daysarts.ca" class="whitespace-nowrap text-base font-semibold leading-7 text-purple-600" aria-label="Email us at info@daysarts.ca">info@daysarts.ca</a>.</p>
+            <a href={`mailto:${contactInfo.email}`} class="whitespace-nowrap text-base font-semibold leading-7 text-purple-600" aria-label={`Email us at ${contactInfo.email}`}>{contactInfo.email}</a>.</p>
 
           </div>
         </div>

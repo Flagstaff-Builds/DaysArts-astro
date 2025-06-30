@@ -1,5 +1,6 @@
 ---
 import theatreStatusData from '../content/theatreStatus.json';
+import contactInfoData from '../content/contactInfo.json';
 
 // Define the theatre status type
 type TheatreStatus = {
@@ -15,14 +16,24 @@ type TheatreStatus = {
   contactEmail?: string;
 };
 
-// Cast theatre status data to our type
+// Define the contact info type
+type ContactInfo = {
+  email: string;
+  phone?: string;
+  facebookPage?: string;
+};
+
+// Cast data to our types
 const theatreStatus = theatreStatusData as unknown as TheatreStatus;
+const contactInfo = contactInfoData as unknown as ContactInfo;
 
 // Default values
 const defaultExtendedDescription = "The Daysland Palace Theatre will not be showing movies for the month of December.";
 const defaultQuote = "We wish you and your family a Merry Christmas & Happy New Year!";
 const defaultSignature = "Sharon and the DaysArts Team";
-const defaultEmail = "info@daysarts.ca";
+
+// Use contact email override if provided, otherwise use contact info email
+const emailToDisplay = theatreStatus.contactEmail || contactInfo.email;
 ---
 
 <div class="mx-auto max-w-2xl lg:mx-0 mb-10">
@@ -49,11 +60,11 @@ const defaultEmail = "info@daysarts.ca";
           )}
           <div class="text-gray-600">
             <a
-              href={`mailto:${theatreStatus.contactEmail || defaultEmail}`}
+              href={`mailto:${emailToDisplay}`}
               class="underline hover:no-underline"
-              aria-label={`Email us at ${theatreStatus.contactEmail || defaultEmail}`}
+              aria-label={`Email us at ${emailToDisplay}`}
             >
-              {theatreStatus.contactEmail || defaultEmail}
+              {emailToDisplay}
             </a>
           </div>
         </div>
@@ -75,11 +86,11 @@ const defaultEmail = "info@daysarts.ca";
         </div>
         <div class="text-gray-600">
           <a
-            href={`mailto:${defaultEmail}`}
+            href={`mailto:${emailToDisplay}`}
             class="underline hover:no-underline"
-            aria-label={`Email us at ${defaultEmail}`}
+            aria-label={`Email us at ${emailToDisplay}`}
           >
-            {defaultEmail}
+            {emailToDisplay}
           </a>
         </div>
       </div>
