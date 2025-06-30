@@ -24,7 +24,9 @@
       "Bash(true)",
       "Bash(npm run clean:*)",
       "Bash(node:*)",
-      "Bash(npm run images:cleanup:*)"
+      "Bash(npm run images:cleanup:*)",
+      "Bash(npm run lint)",
+      "Bash(npm run:*)"
     ],
     "deny": []
   }

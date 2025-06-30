@@ -8,13 +8,36 @@ import MovieCard from '@components/movie/MovieCard.astro';
 // Define the type for movie entries
 type MovieEntry = CollectionEntry<'movie'>;
 
+// Function to handle showtime - now expects showtime objects with date and isMatinee
+function parseShowtime(showtime: any): Date {
+  // Handle new format {date: Date, isMatinee: boolean}
+  if (showtime && typeof showtime === 'object' && 'date' in showtime) {
+    return showtime.date instanceof Date ? showtime.date : new Date(showtime.date);
+  }
+  // Fallback for old format (direct Date)
+  return showtime instanceof Date ? showtime : new Date(showtime);
+}
+
+// Function to normalize dates to start of day for comparison
+function normalizeDate(date: Date): Date {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
 let movieEntries: MovieEntry[] = [];
 try {
   const collection = await getCollection("movie");
   if (Array.isArray(collection)) {
-    // Filter out entries from _old directory and sort by filename
+    // Filter out entries from _old directory and past movies
+    const today = normalizeDate(new Date());
     movieEntries = collection
       .filter(entry => !entry.slug.startsWith('_old/'))
+      .filter(movie => {
+        // Keep movie if it has any showings today or in the future
+        return movie.data.showtimes?.some(showtime => {
+          const showtimeDate = normalizeDate(parseShowtime(showtime));
+          return showtimeDate >= today;
+        }) ?? false;
+      })
       .sort((a, b) => a.id.localeCompare(b.id));
   }
 } catch (error) {
