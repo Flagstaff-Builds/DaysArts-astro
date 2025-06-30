@@ -1,4 +1,4 @@
-import { config, fields, collection } from '@keystatic/core';
+import { config, fields, collection, singleton } from '@keystatic/core';
 
 export default config({
   storage: import.meta.env.PROD
@@ -246,4 +246,83 @@ export default config({
       },
     }),
   },
+  singletons: {
+    theatreStatus: singleton({
+      label: 'Theatre Status',
+      path: 'src/content/theatreStatus',
+      format: { data: 'json' },
+      schema: {
+        isClosed: fields.checkbox({
+          label: 'Theatre Closed',
+          description: 'Check this to show theatre closure notice',
+          defaultValue: false
+        }),
+        closureTitle: fields.text({
+          label: 'Closure Title',
+          description: 'Custom title for closure notice (e.g., "Winter Break", "Summer Hiatus")',
+          validation: {
+            isRequired: false
+          }
+        }),
+        closureMessage: fields.text({
+          label: 'Closure Message',
+          description: 'Message to display when theatre is closed (e.g., "Closed for Christmas holidays")',
+          multiline: true
+        }),
+        closedFrom: fields.date({
+          label: 'Closed From',
+          description: 'Optional: Date when closure starts',
+          validation: {
+            isRequired: false
+          }
+        }),
+        reopensOn: fields.date({
+          label: 'Reopens On',
+          description: 'Optional: Date when theatre reopens',
+          validation: {
+            isRequired: false
+          }
+        }),
+        closureImage: fields.image({
+          label: 'Closure Background Image',
+          description: 'Optional: Upload an image to show on the closed card (recommended size: 800x1200px)',
+          directory: 'public/images/closure',
+          publicPath: '/images/closure/',
+          validation: {
+            isRequired: false
+          }
+        }),
+        extendedDescription: fields.text({
+          label: 'Extended Closure Description',
+          description: 'Longer description for the main content area (e.g., "The Daysland Palace Theatre will not be showing movies for the month of December.")',
+          multiline: true,
+          validation: {
+            isRequired: false
+          }
+        }),
+        quote: fields.text({
+          label: 'Quote/Message',
+          description: 'Personal message or quote to display (e.g., "We wish you and your family a Merry Christmas & Happy New Year!")',
+          multiline: true,
+          validation: {
+            isRequired: false
+          }
+        }),
+        signatureName: fields.text({
+          label: 'Signature Name',
+          description: 'Name to display with the quote (e.g., "Sharon and the DaysArts Team")',
+          validation: {
+            isRequired: false
+          }
+        }),
+        contactEmail: fields.text({
+          label: 'Contact Email',
+          description: 'Email address to display (defaults to info@daysarts.ca)',
+          validation: {
+            isRequired: false
+          }
+        })
+      }
+    })
+  }
 });

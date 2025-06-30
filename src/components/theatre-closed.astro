@@ -1,38 +1,88 @@
+---
+import theatreStatusData from '../content/theatreStatus.json';
+
+// Define the theatre status type
+type TheatreStatus = {
+  isClosed: boolean;
+  closureTitle?: string;
+  closureMessage?: string;
+  closedFrom?: string;
+  reopensOn?: string;
+  closureImage?: string;
+  extendedDescription?: string;
+  quote?: string;
+  signatureName?: string;
+  contactEmail?: string;
+};
+
+// Cast theatre status data to our type
+const theatreStatus = theatreStatusData as unknown as TheatreStatus;
+
+// Default values
+const defaultExtendedDescription = "The Daysland Palace Theatre will not be showing movies for the month of December.";
+const defaultQuote = "We wish you and your family a Merry Christmas & Happy New Year!";
+const defaultSignature = "Sharon and the DaysArts Team";
+const defaultEmail = "info@daysarts.ca";
+---
+
 <div class="mx-auto max-w-2xl lg:mx-0 mb-10">
-
-  <!-- winter message -->
   <h2 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-    The Daysland Palace Theatre will not be showing movies for the month of
-    December.
+    {theatreStatus.extendedDescription || defaultExtendedDescription}
   </h2>
-
-  <!-- summer message -->
-  <!-- <h2 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-    The Daysland Palace Theatre will not be showing movies for the month of
-    July or August.
-  </h2> -->
 </div>
 
-<figure class="border-l border-purple-600 pl-8">
-  <blockquote
-    class="text-xl font-semibold leading-8 tracking-tight text-gray-900"
-  >
-    <p>“We wish you and your family a Merry Christmas & Happy New Year!”</p>
+{(theatreStatus.quote || theatreStatus.signatureName || theatreStatus.contactEmail) && (
+  <figure class="border-l border-purple-600 pl-8">
+    {theatreStatus.quote && (
+      <blockquote class="text-xl font-semibold leading-8 tracking-tight text-gray-900">
+        <p>"{theatreStatus.quote}"</p>
+      </blockquote>
+    )}
+    
+    {(theatreStatus.signatureName || theatreStatus.contactEmail) && (
+      <figcaption class="mt-8 flex gap-x-4">
+        <div class="text-sm leading-6">
+          {theatreStatus.signatureName && (
+            <div class="font-semibold text-gray-900">
+              {theatreStatus.signatureName}
+            </div>
+          )}
+          <div class="text-gray-600">
+            <a
+              href={`mailto:${theatreStatus.contactEmail || defaultEmail}`}
+              class="underline hover:no-underline"
+              aria-label={`Email us at ${theatreStatus.contactEmail || defaultEmail}`}
+            >
+              {theatreStatus.contactEmail || defaultEmail}
+            </a>
+          </div>
+        </div>
+      </figcaption>
+    )}
+  </figure>
+)}
 
-    <!-- <p>“We wish you and your family an amazing summer!”</p> -->
-  </blockquote>
-  <figcaption class="mt-8 flex gap-x-4">
-    <div class="text-sm leading-6">
-      <div class="font-semibold text-gray-900">
-        Sharon and the DaysArts Team
+{/* Fallback to default quote if no custom content is provided */}
+{!theatreStatus.quote && !theatreStatus.signatureName && !theatreStatus.contactEmail && (
+  <figure class="border-l border-purple-600 pl-8">
+    <blockquote class="text-xl font-semibold leading-8 tracking-tight text-gray-900">
+      <p>"{defaultQuote}"</p>
+    </blockquote>
+    <figcaption class="mt-8 flex gap-x-4">
+      <div class="text-sm leading-6">
+        <div class="font-semibold text-gray-900">
+          {defaultSignature}
+        </div>
+        <div class="text-gray-600">
+          <a
+            href={`mailto:${defaultEmail}`}
+            class="underline hover:no-underline"
+            aria-label={`Email us at ${defaultEmail}`}
+          >
+            {defaultEmail}
+          </a>
+        </div>
       </div>
-      <div class="text-gray-600">
-        <a
-          href="mailto:info@daysarts.ca"
-          class="underline hover:no-underline"
-          aria-label="Email us at info@daysarts.ca"
-          >info@daysarts.ca</a>
-      </div>
-    </div>
-  </figcaption>
-</figure>
+    </figcaption>
+  </figure>
+)}

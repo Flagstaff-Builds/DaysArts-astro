@@ -7,8 +7,26 @@ import { Image } from "astro:assets";
 import MovieCard from "@components/movie/MovieCard.astro";
 
 import { getCollection } from "astro:content";
+import theatreStatusData from '../content/theatreStatus.json';
 
 // import ChristmasTickets from "@/components/christmas-tickets.astro";
+
+// Define the theatre status type
+type TheatreStatus = {
+  isClosed: boolean;
+  closureTitle?: string;
+  closureMessage?: string;
+  closedFrom?: string;
+  reopensOn?: string;
+  closureImage?: string;
+  extendedDescription?: string;
+  quote?: string;
+  signatureName?: string;
+  contactEmail?: string;
+};
+
+// Cast theatre status data to our type
+const theatreStatus = theatreStatusData as unknown as TheatreStatus;
 
 // Function to handle showtime - now expects showtime objects with date and isMatinee
 function parseShowtime(showtime: any): Date {
@@ -73,7 +91,8 @@ const events = allEvents
   
 console.log('Filtered events:', events.map(e => ({ id: e.id, title: e.data.title })));
 
-const hasMovies = movies.length > 0;
+const isTheatreClosed = theatreStatus.isClosed || false;
+const hasMovies = !isTheatreClosed && movies.length > 0;
 const hasEvents = events.length > 0;
 
 // Helper function to extract plain text from markdown

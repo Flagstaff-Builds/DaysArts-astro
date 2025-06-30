@@ -6,8 +6,27 @@ import MovieList from "@components/movie/MovieList.astro";
 import HeroSecondary from "@components/hero-secondary.astro";
 import TheatreClosed from "@/components/theatre-closed.astro";
 import VideoCameraIcon from "@/components/icons/VideoCameraIcon.astro";
+import CalendarDaysIcon from "@/components/icons/CalendarDaysIcon.astro";
+import theatreStatusData from '../content/theatreStatus.json';
 
 import type { CollectionEntry } from 'astro:content';
+
+// Define the theatre status type
+type TheatreStatus = {
+  isClosed: boolean;
+  closureTitle?: string;
+  closureMessage?: string;
+  closedFrom?: string;
+  reopensOn?: string;
+  closureImage?: string;
+  extendedDescription?: string;
+  quote?: string;
+  signatureName?: string;
+  contactEmail?: string;
+};
+
+// Cast theatre status data to our type
+const theatreStatus = theatreStatusData as unknown as TheatreStatus;
 
 // Get all movies
 let movieEntries = await getCollection("movie") as CollectionEntry<'movie'>[];
@@ -42,6 +61,7 @@ movieEntries = movieEntries
   .sort((a, b) => a.id.localeCompare(b.id));
 
 let hasMovies = movieEntries && movieEntries.length > 0;
+const isTheatreClosed = theatreStatus.isClosed || false;
 
 ---
 
@@ -59,7 +79,87 @@ let hasMovies = movieEntries && movieEntries.length > 0;
   </HeroSecondary>
 
   <Main>
-    {hasMovies ? (
+    {isTheatreClosed ? (
+      <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
+        <div class="max-w-md mx-auto">
+          <div class="px-0 relative shadow-purple-400/30 shadow-2xl rounded-xl overflow-hidden">
+            <div class="absolute top-2 left-2 rounded-md text-sm px-3.5 py-2.5 font-semibold leading-6 text-slate-900 bg-slate-100 z-10">Notice</div>
+            
+            {/* Background with image */}
+            <div class="aspect-[2/3] bg-purple-100 rounded-2xl rounded-b-none relative overflow-hidden">
+              {theatreStatus.closureImage ? (
+                <img 
+                  src={theatreStatus.closureImage} 
+                  alt="Theatre closed" 
+                  class="w-full h-full object-cover"
+                />
+              ) : (
+                <img 
+                  src="/theatre-closed.jpg" 
+                  alt="Theatre closed" 
+                  class="w-full h-full object-cover absolute inset-0"
+                />
+              )}
+              <div class="absolute inset-0 bg-black/20"></div>
+            </div>
+            
+            <article class="p-4 sm:p-6 lg:p-4 xl:p-6 space-x-4 items-start sm:space-x-6 lg:space-x-4 xl:space-x-6 flex rounded-b-2xl bg-white text-slate-900">
+              <div class="min-w-0 relative flex-auto">
+                <h2 class="font-semibold truncate sm:pr-20">
+                  {theatreStatus.closureTitle || 'Theatre Temporarily Closed'}
+                </h2>
+                
+                {theatreStatus.closureMessage && (
+                  <div class="mt-4">
+                    <p class="text-slate-600">{theatreStatus.closureMessage}</p>
+                  </div>
+                )}
+                
+                {(theatreStatus.closedFrom || theatreStatus.reopensOn) && (
+                  <div class="mt-4">
+                    <div class="w-full h-px bg-gray-200 mb-4"></div>
+                    <dl class="flex flex-wrap gap-x-4 gap-y-2 text-xs text-slate-500">
+                      {theatreStatus.closedFrom && (
+                        <span class="flex items-center bold">
+                          <CalendarDaysIcon slot="icon" class="h-4 mr-1" />
+                          {(() => {
+                            const date = new Date(theatreStatus.closedFrom);
+                            const month = date.toLocaleDateString('en-US', { month: 'short' });
+                            const day = date.getDate();
+                            const suffix = day === 1 || day === 21 || day === 31 ? 'st' : 
+                                          day === 2 || day === 22 ? 'nd' : 
+                                          day === 3 || day === 23 ? 'rd' : 'th';
+                            return `Closed: ${month} ${day}${suffix}`;
+                          })()}
+                        </span>
+                      )}
+                      {theatreStatus.reopensOn && (
+                        <span class="flex items-center">
+                          <CalendarDaysIcon slot="icon" class="h-4 mr-1" />
+                          {(() => {
+                            const date = new Date(theatreStatus.reopensOn);
+                            const month = date.toLocaleDateString('en-US', { month: 'short' });
+                            const day = date.getDate();
+                            const suffix = day === 1 || day === 21 || day === 31 ? 'st' : 
+                                          day === 2 || day === 22 ? 'nd' : 
+                                          day === 3 || day === 23 ? 'rd' : 'th';
+                            return `Reopening: ${month} ${day}${suffix}`;
+                          })()}
+                        </span>
+                      )}
+                    </dl>
+                  </div>
+                )}
+                
+                {!theatreStatus.closedFrom && !theatreStatus.reopensOn && !theatreStatus.closureMessage && (
+                  <p class="text-base text-slate-600 mt-4">We'll be back soon with exciting new shows!</p>
+                )}
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    ) : hasMovies ? (
       <MovieList movieEntries={movieEntries} />
     ) : (
       <TheatreClosed />
