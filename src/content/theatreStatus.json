@@ -1,9 +1,9 @@
 {
-  "isClosed": false,
+  "isClosed": true,
   "closureTitle": "Closed for Summer Holidays",
-  "closureMessage": "Our volunteers deserve a break. We're taking some time off, but we will see you all soon.",
-  "closedFrom": "2025-06-27",
-  "reopensOn": "2025-07-03",
+  "closureMessage": "Our volunteers deserve a break, so we are closed until the first week of September. We will see you all soon!",
+  "closedFrom": "2025-07-01",
+  "reopensOn": "2025-09-01",
   "extendedDescription": "The Daysland Palace Theatre is temporarily closed for the summer holidays.",
   "quote": "See you soon!",
   "signatureName": "The DaysArts Team"
